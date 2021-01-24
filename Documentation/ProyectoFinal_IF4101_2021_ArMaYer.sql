@@ -1,5 +1,7 @@
 --CREATE DATABASE ProyectoFinal_IF4101_ArMaYe
-Use ProyectoFinal_IF4101_ArMaYe
+--Use ProyectoFinal_IF4101_ArMaYe
+
+
 
 CREATE TABLE Employee(
     Employee_ID int IDENTITY(1,1) PRIMARY KEY,
@@ -12,28 +14,25 @@ CREATE TABLE Employee(
     Employee_Type int,
     Creation_Date DATETIME Default GETDATE() not null,
     Modify_Date DATETIME,
-    Created_By int not null,
-	Modified_by int
+    Created_By int ,
+	Modified_by int,
+	Supervised int foreign key references Employee(Employee_ID)
 )
 
-CREATE TABLE Supervised(
-	Supervisor_ID int FOREIGN KEY REFERENCES Employee(Employee_ID),
-	Supervised_ID int FOREIGN KEY REFERENCES Employee(Employee_ID)
-)
 
 
 CREATE TABLE Issue(
     Report_Number int PRIMARY KEY,
-    Classification CHAR CHECK(Classification in('A','M','B')),
-    Status Char CHECK(Status in('I','A','P','R')),
+    [Classification] CHAR CHECK([Classification] in('A','M','B')),
+    [Status] Char CHECK(Status in('I','A','P','R')),
     Report_Timestamp DATETIME default GETDATE(),
 	Resolution_Comment Varchar(200),
-	Service int foreign key references Service(Service_Id),
+	[Service] int foreign key references Service(Service_Id),
 	Creation_Date DATETIME Default GETDATE() not null,
     Modify_Date DATETIME,
+    Created_By int ,
+	Modified_by int,
 	Employee_Assigned int foreign key references Employee(Employee_Id),
-    Created_By int foreign key references Employee(Employee_Id),
-	Modified_by int foreign key references Employee(Employee_Id)
 )
 
 
@@ -45,16 +44,28 @@ CREATE TABLE Notes(
     Report_Number int FOREIGN KEY REFERENCES Issue(Report_Number),
 	Creation_Date DATETIME Default GETDATE() not null,
     Modify_Date DATETIME,
-    Created_By int foreign key references Employee(Employee_Id),
-	Modified_by int foreign key references Employee(Employee_Id)
+    Created_By int ,
+	Modified_by int
 )
 
-CREATE TABLE Employee_Service(
+
+
+CREATE TABLE Employee_Services(
 	Employee_Id int foreign key references Employee(Employee_Id),
-	Service_Id int foreign key references Service(Service_Id)
+	Service_Id int foreign key references Service(Service_Id),
+	Creation_Date DATETIME Default GETDATE() not null,
+    Modify_Date DATETIME,
+    Created_By int ,
+	Modified_by int,
+	primary key(Employee_Id,Service_Id),
 )
+
 
 CREATE TABLE Service(
     Service_Id int IDENTITY(1,1) PRIMARY KEY,
-    Name VARCHAR(20)
+    [Name] VARCHAR(20),
+	Creation_Date DATETIME Default GETDATE(),
+    Modify_Date DATETIME,
+    Created_By int ,
+	Modified_by int
 )
