@@ -4,4 +4,15 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\css\%24RZNDFJ5.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\img\close-icon.svg" />
+    <None Include="wwwroot\assets\img\navbar-logo.svg" />
+    <None Include="wwwroot\assets\mail\contact_me.php" />
+    <None Include="wwwroot\assets\mail\jqBootstrapValidation.js" />
+  </ItemGroup>
+
 </Project>
