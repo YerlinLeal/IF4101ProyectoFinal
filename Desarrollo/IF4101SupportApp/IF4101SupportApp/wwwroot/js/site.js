@@ -1,4 +1,26 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿var $th = $('.scroll-vertical').find('thead th')
+$('.scroll-vertical').on('scroll', function () {
+    $th.css('transform', 'translateY(' + this.scrollTop + 'px)');
+});
 
-// Write your JavaScript code.
+$(function () {
+    // Handler for .ready() called.
+    LoadTable();
+});
+
+function LoadTable() {
+
+    var html = '';
+    for (var i = 0; i < 30; i++) {
+        html += '<tr>';
+        html += '<td>Report number' + i + '</td>';
+        html += '<td>Employee assigned' + i + '</td>';
+        html += '<td>Classification' + i + '</td>';
+        html += '<td>Status' + i + '</td>';
+        html += '<td>Creation date' + i + '</td>';
+        html += '<td>Report Timestamp' + i + '</td>';
+        html += '</tr>';
+    }
+
+    $('.tbody').html(html);
+}
