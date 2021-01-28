@@ -6,6 +6,7 @@ $('.scroll-vertical').on('scroll', function () {
 $(function () {
     // Handler for .ready() called.
     LoadTable();
+    $('#table-recorded-issues').DataTable();
 });
 
 function LoadTable() {
