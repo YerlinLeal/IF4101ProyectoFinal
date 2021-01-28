@@ -14,6 +14,7 @@ function LoadTable() {
     var html = '';
     for (var i = 0; i < 30; i++) {
         html += '<tr>';
+        html += '<td><button class="hvr-bounce-in" data-toggle="modal" data-target="#IssueDetailsModal"><i class="fa fa-eye" aria-hidden="true"></i></div></td ></button ></td>';
         html += '<td>Report number' + i + '</td>';
         html += '<td>Employee assigned' + i + '</td>';
         html += '<td>Classification' + i + '</td>';
