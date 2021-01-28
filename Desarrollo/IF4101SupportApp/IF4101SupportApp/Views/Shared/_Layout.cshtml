@@ -10,6 +10,11 @@
     <link rel="icon" type="image/x-icon" href="~/assets/img/logos/logo_tele_atlantico_ico.png" />
 
     <!-- Font Awesome icons (free version)-->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" />
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css " />
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.0/css/boxicons.min.css" />
     <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
 
     <!-- Google fonts-->
@@ -39,7 +44,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#recordedIssues">Recorded Issues</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#section2">section2</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#section2">Employees</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#section3">section3</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#section4">section4</a></li>
                 </ul>
@@ -90,14 +95,11 @@
     </section>
 
     <!-- section2-->
-        <section class="page-section bg-light" id="section2">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">section2</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-                </div>
-            </div>
-        </section>
+    <section class="page-section bg-light" id="section2">
+        <div class="container">
+            @Html.Partial("~/Views/Employee/Insert.cshtml")
+        </div>
+    </section>
 
         <!-- section3-->
         <section class="page-section" id="section3">
@@ -143,6 +145,7 @@
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
         <script src="js/site.js"></script>
+    <script src="~/js/Employee.js"></script>
 </body>
 
     <div class="container">

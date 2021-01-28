@@ -13,14 +13,14 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #nullable restore
-#line 1 "C:\Users\yerya\source\repos\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\_ViewImports.cshtml"
+#line 1 "C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\_ViewImports.cshtml"
 using IF4101SupportApp;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\yerya\source\repos\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\_ViewImports.cshtml"
+#line 2 "C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\_ViewImports.cshtml"
 using IF4101SupportApp.Models;
 
 #line default
@@ -33,7 +33,10 @@ using IF4101SupportApp.Models;
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("rel", new global::Microsoft.AspNetCore.Html.HtmlString("icon"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_1 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("type", new global::Microsoft.AspNetCore.Html.HtmlString("image/x-icon"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_2 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("href", new global::Microsoft.AspNetCore.Html.HtmlString("~/assets/img/logos/logo_tele_atlantico_ico.png"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
-        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_3 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("id", new global::Microsoft.AspNetCore.Html.HtmlString("page-top"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_3 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("href", new global::Microsoft.AspNetCore.Html.HtmlString("~/css/Employee.css"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_4 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("rel", new global::Microsoft.AspNetCore.Html.HtmlString("stylesheet"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_5 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("src", new global::Microsoft.AspNetCore.Html.HtmlString("~/js/Employee.js"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
+        private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_6 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("id", new global::Microsoft.AspNetCore.Html.HtmlString("page-top"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
         #line hidden
         #pragma warning disable 0649
         private global::Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext __tagHelperExecutionContext;
@@ -65,8 +68,8 @@ using IF4101SupportApp.Models;
                 WriteLiteral("\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\" />\r\n    <meta name=\"description\"");
                 BeginWriteAttribute("content", " content=\"", 195, "\"", 205, 0);
                 EndWriteAttribute();
-                WriteLiteral(" />\r\n    <meta name=\"author\"");
-                BeginWriteAttribute("content", " content=\"", 234, "\"", 244, 0);
+                WriteLiteral(" />\n    <meta name=\"author\"");
+                BeginWriteAttribute("content", " content=\"", 228, "\"", 238, 0);
                 EndWriteAttribute();
                 WriteLiteral(" />\r\n\r\n    <title>Tele Atlántico</title>\r\n    ");
                 __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "5c9efea259f609c1630b7334b7bb0c34ae1cb34c5794", async() => {
@@ -131,13 +134,55 @@ using IF4101SupportApp.Models;
             <div class=""collapse navbar-collapse"" id=""navbarResponsive"">
                 <ul class=""navbar-nav text-uppercase ml-auto"">
                     <li class=""nav-item""><a class=""nav-link js-scroll-trigger"" href=""#recordedIssues"">Recorded Issues</a></li>
-                    <li class=""nav-item""><a class=""nav-link js-scroll-trigger"" href=""#section2"">section2</a></li>
+                    <li class=""nav-item""><a class=""nav-link js-scroll-trigger"" href=""#section2"">Employees</a></li>
                     <li class=""nav-item""><a class=""nav-link js-scroll-trigger"" href=""#section3"">section3</a></li>
                     <li class=""nav-item""><a class=""nav-link js-scroll-trigger"" href=""#section4"">section4</a></li>
                 </ul>
             </div>
         </div>
     </nav>
+
+    <!-- Masthead-->
+    <head");
+                WriteLiteral(@"er class=""masthead"">
+        <div class=""container"">
+            <div class=""masthead-subheading"">Tele Atlántico</div>
+            <div class=""masthead-heading text-uppercase"">Welcome!</div>
+        </div>
+    </header>
+
+    <!-- Recorded issues-->
+    <section class=""page-section"" id=""recordedIssues"">
+        <div class=""container"">
+            <div class=""text-center"">
+                <h2 class=""section-heading text-uppercase"">Recorded Issues</h2>
+                <div class=""table-responsive  scroll-vertical"">
+                    <table class=""table table-bordered table-hover table-striped"" id=""table"">
+                        <thead>
+                            <tr>
+                                <th>Report number</th>
+                                <th>Employee assigned</th>
+                                <th>Classification</th>
+                                <th>Status</th>
+                                <th>Creation date</th>
+                                <th>Report Timestamp</th>
+                ");
+                WriteLiteral(@"            </tr>
+                        </thead>
+                        <tbody class=""tbody""></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- section2-->
+    <section class=""page-section bg-light"" id=""section2"">
+        <div class=""container"">
+            ");
+#nullable restore
+#line 85 "C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\Shared\_Layout.cshtml"
+       Write(Html.Partial("~/Views/Employee/Insert.cshtml"));
 
     <!-- Masthe");
                 WriteLiteral(@"ad-->
@@ -257,7 +302,7 @@ using IF4101SupportApp.Models;
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_BodyTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.BodyTagHelper>();
             __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_Razor_TagHelpers_BodyTagHelper);
-            __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_3);
+            __tagHelperExecutionContext.AddHtmlAttribute(__tagHelperAttribute_6);
             await __tagHelperRunner.RunAsync(__tagHelperExecutionContext);
             if (!__tagHelperExecutionContext.Output.IsContentModified)
             {
