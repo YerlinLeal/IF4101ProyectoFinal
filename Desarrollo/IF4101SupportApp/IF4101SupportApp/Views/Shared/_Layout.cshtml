@@ -9,6 +9,11 @@
     <title>Tele Atlántico</title>
     <link rel="icon" type="image/x-icon" href="~/assets/img/logos/logo_tele_atlantico_ico.png" />
     <!-- Font Awesome icons (free version)-->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" />
+    <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css " />
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.0/css/boxicons.min.css" />
     <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
@@ -17,6 +22,8 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/site.css" rel="stylesheet" />
+    <link href="~/css/Employee.css" rel="stylesheet" />
+
 </head>
 
 <body id="page-top">
@@ -32,7 +39,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#recordedIssues">Recorded Issues</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#section2">section2</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#section2">Employees</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#section3">section3</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#section4">section4</a></li>
                 </ul>
@@ -75,10 +82,7 @@
     <!-- section2-->
     <section class="page-section bg-light" id="section2">
         <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading text-uppercase">section2</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-            </div>
+            @Html.Partial("~/Views/Employee/Insert.cshtml")
         </div>
     </section>
 
@@ -117,14 +121,20 @@
 
     <!-- Bootstrap core JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>*@
     <!-- Third party plugin JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <!-- Contact form JS-->
     <script src="assets/mail/jqBootstrapValidation.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
     <script src="js/site.js"></script>
+    <script src="~/js/Employee.js"></script>
 </body>
 
 <div class="container">
