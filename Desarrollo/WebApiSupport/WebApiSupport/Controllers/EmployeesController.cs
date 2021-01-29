@@ -19,7 +19,36 @@ namespace WebApiSupport.Controllers
         {
             _context = new DB_A6E470_ProyectoIF4101Context();
         }
-
+        [Route("[action]")]
+        [HttpGet]
+        public ActionResult<IEnumerable<Employee>> GetSupporters()
+        {
+            ObjectResult result;
+            try
+            {
+                result = Ok(from l in _context.Employees where l.EmployeeType == 2 select l);
+            }
+            catch (Exception e)
+            {
+                result = Conflict(e.Message);
+            }
+            return result;
+        }
+        [Route("[action]")]
+        [HttpGet]
+        public ActionResult<IEnumerable<Employee>> GetSupervisor()
+        {
+            ObjectResult result;
+            try
+            {
+                result = Ok(from l in _context.Employees where l.EmployeeType == 1 select l);
+            }
+            catch (Exception e)
+            {
+                result = Conflict(e.Message);
+            }
+            return result;
+        }
         // GET: api/Employees
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
