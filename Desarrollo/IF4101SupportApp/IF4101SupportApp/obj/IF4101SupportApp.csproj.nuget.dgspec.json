@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\yerya\\source\\repos\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\IF4101SupportApp.csproj": {}
+    "C:\\Users\\yerya\\Desktop\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\IF4101SupportApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\yerya\\source\\repos\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\IF4101SupportApp.csproj": {
+    "C:\\Users\\yerya\\Desktop\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\IF4101SupportApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yerya\\source\\repos\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\IF4101SupportApp.csproj",
+        "projectUniqueName": "C:\\Users\\yerya\\Desktop\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\IF4101SupportApp.csproj",
         "projectName": "IF4101SupportApp",
-        "projectPath": "C:\\Users\\yerya\\source\\repos\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\IF4101SupportApp.csproj",
+        "projectPath": "C:\\Users\\yerya\\Desktop\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\IF4101SupportApp.csproj",
         "packagesPath": "C:\\Users\\yerya\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yerya\\source\\repos\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\obj\\",
+        "outputPath": "C:\\Users\\yerya\\Desktop\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\yerya\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,12 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
