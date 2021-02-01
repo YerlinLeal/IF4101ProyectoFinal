@@ -30,7 +30,21 @@ namespace IF4101SupportApp.Controllers
                 EmployeeName = "Maikel",
                 FirstSurname = "Matamoros",
                 SecondSurname = "Zuñiga",
-                Email = "Maikel@Correo.com"
+                Email = "Maikel@Correo.com",
+                Password = "12345",
+                Supervised = 1,
+                Services = new List<int>() { 1,2,3 }
+            });
+            employees.Add(new Employee()
+            {
+                EmployeeId = 2,
+                EmployeeName = "Arturo",
+                FirstSurname = "Campos",
+                SecondSurname = "Bogantes",
+                Email = "Bogantes@Correo.com",
+                Password = "54321",
+                Supervised = 1,
+                Services = new List<int>() { 1, 3, 4 }
             });
         }
 
@@ -72,6 +86,26 @@ namespace IF4101SupportApp.Controllers
             //}
             //return result;
             return (employees);
+        }
+
+        [HttpGet]
+        public ActionResult<Employee> GetById(int id)
+        {
+            //ObjectResult result = null;
+            //using var client = new HttpClient();
+            //using var Response = await client.GetAsync(apiBaseUrl + "Employee");
+            //if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+            //{
+            //    result = Ok(JsonConvert.DeserializeObject<List<Employee>>
+            //        (await Response.Content.ReadAsStringAsync()));
+            //}
+            //else
+            //{
+            //    result = Conflict(Response.RequestMessage);
+            //}
+            //return result;
+            Employee e = employees.FirstOrDefault(em => em.EmployeeId == id);
+            return (e);
         }
 
 

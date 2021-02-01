@@ -81,7 +81,6 @@ C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101Sup
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\IF4101SupportApp.csprojAssemblyReference.cache
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\IF4101SupportApp.AssemblyInfoInputs.cache
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\IF4101SupportApp.AssemblyInfo.cs
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\IF4101SupportApp.csproj.CoreCompileInputs.cache
@@ -96,6 +95,7 @@ C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101Sup
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\IF4101SupportApp.RazorCoreGenerate.cache
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\Razor\Views\Employee\ViewIssueDetails.cshtml.g.cs
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\Razor\Views\Employee\ViewRecordedIssues.cshtml.g.cs
+C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\Razor\Views\Employee\_EmployeeSection.cshtml.g.cs
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -109,4 +109,4 @@ C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101Sup
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\IF4101SupportApp.dll
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\IF4101SupportApp.pdb
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\IF4101SupportApp.genruntimeconfig.cache
-C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\Razor\Views\Employee\_EmployeeSection.cshtml.g.cs
+C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\IF4101SupportApp.csprojAssemblyReference.cache

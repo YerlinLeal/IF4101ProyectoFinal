@@ -83,3 +83,8 @@ a:hover {
     color: #007bff;
 }
 /* Button Bounce In */
+
+
+table.dataTable tbody tr.selected {
+    background-color: #acbad4 !important;
+}
