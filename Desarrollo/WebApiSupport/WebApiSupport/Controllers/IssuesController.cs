@@ -19,7 +19,24 @@ namespace WebApiSupport.Controllers
         {
             _context = new DB_A6E470_ProyectoIF4101Context();
         }
-
+        //https://localhost:44317/api/issues/GetIssuesE
+        [Route("[action]")]
+        [HttpGet]
+        public ActionResult<IEnumerable<Issue>> GetIssuesE()
+        {
+            ObjectResult result;
+            try
+            {
+                result = Ok(from l in _context.Issues join e in _context.Employees 
+                            on l.EmployeeAssigned equals e.EmployeeId select new {l.ReportNumber,e.EmployeeName,e.FirstSurname,
+                                                                                    l.Classification,l.Status,l.CreationDate,l.ReportTimestamp});
+            }
+            catch (Exception e)
+            {
+                result = Conflict(e.Message);
+            }
+            return result;
+        }
         // GET: api/Issues
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Issue>>> GetIssues()

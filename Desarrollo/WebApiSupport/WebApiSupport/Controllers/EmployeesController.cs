@@ -19,6 +19,7 @@ namespace WebApiSupport.Controllers
         {
             _context = new DB_A6E470_ProyectoIF4101Context();
         }
+        //https://localhost:44317/api/employees/GetSupporters
         [Route("[action]")]
         [HttpGet]
         public ActionResult<IEnumerable<Employee>> GetSupporters()
@@ -34,6 +35,7 @@ namespace WebApiSupport.Controllers
             }
             return result;
         }
+        //https://localhost:44317/api/employees/GetSupervisor
         [Route("[action]")]
         [HttpGet]
         public ActionResult<IEnumerable<Employee>> GetSupervisor()
