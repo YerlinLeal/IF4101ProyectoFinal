@@ -1,9 +1,68 @@
 ﻿$(document).ready(function () {
+    $("#Employee_Form").validate({ // initialize the plugin
+        rules: {
+            EmployeeName: {
+                required: true,
+            },
+            FirstSurname: {
+                required: true
+            },
+            SecondSurname: {
+                required: true
+            },
+            Email: {
+                required: true,
+                email: true
+            },
+            Password: {
+                required: true,
+                minlength: 8
+            },
+            Services: {
+                required: true
+            },
+            EmployeeType: {
+                required: true
+            }
+        }
+    });
 
-   
-    $("#Employee_Form").validate();
+    $("#UEmployee_Form").validate({ // initialize the plugin
+        rules: {
+            UEmployeeName: {
+                required: true,
+            },
+            UFirstSurname: {
+                required: true
+            },
+            USecondSurname: {
+                required: true
+            },
+            UEmail: {
+                required: true,
+                email: true
+            },
+            UPassword: {
+                required: true,
+                minlength: 8
+            },
+            UServices: {
+                required: true
+            },
+            UEmployeeType: {
+                required: true
+            }
+        }
+    });
+
     $(".Select").selectpicker();
 
+    LoadEmployeeTableData();
+    
+});
+
+
+function LoadEmployeeTableData() {
     $('#table-employees').DataTable({
         ajax: {
             url: '/Employee/GetAll',
@@ -13,7 +72,7 @@
         columns: [
             {
                 "render": function (data, type, s, meta) {
-                    
+
                     return '<div class="dropdown"><button class= "btn btn-sm btn-icon" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                         '<i class="fas fa-ellipsis-h" data-toggle="tooltip" data-placement="top" title="Actions"></i>' +
                         '</button>' +
@@ -31,9 +90,7 @@
             { data: 'email' }
         ]
     });
-    
-});
-
+}
 
 $('#table-employees tbody').on('click', 'tr', function () {
     var table = $('#table-employees').DataTable(); 
@@ -71,6 +128,35 @@ $("#Employee_Form").submit(function (e) {
     }
 });
 
+$("#UEmployee_Form").submit(function (e) {
+    e.preventDefault();
+    alert($(this).valid());
+    //if ($(this).valid()) {
+    //    $.ajax({
+    //        url: "/Employee/Update",
+    //        data: {
+    //            EmployeeId: $("#UEmployeeId").val(),
+    //            EmployeeName: $("#UEmployeeName").val(),
+    //            FirstSurname: $("#UFirstSurname").val(),
+    //            SecondSurname: $("#USecondSurname").val(),
+    //            Email: $("#UEmail").val(),
+    //            Password: $("#UPassword").val(),
+    //            Supervised: $("#USupervised").val(),
+    //            Services: $("#UServices").val()
+    //        },
+    //        type: "POST",
+    //        dataType: "json",
+
+    //        success: function (result) {
+    //            alert(JSON.stringify(result));
+    //        },
+    //        error: function (errorMessage) {
+    //            alert(errorMessage.responseText);
+    //        }
+    //    });
+    //}
+});
+
 
 function editEmployee (id){
     $.ajax({
@@ -80,6 +166,7 @@ function editEmployee (id){
         },
         type: "GET",
         success: function (result) {
+            $("#UEmployeeId").val(result.employeeId);
             $("#UEmployeeName").val(result.employeeName);
             $("#UEmail").val(result.email);
             $("#UFirstSurname").val(result.firstSurname);

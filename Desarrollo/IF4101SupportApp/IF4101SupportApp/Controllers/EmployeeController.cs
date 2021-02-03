@@ -23,29 +23,31 @@ namespace IF4101SupportApp.Controllers
             _configuration = configuration;
 
             apiBaseUrl = _configuration.GetValue<string>("WebAPISupportBaseUrl");
-            employees = new List<Employee>();
-            employees.Add(new Employee()
+            employees = new List<Employee>
             {
-                EmployeeId = 1,
-                EmployeeName = "Maikel",
-                FirstSurname = "Matamoros",
-                SecondSurname = "Zuñiga",
-                Email = "Maikel@Correo.com",
-                Password = "12345",
-                Supervised = 1,
-                Services = new List<int>() { 1,2,3 }
-            });
-            employees.Add(new Employee()
-            {
-                EmployeeId = 2,
-                EmployeeName = "Arturo",
-                FirstSurname = "Campos",
-                SecondSurname = "Bogantes",
-                Email = "Bogantes@Correo.com",
-                Password = "54321",
-                Supervised = 1,
-                Services = new List<int>() { 1, 3, 4 }
-            });
+                new Employee()
+                {
+                    EmployeeId = 1,
+                    EmployeeName = "Maikel",
+                    FirstSurname = "Matamoros",
+                    SecondSurname = "Zuñiga",
+                    Email = "Maikel@Correo.com",
+                    Password = "12345",
+                    Supervised = 1,
+                    Services = new List<int>() { 1, 2, 3 }
+                },
+                new Employee()
+                {
+                    EmployeeId = 2,
+                    EmployeeName = "Arturo",
+                    FirstSurname = "Campos",
+                    SecondSurname = "Bogantes",
+                    Email = "Bogantes@Correo.com",
+                    Password = "54321",
+                    Supervised = 0,
+                    Services = new List<int>() { 1, 3, 4 }
+                }
+            };
         }
 
         [HttpPost]
@@ -67,6 +69,28 @@ namespace IF4101SupportApp.Controllers
                 }
             }
             return result;
+        }
+
+        [HttpPost]
+        public IActionResult Update(Employee employee)
+        {
+            //ObjectResult result = null;
+            //using HttpClient client = new HttpClient();
+            //StringContent content = new StringContent(JsonConvert.SerializeObject(employee), Encoding.UTF8,
+            //    "application/json");
+            //using (var Response = await client.PutAsync(apiBaseUrl + "Employee", content))
+            //{
+            //    if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+            //    {
+            //        result = Ok(1);
+            //    }
+            //    else
+            //    {
+            //        result = Conflict(Response.RequestMessage);
+            //    }
+            //}
+            //return result;
+            return Ok(employee);
         }
 
         [HttpGet]

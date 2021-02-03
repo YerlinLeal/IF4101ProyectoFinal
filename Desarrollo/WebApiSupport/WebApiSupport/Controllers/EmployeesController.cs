@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using WebApiSupport.Models;
 
@@ -105,5 +106,28 @@ namespace WebApiSupport.Controllers
         {
             return _context.Employees.Any(e => e.EmployeeId == id);
         }
+
+        [Route("[action]")]
+        [HttpGet()]
+        public IActionResult Authentication(string email, string password)
+        {
+            ObjectResult result;
+            var employee = _context.Employees
+                           .FromSqlRaw("AuthenticateLogin {0}, {1}", email, password)
+                           .AsEnumerable().SingleOrDefault();
+
+            if (employee == null)
+            {
+                result = NotFound(employee);
+            }
+            else
+            {
+                result = Ok(employee);
+            }
+
+            return result;
+        }
+
+
     }
 }

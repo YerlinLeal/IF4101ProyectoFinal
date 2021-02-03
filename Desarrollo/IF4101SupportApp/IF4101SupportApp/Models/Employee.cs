@@ -12,10 +12,12 @@ namespace IF4101SupportApp.Models
         public string EmployeeName { get; set; }
         public string FirstSurname { get; set; }
         public string SecondSurname { get; set; }
-        [Required(ErrorMessage = "The Email Is Required")]
+        
         public string Email { get; set; }
         public string Password { get; set; }
         public int Supervised { get; set; }
+
+        public int EmployeeType { get; set; }
         public List<int> Services { get; set; }
 
         public Employee(string employeeName, string firstSurname, string secondSurname, string email, string password, int supervised, List<int> services)
