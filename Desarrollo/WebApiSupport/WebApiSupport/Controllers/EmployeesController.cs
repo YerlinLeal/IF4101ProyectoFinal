@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using WebApiSupport.Models;
 
@@ -69,16 +70,34 @@ namespace WebApiSupport.Controllers
         }
         // GET: api/Employees
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
+        public async Task<ActionResult<IEnumerable<object>>> GetEmployees()
         {
-            return await _context.Employees.ToListAsync();
+            return await _context.Employees.Select(e => 
+            new { 
+                e.EmployeeId,
+                e.EmployeeName,
+                e.FirstSurname,
+                e.SecondSurname,
+                e.Email
+            }).ToListAsync<Object>();
         }
 
         // GET: api/Employees/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Employee>> GetEmployee(int id)
+        public ActionResult<object> GetEmployee(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
+            var employee = _context.Employees.Where(e => e.EmployeeId == id).Select(e =>
+             new
+             {
+                 e.EmployeeId,
+                 e.EmployeeName,
+                 e.FirstSurname,
+                 e.SecondSurname,
+                 e.Password,
+                 e.EmployeeServices,
+                 e.Supervised,
+                 e.EmployeeType
+             }).FirstOrDefault();
 
             if (employee == null)
             {
@@ -124,12 +143,22 @@ namespace WebApiSupport.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
+        public ActionResult PostEmployee(EmployeeDTO employee)
         {
-            _context.Employees.Add(employee);
-            await _context.SaveChangesAsync();
+            var outP = new SqlParameter
+            {
+                ParameterName = "LastId",
+                DbType = System.Data.DbType.Int32,
+                Direction = System.Data.ParameterDirection.Output
+            };
+            var sql = "[dbo].[InsertEmployee] {0},{1},{2},{3},{4},{5},{6},{7},{8},@LastId OUT";
+            var result = _context.Database.ExecuteSqlRaw(sql, employee.Dni, employee.EmployeeName, employee.FirstSurname, employee.SecondSurname, employee.Email, employee.Password, employee.EmployeeType, employee.CreatedBy, employee.Supervised, outP);
 
-            return CreatedAtAction("GetEmployee", new { id = employee.EmployeeId }, employee);
+            int out1Value = (int)outP.Value;
+            //_context.Employees.Add(employee);
+            //await _context.SaveChangesAsync();
+            return Ok(_context.Employees.FindAsync(out1Value));
+            //return CreatedAtAction("GetEmployee", new { id = employee.EmployeeId }, employee);
         }
 
         // DELETE: api/Employees/5
@@ -152,5 +181,28 @@ namespace WebApiSupport.Controllers
         {
             return _context.Employees.Any(e => e.EmployeeId == id);
         }
+
+        [Route("[action]")]
+        [HttpGet()]
+        public IActionResult Authentication(string email, string password)
+        {
+            ObjectResult result;
+            var employee = _context.Employees
+                           .FromSqlRaw("AuthenticateLogin {0}, {1}", email, password)
+                           .AsEnumerable().SingleOrDefault();
+
+            if (employee == null)
+            {
+                result = NotFound(employee);
+            }
+            else
+            {
+                result = Ok(employee);
+            }
+
+            return result;
+        }
+
+
     }
 }
