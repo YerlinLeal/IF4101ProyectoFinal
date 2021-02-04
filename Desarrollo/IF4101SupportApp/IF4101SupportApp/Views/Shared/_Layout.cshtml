@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,8 +24,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
 
-    <link href="css/styles.css" rel="stylesheet" />
-    <link href="css/site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/EmployeeFormStyle.css" rel="stylesheet" />
+
 
 </head>
 
@@ -32,7 +38,7 @@
     <!-- Menu bar-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/img/logos/logo_tele_atlantico.png" alt="" /></a>
+            <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="~/assets/img/logos/logo_tele_atlantico.png" alt="" /></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars ml-1"></i>
@@ -40,9 +46,11 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#recordedIssues">Recorded Issues</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#section2">section2</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#section3">section3</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#section4">section4</a></li>
+                    @if (@HttpContextAccessor.HttpContext.Session.GetInt32("role") != null && @HttpContextAccessor.HttpContext.Session.GetInt32("role") == 1)
+                    {
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#employeeSection">Employees</a></li>
+                    }
+                    <li class="nav-item"><a class="nav-link" onclick="LogOut()">LogOut</a></li>
                 </ul>
             </div>
         </div>
@@ -73,6 +81,14 @@
                     <div class="modal-body">
                         @Html.Partial("~/Views/Issue/ViewIssueDetails.cshtml")
                     </div>
+                    <div class="modal-footer">
+
+                        <!--BT CLOSE-->
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        <!--BT SAVE-->
+                        <button type="button" class="btn btn-primary" id="btn-save">Save changes</button>
+
                     <div class="modal-footer text-right">
                         <!--BT CANCEL-->
                         <button type="reset" form="#form-issue-details" class="btn" data-dismiss="modal" id="btn-cancel">Cancel</button>
@@ -82,66 +98,46 @@
         </div>
     </section>
 
-    <!-- section2-->
-        <section class="page-section bg-light" id="section2">
+    @if (@HttpContextAccessor.HttpContext.Session.GetInt32("role") != null && @HttpContextAccessor.HttpContext.Session.GetInt32("role") == 1)
+    {
+        <section class="page-section bg-light" id="employeeSection">
             <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">section2</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-                </div>
+                @Html.Partial("~/Views/Employee/_EmployeeSection.cshtml")
             </div>
         </section>
-
-        <!-- section3-->
-        <section class="page-section" id="section3">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">section3</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+    }
+    <!-- Footer-->
+    <footer class="footer py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-lg-left">Copyright © Tele Atlántico 2021</div>
+                <div class="col-lg-4 text-lg-right">
+                    <a class="mr-3" href="#!">Privacy Policy</a>
+                    <a href="#!">Terms of Use</a>
                 </div>
             </div>
-        </section>
+        </div>
+    </footer>
 
-        <!-- section4-->
-        <section class="page-section bg-light" id="section4">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">section4</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer-->
-        <footer class="footer py-4">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-left">Copyright © Tele Atlántico 2021</div>
-                    <div class="col-lg-4 text-lg-right">
-                        <a class="mr-3" href="#!">Privacy Policy</a>
-                        <a href="#!">Terms of Use</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-        <!-- Bootstrap core JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Third party plugin JS-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-
-        <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-        <script src="js/site.js"></script>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Third party plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="~/js/scripts.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/Employee.js"></script>
 </body>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
 
 </html>

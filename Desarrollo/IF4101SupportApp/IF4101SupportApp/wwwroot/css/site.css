@@ -87,6 +87,12 @@ button#btn-save.btn {
     color: #fff;
     background-color: #39C0ED;
 }
+/* Button Bounce In */
+
+
+table.dataTable tbody tr.selected {
+    background-color: #acbad4 !important;
+}
 
 button#btn-cancel.btn {
     color: #39C0ED;
