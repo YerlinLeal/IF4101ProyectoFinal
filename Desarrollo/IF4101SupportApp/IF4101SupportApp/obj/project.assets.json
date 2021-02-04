@@ -6884,19 +6884,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\maike\\.nuget\\packages\\": {}
+    "C:\\Users\\yerya\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\maike\\Desktop\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\IF4101SupportApp.csproj",
+      "projectUniqueName": "C:\\Users\\yerya\\Desktop\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\IF4101SupportApp.csproj",
       "projectName": "IF4101SupportApp",
-      "projectPath": "C:\\Users\\maike\\Desktop\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\IF4101SupportApp.csproj",
-      "packagesPath": "C:\\Users\\maike\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\maike\\Desktop\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\obj\\",
+      "projectPath": "C:\\Users\\yerya\\Desktop\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\IF4101SupportApp.csproj",
+      "packagesPath": "C:\\Users\\yerya\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\yerya\\Desktop\\IF4101ProyectoFinal\\Desarrollo\\IF4101SupportApp\\IF4101SupportApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\maike\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\yerya\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

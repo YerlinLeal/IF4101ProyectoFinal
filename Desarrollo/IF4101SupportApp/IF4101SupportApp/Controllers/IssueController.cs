@@ -95,7 +95,6 @@ namespace IF4101SupportApp.Controllers
             }
             return objectResult;
         }
-
         public async Task<IActionResult> Get(int reportNumber)
         {
             ObjectResult result;

@@ -65,34 +65,6 @@ function EmployeeName(reportNumber) {
 }
 
 function LoadIssue(reportNumber) {
-    /*var issue = {
-        reportNumber: reportNumber,
-        user: "Yerlin Leal",
-        email: "yerlin.leal@ucr.ac.cr",
-        phone: 84206753,
-        address: "Cartago, Urb. Manuel de Jesús",
-        secondContact: "Silvia Achí",
-        status: "assigned",
-        contactEmail: "siaczu@gmail.com",
-        contactPhone: 89654592,
-        supportUserAssigned: "Maikel Matamoros",
-        comments: "Comentario",
-        notes: "Nota"
-    };
-    var form = $('#form-issue-details');
-    form.find("#reportNumberIssue").val(issue.reportNumber);
-    form.find("#userIssue").val(issue.user);
-    form.find("#emailIssue").val(issue.email);
-    form.find("#phoneIssue").val(issue.phone);
-    form.find("#addressIssue").val(issue.address);
-    form.find("#secondContactIssue").val(issue.secondContact);
-    form.find("#statusIssue").val(issue.status);
-    form.find("#contactEmailIssue").val(issue.contactEmail);
-    form.find("#contactPhoneIssue").val(issue.contactPhone);
-    form.find("#supportUserAssignedIssue").val(issue.supportUserAssigned);
-    form.find("#commentsIssue").val(issue.comments);
-    form.find("#notesIssue").val(issue.notes);*/
-
     $.ajax({
         url: "/Issue/Get",
         data: {"reportNumber": reportNumber},
@@ -107,8 +79,7 @@ function LoadIssue(reportNumber) {
             form.find("#phoneIssue").val("BD client");
             form.find("#addressIssue").val("BD client");
             form.find("#secondContactIssue").val("BD client");
-            //form.find("#statusIssue").val(issue.status);
-            form.find("#statusIssue").val('I');
+            form.find("#statusIssue").val(issue.status);
             form.find("#classificationIssue").val(issue.classification);
             form.find("#contactEmailIssue").val("BD client");
             form.find("#contactPhoneIssue").val("BD client");
