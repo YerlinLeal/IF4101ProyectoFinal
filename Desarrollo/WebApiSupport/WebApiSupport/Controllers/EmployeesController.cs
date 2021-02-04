@@ -52,6 +52,22 @@ namespace WebApiSupport.Controllers
             }
             return result;
         }
+        //https://localhost:44317/api/employees/GetSupportById
+        [Route("[action]/{id}")]
+        [HttpGet]
+        public ActionResult<IEnumerable<Employee>> GetSupportById(int id)
+        {
+            ObjectResult result;
+            try
+            {
+                result = Ok(from l in _context.Employees where l.Supervised == id select new {l.EmployeeId,l.EmployeeName,l.FirstSurname });
+            }
+            catch (Exception e)
+            {
+                result = Conflict(e.Message);
+            }
+            return result;
+        }
         // GET: api/Employees
         [HttpGet]
         public async Task<ActionResult<IEnumerable<object>>> GetEmployees()
