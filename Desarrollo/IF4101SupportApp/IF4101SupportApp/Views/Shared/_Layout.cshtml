@@ -10,7 +10,8 @@
     <link rel="icon" type="image/x-icon" href="~/assets/img/logos/logo_tele_atlantico_ico.png" />
 
     <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
 
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
@@ -57,10 +58,10 @@
 
     <!-- Recorded issues-->
     <section class="page-section" id="recordedIssues">
-        @Html.Partial("~/Views/Employee/ViewRecordedIssues.cshtml")
+        @Html.Partial("~/Views/Issue/ViewRecordedIssues.cshtml")
 
         <!-- Modal -->
-        <div class="modal fade" id="IssueDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="IssueDetailsModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -70,19 +71,11 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        @Html.Partial("~/Views/Employee/ViewIssueDetails.cshtml")
+                        @Html.Partial("~/Views/Issue/ViewIssueDetails.cshtml")
                     </div>
-                    <div class="modal-footer">
-                        
-                        <!--BT CLOSE-->
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                        <!--BT SAVE-->
-                        <button type="button" class="btn btn-primary" id="btn-save">Save changes</button>
-
+                    <div class="modal-footer text-right">
                         <!--BT CANCEL-->
-                        <button type="reset" form="#form-issue-details" class="btn btn-success btn-sm">Cancel</button>
-
+                        <button type="reset" form="#form-issue-details" class="btn" data-dismiss="modal" id="btn-cancel">Cancel</button>
                     </div>
                 </div>
             </div>
