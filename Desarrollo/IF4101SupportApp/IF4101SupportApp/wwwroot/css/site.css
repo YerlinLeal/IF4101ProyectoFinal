@@ -75,11 +75,62 @@ a:hover {
     outline: none !important;
 }
 
-.hvr-bounce-in:hover, .hvr-bounce-in:focus, .hvr-bounce-in:active {
-    -webkit-transform: scale(1.2);
-    transform: scale(1.2);
-    -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
-    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
-    color: #007bff;
+    .hvr-bounce-in:hover{
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+        -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+        transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+        color: #007bff;
+    }
+
+button#btn-save.btn {
+    color: #fff;
+    background-color: #39C0ED;
 }
 /* Button Bounce In */
+
+
+table.dataTable tbody tr.selected {
+    background-color: #acbad4 !important;
+}
+
+button#btn-cancel.btn {
+    color: #39C0ED;
+    border-color: #39C0ED;
+}
+
+input.col-sm-6.form-control.form-control-sm, textarea.col-sm-6.form-control.form-control-sm, select.col-sm-6.form-control.form-control-sm {
+    background: #39c0ed05;
+    border: 0.5px solid #39c0ed8;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+label.col-sm-4.control-label.small {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    display: flex;
+    align-items: center;
+}
+
+.modal-content {
+    border: 1px solid #39c0ed;
+}
+
+table.dataTable {
+    width: 90%;
+    overflow: auto;
+}
+
+.form-control:focus, .btn:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 0 0.2rem rgba(57, 192, 237, 0.25);
+}
+
+.hide {
+    display: none;
+}
+
+.button-option {
+    font-size: 20px;
+}
