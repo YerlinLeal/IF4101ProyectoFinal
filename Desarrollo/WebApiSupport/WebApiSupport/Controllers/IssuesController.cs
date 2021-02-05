@@ -40,13 +40,14 @@ namespace WebApiSupport.Controllers
         // GET: api/Issues
         [Route("[action]/{ReportNumber}")]
         [HttpGet]
-        public ActionResult<IEnumerable<Issue>> GetIssuesById(int ReportNumber)
+        public ActionResult<Issue> GetIssuesById(int ReportNumber)
         {
             ObjectResult result;
             try
             {
                 result = Ok(from l in _context.Issues
                             join e in _context.Employees
+
                     on l.EmployeeAssigned equals e.EmployeeId
                     where l.ReportNumber== ReportNumber
                             select new
@@ -55,6 +56,8 @@ namespace WebApiSupport.Controllers
                                 e.EmployeeId,
                                 e.EmployeeName,
                                 e.FirstSurname,
+                                e.SecondSurname,
+                                e.Supervised,
                                 l.Classification,
                                 l.Status,
                                 l.CreationDate,
