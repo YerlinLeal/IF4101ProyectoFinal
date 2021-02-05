@@ -52,16 +52,18 @@ namespace IF4101SupportApp.Controllers
         }
         public async Task<IActionResult> GetIssue(int reportNumber)
         {
-            ObjectResult result;
+            ObjectResult objectResult;
             using (var client = new HttpClient())
             {
-                using (var Response = await client.GetAsync("https://localhost:44317/api/Issues/" + reportNumber))
+                using (var Response = await client.GetAsync("https://localhost:44317/api/Issues/GetIssuesById/" + reportNumber))
                 {
                     if (Response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         try
                         {
-                            result = Ok(JsonConvert.DeserializeObject<Issue>(await Response.Content.ReadAsStringAsync()));
+                            string apiResponse = await Response.Content.ReadAsStringAsync();
+                            List<Issue> issues = JsonConvert.DeserializeObject<List<Issue>>(apiResponse);
+                            objectResult = Ok(issues.First());
 
                         }
                         catch (Exception e)
@@ -73,11 +75,11 @@ namespace IF4101SupportApp.Controllers
                     else
                     {
                         ModelState.AddModelError(string.Empty, "Server error. Please contact a administrator");
-                        result = Conflict(new Issue());
+                        objectResult = Conflict(new Issue());
                     }
                 }
             }
-            return result;
+            return objectResult;
         }
     
     

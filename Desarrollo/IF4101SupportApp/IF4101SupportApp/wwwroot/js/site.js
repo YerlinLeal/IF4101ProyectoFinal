@@ -79,17 +79,21 @@ function LoadIssue(reportNumber) {
             form.find("#classificationIssue").val(issue.classification);
             form.find("#contactEmailIssue").val("BD client");
             form.find("#contactPhoneIssue").val("BD client");
-            form.find("#supportUserAssignedIssue").val(issue.supportUserAssigned);
-            //if(issue.)
+            
+            if (issue.supportUserAssigned != null) {
+                form.find("#supportUserAssignedIssue").val(issue.EmployeeName + ' ' + issue.FirstSurname);
+            }
+
             if (issue.comments == null) {
                 form.find("#commentsIssue").val("No comment");
             } else {
                 form.find("#commentsIssue").val(issue.comments);
             }
             form.find("#notesIssue").val(issue.notes);
+
         },
         error: function (errorMessage) {
-            
+            console.log("Error");
         }
     });
 
