@@ -19,14 +19,15 @@ namespace WebApiSupport.Controllers
         {
             _context = new DB_A6E470_ProyectoIF4101Context();
         }
-
+        [Route("[action]")]
         // GET: api/Notes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Note>>> GetNotes()
         {
-            return await _context.Notes.ToListAsync();
-        }
 
+            return await _context.Notes.Where(n => n.State == true).ToListAsync();
+        }
+        [Route("[action]")]
         // GET: api/Notes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Note>> GetNote(int id)
@@ -40,17 +41,14 @@ namespace WebApiSupport.Controllers
 
             return note;
         }
-
+        [Route("[action]")]
         // PUT: api/Notes/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutNote(int id, Note note)
+        [HttpPut]
+        public async Task<IActionResult> PutNote(Note note)
         {
-            if (id != note.NoteId)
-            {
-                return BadRequest();
-            }
+            
 
             _context.Entry(note).State = EntityState.Modified;
 
@@ -60,19 +58,12 @@ namespace WebApiSupport.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!NoteExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
             return NoContent();
         }
-
+        [Route("[action]")]
         // POST: api/Notes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -84,7 +75,7 @@ namespace WebApiSupport.Controllers
 
             return CreatedAtAction("GetNote", new { id = note.NoteId }, note);
         }
-
+        
         // DELETE: api/Notes/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Note>> DeleteNote(int id)
@@ -94,11 +85,11 @@ namespace WebApiSupport.Controllers
             {
                 return NotFound();
             }
-
-            _context.Notes.Remove(note);
+            note.State = false;
+            _context.Entry(note).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return note;
+            return Ok();
         }
 
         private bool NoteExists(int id)

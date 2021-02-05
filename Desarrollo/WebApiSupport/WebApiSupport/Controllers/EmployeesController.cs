@@ -44,7 +44,7 @@ namespace WebApiSupport.Controllers
             ObjectResult result;
             try
             {
-                result = Ok(from l in _context.Employees where l.EmployeeType == 1 select l);
+                result = Ok(from l in _context.Employees where l.EmployeeType == 1 && l.State == true select l) ;
             }
             catch (Exception e)
             {
@@ -60,7 +60,7 @@ namespace WebApiSupport.Controllers
             ObjectResult result;
             try
             {
-                result = Ok(from l in _context.Employees where l.Supervised == id select new {l.EmployeeId,l.EmployeeName,l.FirstSurname });
+                result = Ok(from l in _context.Employees where l.Supervised == id && l.State == true select new {l.EmployeeId,l.EmployeeName,l.FirstSurname });
             }
             catch (Exception e)
             {
@@ -171,7 +171,7 @@ namespace WebApiSupport.Controllers
                 return Conflict(e.Message);
             }
         }
-
+        [Route("[action]")]
         // DELETE: api/Employees/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Employee>> DeleteEmployee(int id)
@@ -181,19 +181,12 @@ namespace WebApiSupport.Controllers
             {
                 return NotFound();
             }
+
             employee.State = false;
             _context.Entry(employee).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-            try
-            {
-                await _context.SaveChangesAsync();
-                return Ok();
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                return Conflict(ex.HResult);
-
-            }
+            return employee;
         }
 
         private bool EmployeeExists(int id)
