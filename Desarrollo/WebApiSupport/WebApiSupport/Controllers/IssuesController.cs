@@ -53,7 +53,7 @@ namespace WebApiSupport.Controllers
                             select new
                             {
                                 l.ReportNumber,
-                                e.EmployeeId,
+                                l.EmployeeAssigned,
                                 e.EmployeeName,
                                 e.FirstSurname,
                                 e.SecondSurname,
@@ -61,7 +61,8 @@ namespace WebApiSupport.Controllers
                                 l.Classification,
                                 l.Status,
                                 l.CreationDate,
-                                l.ReportTimestamp
+                                l.ReportTimestamp,
+                                l.ResolutionComment
                             });
             }
             catch (Exception e)
@@ -93,7 +94,8 @@ namespace WebApiSupport.Controllers
                                 l.Classification,
                                 l.Status,
                                 l.CreationDate,
-                                l.ReportTimestamp
+                                l.ReportTimestamp,
+                                l.ResolutionComment
                             });
             }
             catch (Exception e)
@@ -107,6 +109,7 @@ namespace WebApiSupport.Controllers
         // PUT: api/Issues/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Route("[action]/{id}")]
         [HttpPut]
         public async Task<IActionResult> PutIssue(int id, Issue issue)
         {

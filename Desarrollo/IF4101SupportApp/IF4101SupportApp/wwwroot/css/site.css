@@ -87,13 +87,13 @@ a:hover {
     outline: none !important;
 }
 
-    .hvr-bounce-in:hover{
-        -webkit-transform: scale(1.2);
-        transform: scale(1.2);
-        -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
-        transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
-        color: #007bff;
-    }
+.hvr-bounce-in:hover{
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    color: #007bff;
+}
 
 button#btn-save.btn {
     color: #fff;
@@ -106,7 +106,7 @@ table.dataTable tbody tr.selected {
     background-color: #acbad4 !important;
 }
 
-button#btn-cancel.btn {
+button#btn-cancel.btn, button#btn-status-issue.btn {
     color: #007bff;
     border-color: #007bff;
 }

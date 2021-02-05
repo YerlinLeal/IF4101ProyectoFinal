@@ -59,77 +59,43 @@
 
             </div>
 
-
             <div class="col-sm-6">
-                @if (@HttpContextAccessor.HttpContext.Session.GetInt32("role") != null && @HttpContextAccessor.HttpContext.Session.GetInt32("role") == 1)
-                {
-                    <!--CLASSIFICATION-->
-                    <div class="row issue-details">
-                        <label class="col-sm-4 control-label small font-weight-bold:" for="classificationIssue">Classification:</label>
-                        <select class="col-sm-6 form-control form-control-sm" name="classificationIssue" id="classificationIssue" required>
-                            <option value="A" selected>High</option>
-                            <option value="M">Half</option>
-                            <option value="B">Low</option>
-                        </select>
-                        <button type="button" class="hvr-bounce-in" onclick=""><i class="fa fa-floppy-o button-option" aria-hidden="true"></i></button>
-                    </div>
+                <!--CLASSIFICATION-->
+                <div class="row issue-details">
+                    <label class="col-sm-4 control-label small font-weight-bold" for="classificationIssue">Classification:</label>
+                    <select class="col-sm-6 form-control form-control-sm" name="classificationIssue" id="classificationIssue" required>
+                        <option value="A" selected>High</option>
+                        <option value="M">Half</option>
+                        <option value="B">Low</option>
+                    </select>
+                    <button type="button" class="hvr-bounce-in" id="btnSaveClassification" onclick="ChangeClassification()"><i class="fa fa-floppy-o button-option" aria-hidden="true"></i></button>
+                </div>
 
-                    <!--SUPPORT USER ASSIGNED-->
-                    <div class="row issue-details">
-                        <label class="col-sm-4 control-label small font-weight-bold" for="supportUserAssignedIssue">Support User Assigned:</label>
-                        <select class="col-sm-6 form-control form-control-sm" name="supportUserAssignedIssue" id="supportUserAssignedIssue" required>
-                            <option value="none" selected>Not assigned</option>
-                        </select>
-                        <button type="button" class="hvr-bounce-in" onclick=""><i class="fa fa-address-card-o button-option" aria-hidden="true"></i></button>
-                    </div>
+                <!--SUPPORT USER ASSIGNED-->
+                <div class="row issue-details">
+                    <label class="col-sm-4 control-label small font-weight-bold" for="supportUserAssignedIssue">Support User Assigned:</label>
+                    <select class="col-sm-6 form-control form-control-sm" name="supportUserAssignedIssue" id="supportUserAssignedIssue" required>
+                        <option value="none">Not assigned</option>
+                    </select>
+                    <button type="button" class="hvr-bounce-in" id="btnUSO" onclick="AssignSupporter()"><i class="fa fa-address-card-o button-option" aria-hidden="true"></i></button>
+                </div>
 
-                    <!--STATUS-->
-                    <div class="row issue-details">
-                        <label class="col-sm-4 control-label small font-weight-bold" for="statusIssue">Status:</label>
-                        <select class="col-sm-6 form-control form-control-sm" name="statusIssue" id="statusIssue" required disabled>
-                            <option value="I" selected>Inserted</option>
-                            <option value="A">Assigned</option>
-                            <option value="P">In progress</option>
-                            <option value="R">Resolved</option>
-                        </select>
-                    </div>
-
-                }
-                else
-                {
-                    <!--CLASSIFICATION-->
-                    <div class="row issue-details">
-                        <label class="col-sm-4 control-label small font-weight-bold" for="classificationIssue">Classification:</label>
-                        <select class="col-sm-6 form-control form-control-sm" name="classificationIssue" id="classificationIssue" required disabled>
-                            <option value="A" selected>High</option>
-                            <option value="M">Half</option>
-                            <option value="B">Low</option>
-                        </select>
-                    </div>
-
-                    <!--SUPPORT USER ASSIGNED-->
-                    <div class="row issue-details">
-                        <label class="col-sm-4 control-label small font-weight-bold" for="supportUserAssignedIssue">Support User Assigned:</label>
-                        <input class="col-sm-6 form-control form-control-sm" id="supportUserAssignedIssueInput" disabled >
-                    </div>
-
-                    <!--STATUS-->
-                    <div class="row issue-details">
-                        <label class="col-sm-4 control-label small font-weight-bold" for="statusIssue">Status:</label>
-                        <select class="col-sm-6 form-control form-control-sm" name="statusIssue" id="statusIssue" required>
-                            <option value="A" selected>Assigned</option>
-                            <option value="P">In progress</option>
-                            <option value="R">Resolved</option>
-                        </select>
-                        <button type="button" class="hvr-bounce-in" onclick=""><i class="fa fa-floppy-o button-option" aria-hidden="true"></i></button>
-                    </div>
-                }
+                <!--STATUS-->
+                <div class="row issue-details">
+                    <label class="col-sm-4 control-label small font-weight-bold" for="statusIssue">Status:</label>
+                    <select class="col-sm-6 form-control form-control-sm" name="statusIssue" id="statusIssue" required disabled>
+                        <option value="I" selected>Inserted</option>
+                        <option value="A">Assigned</option>
+                        <option value="P">In progress</option>
+                        <option value="R">Resolved</option>
+                    </select>
+                </div>
 
                 <!--COMMENTS-->
                 <div class="row issue-details">
                     <label class="col-sm-4 control-label small font-weight-bold" for="commentsIssue">Comments:</label>
-                    <textarea class="col-sm-6 form-control form-control-sm" id="commentsIssue" rows="3"></textarea>
-                    <button type="button" class="hvr-bounce-in" onclick=""><i class="fa fa-floppy-o button-option" aria-hidden="true"></i></button>
+                    <textarea class="col-sm-6 form-control form-control-sm" id="commentsIssue" placeholder="No comment" rows="3" disabled></textarea>
+                    <button type="button" class="hvr-bounce-in hide" onclick=""><i class="fa fa-floppy-o button-option" aria-hidden="true"></i></button>
                 </div>
 
                 <!--NOTES-->
@@ -143,5 +109,8 @@
         </div>
 
     </div>
+
+    <input type="hidden" value="@HttpContextAccessor.HttpContext.Session.GetInt32("id")" id="id">
+    <input type="hidden" value="@HttpContextAccessor.HttpContext.Session.GetInt32("role")" id="role">
 
 </form>

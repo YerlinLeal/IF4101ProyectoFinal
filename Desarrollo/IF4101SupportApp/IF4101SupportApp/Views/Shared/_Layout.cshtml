@@ -82,6 +82,12 @@
                         @Html.Partial("~/Views/Issue/ViewIssueDetails.cshtml")
                     </div>
                     <div class="modal-footer">
+                        @if (@HttpContextAccessor.HttpContext.Session.GetInt32("role") != null && @HttpContextAccessor.HttpContext.Session.GetInt32("role") == 2)
+                        {
+                            <!--BT START PROCESS-->
+                            <button form="#form-issue-details" class="btn" id="btn-status-issue">button</button>
+                        }
+
                         <!--BT CANCEL-->
                         <button type="reset" form="#form-issue-details" class="btn" data-dismiss="modal" id="btn-cancel">Cancel</button>
                     </div>
