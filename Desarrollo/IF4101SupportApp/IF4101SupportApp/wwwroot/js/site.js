@@ -22,7 +22,7 @@ function LoadTable() {
             { data: 'reportNumber' },
             {
                 "render": function (data, type, s, meta) {
-                    return EmployeeName(s.reportNumber)
+                    return s.employeeName + ' ' + s.firstSurname;
                 }
             },
             {
@@ -60,13 +60,9 @@ function LoadTable() {
 
 }
 
-function EmployeeName(reportNumber) {
-    return 'Ana' + reportNumber;
-}
-
 function LoadIssue(reportNumber) {
     $.ajax({
-        url: "/Issue/Get",
+        url: "/Issue/GetIssue",
         data: {"reportNumber": reportNumber},
         type: "GET",
         contentType: "application/json;charset=utf-8",
@@ -84,6 +80,7 @@ function LoadIssue(reportNumber) {
             form.find("#contactEmailIssue").val("BD client");
             form.find("#contactPhoneIssue").val("BD client");
             form.find("#supportUserAssignedIssue").val(issue.supportUserAssigned);
+            //if(issue.)
             if (issue.comments == null) {
                 form.find("#commentsIssue").val("No comment");
             } else {

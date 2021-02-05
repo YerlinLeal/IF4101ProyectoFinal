@@ -23,6 +23,8 @@ namespace IF4101SupportApp.Models
         public int ContactPhone { get; set; }
         public char Classification { get; set; }
         public int? IdSupportAssigned { get; set; }
+        public String? EmployeeName { get; set; }
+        public String? FirstSurname { get; set; }
         public char Status { get; set; }
         public string Comments { get; set; }
         public List<Note> Notes { get; set; }
@@ -31,5 +33,6 @@ namespace IF4101SupportApp.Models
         public int? CreatedBy { get; set; }
         public int? ModifiedBy { get; set; }
         public DateTime? ReportTimestamp { get; set; }
+
     }
 }

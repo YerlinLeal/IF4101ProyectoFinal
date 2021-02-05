@@ -27,52 +27,7 @@ namespace IF4101SupportApp.Controllers
 
             apiBaseUrl = _configuration.GetValue<string>("WebAPISupportBaseUrl");
             issues = new List<Issue>();
-            issues.Add(new Issue()
-            {
-                ReportNumber = 1234,
-                UserName = "Yerlin",
-                UserFirstSurname = "Leal",
-                UserSecondSurname = "Achí",
-                Email = "yerlin.leal@ucr.ac.cr",
-                Phone = 84206753,
-                Address = "Urb. Manuel de Jesús",
-                SecondContact = "Silvia Achí",
-                ContactEmail = "siaczu@gmail.com",
-                ContactPhone = 89654592,
-                Classification = 'M',
-                IdSupportAssigned = 1,
-                Status = 'I',
-                Comments = "Sin comentarios",
-                Notes = new List<Note>() { new Note(1, "Se cae la conexión")},
-                CreationDate = new DateTime(2020,12,28,10,34,22),
-                ModifyDate = new DateTime(2020, 12, 28, 10, 34, 22),
-                CreatedBy = 1,
-                ModifiedBy = 1,
-                ReportTimestamp = new DateTime(2020, 12, 28, 10, 34, 22)
-            });
-            issues.Add(new Issue()
-            {
-                ReportNumber = 1235,
-                UserName = "Maikel",
-                UserFirstSurname = "Matamoros",
-                UserSecondSurname = "Cordero",
-                Email = "maikel.matamoros@ucr.ac.cr",
-                Phone = 88888888,
-                Address = "La cruzada, antes",
-                SecondContact = "Mamá de Maikel",
-                ContactEmail = "mama@gmail.com",
-                ContactPhone = 88888888,
-                Classification = 'A',
-                IdSupportAssigned = 2,
-                Status = 'A',
-                Comments = "Sin comentarios",
-                Notes = new List<Note>() { new Note(1, "Se cae la conexión") },
-                CreationDate = new DateTime(2020, 12, 28, 10, 34, 22),
-                ModifyDate = new DateTime(2020, 12, 28, 10, 34, 22),
-                CreatedBy = 1,
-                ModifiedBy = 1,
-                ReportTimestamp = new DateTime(2020, 12, 28, 10, 34, 22)
-            });
+
         }
         public async Task<IActionResult> GetAll()
         {
@@ -95,7 +50,7 @@ namespace IF4101SupportApp.Controllers
             }
             return objectResult;
         }
-        public async Task<IActionResult> Get(int reportNumber)
+        public async Task<IActionResult> GetIssue(int reportNumber)
         {
             ObjectResult result;
             using (var client = new HttpClient())
@@ -107,7 +62,7 @@ namespace IF4101SupportApp.Controllers
                         try
                         {
                             result = Ok(JsonConvert.DeserializeObject<Issue>(await Response.Content.ReadAsStringAsync()));
-                        
+
                         }
                         catch (Exception e)
                         {
@@ -120,12 +75,11 @@ namespace IF4101SupportApp.Controllers
                         ModelState.AddModelError(string.Empty, "Server error. Please contact a administrator");
                         result = Conflict(new Issue());
                     }
-                }   
+                }
             }
             return result;
-
         }
-
-
+    
+    
     }
 }

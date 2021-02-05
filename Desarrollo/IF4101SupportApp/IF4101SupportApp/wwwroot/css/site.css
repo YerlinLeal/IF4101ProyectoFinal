@@ -107,8 +107,8 @@ table.dataTable tbody tr.selected {
 }
 
 button#btn-cancel.btn {
-    color: #39C0ED;
-    border-color: #39C0ED;
+    color: #007bff;
+    border-color: #007bff;
 }
 
 input.col-sm-6.form-control.form-control-sm, textarea.col-sm-6.form-control.form-control-sm, select.col-sm-6.form-control.form-control-sm {
@@ -116,6 +116,10 @@ input.col-sm-6.form-control.form-control-sm, textarea.col-sm-6.form-control.form
     border: 0.5px solid #39c0ed8;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
+}
+
+.issue-details i {
+    padding-inline: 0.5em;
 }
 
 .issue-details label {
@@ -146,4 +150,9 @@ table.dataTable {
 
 .button-option {
     font-size: 20px;
+}
+
+#IssueDetailsModal .modal-header {
+    background-color: #007bff;
+    color: white;
 }
