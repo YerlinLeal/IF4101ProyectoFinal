@@ -98,12 +98,16 @@
                 <form id="UEmployee_Form">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-row">
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
+                            <label class="control-label">ID</label>
+                            <input name="UEmployeeId" id="UEmployeeId" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-4 col-sm-12">
                             <label asp-for="EmployeeName" class="control-label">Name</label>
                             <input name="UEmployeeName" id="UEmployeeName" class="form-control" />
                             <span asp-validation-for="EmployeeId" class="text-danger"></span>
                         </div>
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-4 col-sm-12">
                             <label asp-for="FirstSurname" class="control-label">First Surname</label>
                             <input name="UFirstSurname" id="UFirstSurname" class="form-control" />
                             <span asp-validation-for="FirstSurname" class="text-danger"></span>
@@ -119,23 +123,6 @@
                             <label asp-for="Email" class="control-label">Email</label>
                             <input type="email" name="UEmail" id="UEmail" class="form-control" />
                             <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-6 col-sm-12">
-                            <label asp-for="Password" class="control-label">Password</label>
-                            <input type="password" name="UPassword" id="UPassword" class="form-control" />
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <label asp-for="Services" class="control-label">Services</label>
-                            <select class="selectpicker required" name="UServices" id="UServices" multiple data-live-search="true">
-                                <option value="1">Telefonia Movil</option>
-                                <option value="2">Cable</option>
-                                <option value="3">Telefonia Fija</option>
-                                <option value="4">Internet</option>
-                            </select>
-                            <label id="UServices-error" class="error" for="UServices"></label>
                         </div>
                     </div>
                     <div class="form-row">

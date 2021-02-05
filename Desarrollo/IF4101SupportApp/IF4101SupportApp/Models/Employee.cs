@@ -15,9 +15,10 @@ namespace IF4101SupportApp.Models
         
         public string Email { get; set; }
         public string Password { get; set; }
-        public int Supervised { get; set; }
+        public int? Supervised { get; set; }
 
-        public int EmployeeType { get; set; }
+        public int? EmployeeType { get; set; }
+        public int? CreatedBy { get; set; }
         public List<int> Services { get; set; }
 
         public Employee(string employeeName, string firstSurname, string secondSurname, string email, string password, int supervised, List<int> services)

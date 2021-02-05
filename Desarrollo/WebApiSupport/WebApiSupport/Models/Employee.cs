@@ -32,6 +32,7 @@ namespace WebApiSupport.Models
         public int? Supervised { get; set; }
         [NotMapped]
         public virtual Employee SupervisedNavigation { get; set; }
+        [ForeignKey("EmployeeServices")]
         public virtual ICollection<EmployeeService> EmployeeServices { get; set; }
         public virtual ICollection<Employee> InverseSupervisedNavigation { get; set; }
         public virtual ICollection<Issue> Issues { get; set; }

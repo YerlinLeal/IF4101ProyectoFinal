@@ -21,6 +21,7 @@ namespace WebApiSupport.Models
         public int? CreatedBy { get; set; }
         public int? ModifiedBy { get; set; }
         public int? Supervised { get; set; }
+        public List<int> Services { get; set; }
 
         public EmployeeDTO()
         {
