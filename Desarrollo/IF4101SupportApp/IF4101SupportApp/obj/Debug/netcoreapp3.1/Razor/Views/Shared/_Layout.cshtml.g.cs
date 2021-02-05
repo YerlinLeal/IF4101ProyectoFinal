@@ -13,21 +13,21 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #nullable restore
-#line 1 "C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\_ViewImports.cshtml"
+#line 1 "C:\Users\Arturo\Documents\GitHub\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\_ViewImports.cshtml"
 using IF4101SupportApp;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\_ViewImports.cshtml"
+#line 2 "C:\Users\Arturo\Documents\GitHub\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\_ViewImports.cshtml"
 using IF4101SupportApp.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 1 "C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\Shared\_Layout.cshtml"
+#line 1 "C:\Users\Arturo\Documents\GitHub\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\Shared\_Layout.cshtml"
 using Microsoft.AspNetCore.Http;
 
 #line default

@@ -9,7 +9,7 @@ namespace WebApiSupport.Models
     {
         public int NoteId { get; set; }
         public string Description { get; set; }
-        public byte[] NoteTimestamp { get; set; }
+        public DateTime? NoteTimestamp { get; set; }
         public int? ReportNumber { get; set; }
         public bool? State { get; set; }
         public DateTime CreationDate { get; set; }

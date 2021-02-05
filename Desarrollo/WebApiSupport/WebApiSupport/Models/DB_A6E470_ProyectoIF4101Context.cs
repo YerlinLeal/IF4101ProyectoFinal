@@ -43,9 +43,6 @@ namespace WebApiSupport.Models
                 entity.HasIndex(e => e.Email, "UQ__Employee__A9D105341B09C387")
                     .IsUnique();
 
-                entity.HasIndex(e => e.Dni, "UQ__Employee__C035B8DDF35C0D2B")
-                    .IsUnique();
-
                 entity.Property(e => e.EmployeeId).HasColumnName("Employee_ID");
 
                 entity.Property(e => e.CreatedBy).HasColumnName("Created_By");
@@ -211,17 +208,16 @@ namespace WebApiSupport.Models
                     .HasColumnName("Modify_Date");
 
                 entity.Property(e => e.NoteTimestamp)
-                    .IsRequired()
-                    .IsRowVersion()
-                    .IsConcurrencyToken()
-                    .HasColumnName("Note_Timestamp");
+                    .HasColumnType("datetime")
+                    .HasColumnName("Note_Timestamp")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.ReportNumber).HasColumnName("Report_Number");
 
                 entity.HasOne(d => d.ReportNumberNavigation)
                     .WithMany(p => p.Notes)
                     .HasForeignKey(d => d.ReportNumber)
-                    .HasConstraintName("FK__Notes__Report_Nu__4D5F7D71");
+                    .HasConstraintName("FK__Notes__Report_Nu__57DD0BE4");
             });
 
             modelBuilder.Entity<Service>(entity =>

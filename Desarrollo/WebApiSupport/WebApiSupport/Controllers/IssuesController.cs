@@ -38,38 +38,88 @@ namespace WebApiSupport.Controllers
             return result;
         }
         // GET: api/Issues
+        [Route("[action]/{ReportNumber}")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Issue>>> GetIssues()
+        public ActionResult<Issue> GetIssuesById(int ReportNumber)
         {
-            return await _context.Issues.ToListAsync();
-        }
-
-        // GET: api/Issues/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Issue>> GetIssue(int id)
-        {
-            var issue = await _context.Issues.FindAsync(id);
-
-            if (issue == null)
+            ObjectResult result;
+            try
             {
-                return NotFound();
-            }
+                result = Ok(from l in _context.Issues
+                            join e in _context.Employees
 
-            return issue;
+                    on l.EmployeeAssigned equals e.EmployeeId
+                    where l.ReportNumber== ReportNumber
+                            select new
+                            {
+                                l.ReportNumber,
+                                e.EmployeeId,
+                                e.EmployeeName,
+                                e.FirstSurname,
+                                e.SecondSurname,
+                                e.Supervised,
+                                l.Classification,
+                                l.Status,
+                                l.CreationDate,
+                                l.ReportTimestamp
+                            });
+            }
+            catch (Exception e)
+            {
+                result = Conflict(e.Message);
+            }
+            return result;
         }
+        [Route("[action]/{id}")]
+        [HttpGet]
+        public ActionResult<Issue> GetIssuesRById(int id)
+        {
+            ObjectResult result;
+            try
+            {
+                result = Ok(from l in _context.Issues
+                            join e in _context.Employees
+
+                    on l.EmployeeAssigned equals e.EmployeeId
+                            where e.EmployeeId == id
+                            select new
+                            {
+                                l.ReportNumber,
+                                e.EmployeeId,
+                                e.EmployeeName,
+                                e.FirstSurname,
+                                e.SecondSurname,
+                                e.Supervised,
+                                l.Classification,
+                                l.Status,
+                                l.CreationDate,
+                                l.ReportTimestamp
+                            });
+            }
+            catch (Exception e)
+            {
+                result = Conflict(e.Message);
+            }
+            return result;
+        }
+
 
         // PUT: api/Issues/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}/{ReportNumber}/{EmployeeId}/{Status}")]
+        [HttpPut]
         public async Task<IActionResult> PutIssue(int id, Issue issue)
         {
-            if (id != issue.ReportNumber)
-            {
-                return BadRequest();
-            }
-
+           
+          
             _context.Entry(issue).State = EntityState.Modified;
+            _context.Entry(issue).Property(x => x.ReportTimestamp).IsModified = false;
+            _context.Entry(issue).Property(x => x.Service).IsModified = false;
+            _context.Entry(issue).Property(x => x.State).IsModified = false;
+            _context.Entry(issue).Property(x => x.CreationDate).IsModified = false;
+            _context.Entry(issue).Property(x => x.ModifyDate).IsModified = false;
+            _context.Entry(issue).Property(x => x.CreatedBy).IsModified = false;
+           
 
             try
             {
