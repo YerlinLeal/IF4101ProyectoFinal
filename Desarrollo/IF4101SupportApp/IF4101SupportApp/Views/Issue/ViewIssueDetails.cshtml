@@ -1,5 +1,4 @@
 ﻿<form id="form-issue-details" method="post">
-
     <div class="container text-left">
 
         <div class="row">
@@ -98,12 +97,23 @@
 
                 <!--NOTES-->
                 <div class="row issue-details">
-                    <label class="col-sm-4 control-label small" for="notesIssue">Notes</label>
-                    <textarea class="col-sm-6 form-control form-control-sm" id="notesIssue" rows="3"></textarea>
+                    <div class="col-sm-6 d-flex justify-content-start">
+                        <label class="control-label small" for="notesIssue">Notes</label>
+                    </div>
+                    <div class="col-sm-6 d-flex justify-content-end">
+                        <button type="button" class="hvr-bounce-in" onclick=""><i class="fa fa-plus button-option" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="col-sm-12">
+                        <textarea class="col-sm-10 form-control form-control-sm note-field" rows="3"></textarea>
+                        <button type="button" class="hvr-bounce-in" onclick=""><i class="fa fa-floppy-o button-option" aria-hidden="true"></i></button>
+                    </div>
+
+                    
+                    
                 </div>
 
             </div>
 
         </div>
-
+    </div>
 </form>
