@@ -110,17 +110,14 @@
                     <!--SUPPORT USER ASSIGNED-->
                     <div class="row issue-details">
                         <label class="col-sm-4 control-label small font-weight-bold" for="supportUserAssignedIssue">Support User Assigned:</label>
-                        <select class="col-sm-6 form-control form-control-sm" name="supportUserAssignedIssue" id="supportUserAssignedIssue" required disabled>
-                            <option value="none" selected>Not assigned</option>
-                        </select>
+                        <input class="col-sm-6 form-control form-control-sm" id="supportUserAssignedIssueInput" disabled >
                     </div>
 
                     <!--STATUS-->
                     <div class="row issue-details">
                         <label class="col-sm-4 control-label small font-weight-bold" for="statusIssue">Status:</label>
                         <select class="col-sm-6 form-control form-control-sm" name="statusIssue" id="statusIssue" required>
-                            <option value="I" selected>Inserted</option>
-                            <option value="A">Assigned</option>
+                            <option value="A" selected>Assigned</option>
                             <option value="P">In progress</option>
                             <option value="R">Resolved</option>
                         </select>

@@ -80,8 +80,10 @@ function LoadIssue(reportNumber) {
             form.find("#contactEmailIssue").val("BD client");
             form.find("#contactPhoneIssue").val("BD client");
             
-            if (issue.supportUserAssigned != null) {
-                form.find("#supportUserAssignedIssue").val(issue.EmployeeName + ' ' + issue.FirstSurname);
+            if (issue.employeeAssigned != null) {
+                form.find("#supportUserAssignedIssueInput").val(issue.employeeName + ' ' + issue.firstSurname + ' ' + issue.secondSurname);
+            } else {
+                form.find("#supportUserAssignedIssueInput").val("Not assigned");
             }
 
             if (issue.comments == null) {
@@ -89,8 +91,6 @@ function LoadIssue(reportNumber) {
             } else {
                 form.find("#commentsIssue").val(issue.comments);
             }
-            form.find("#notesIssue").val(issue.notes);
-
         },
         error: function (errorMessage) {
             console.log("Error");

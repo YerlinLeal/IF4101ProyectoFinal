@@ -15,20 +15,18 @@ namespace IF4101SupportApp.Controllers
 
         private readonly IConfiguration _configuration;
         private readonly string apiBaseUrl;
-        private List<Issue> issues;
 
         public IActionResult Index()
         {
             return View();
         }
+
         public IssueController(IConfiguration configuration)
         {
             _configuration = configuration;
-
             apiBaseUrl = _configuration.GetValue<string>("WebAPISupportBaseUrl");
-            issues = new List<Issue>();
-
         }
+
         public async Task<IActionResult> GetAll()
         {
             ObjectResult objectResult;

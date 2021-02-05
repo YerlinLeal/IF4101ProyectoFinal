@@ -1,4 +1,5 @@
-C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\bin\Debug\netcoreapp3.1\Views\appsettings.Development.json
+C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\bin\Debug\netcoreapp3.1\IF4101SupportApp.exe
 C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\bin\Debug\netcoreapp3.1\IF4101SupportApp.deps.json
 C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\bin\Debug\netcoreapp3.1\IF4101SupportApp.runtimeconfig.json
@@ -110,4 +111,3 @@ C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101Sup
 C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\IF4101SupportApp.pdb
 C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\IF4101SupportApp.genruntimeconfig.cache
 C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\IF4101SupportApp.csprojAssemblyReference.cache
-C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\bin\Debug\netcoreapp3.1\appsettings.json
