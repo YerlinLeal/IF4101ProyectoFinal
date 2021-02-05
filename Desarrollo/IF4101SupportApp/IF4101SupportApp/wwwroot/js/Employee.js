@@ -42,13 +42,6 @@
                 required: true,
                 email: true
             },
-            UPassword: {
-                required: true,
-                minlength: 8
-            },
-            UServices: {
-                required: true
-            },
             UEmployeeType: {
                 required: true
             }
@@ -64,6 +57,7 @@
 
 function LoadEmployeeTableData() {
     $('#table-employees').DataTable({
+        "destroy": true,
         ajax: {
             url: '/Employee/GetAll',
             dataSrc: '',
@@ -74,11 +68,11 @@ function LoadEmployeeTableData() {
                 "render": function (data, type, s, meta) {
 
                     return '<div class="dropdown"><button class= "btn btn-sm btn-icon" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
-                        '<i class="fas fa-ellipsis-h" data-toggle="tooltip" data-placement="top" title="Actions"></i>' +
+                        '<i class="fa fa-ellipsis-h" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Actions"></i>' +
                         '</button>' +
                         '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">' +
-                        '<a class="dropdown-item" ><i class="fas fa-eye mr-2" onclick=editEmployee(' + s.employeeId + ')></i> Edit Profile</a>' +
-                        '<a class="detele dropdown-item text-danger" onclick=deleteEmployee(' + s.employeeId + ') ><i class="fas fa-trash mr-2 "></i> Remove</a>' +
+                        '<a class="dropdown-item" ><i class="fa fa-eye mr-2" onclick=editEmployee(' + s.employeeId + ')></i> Edit Profile</a>' +
+                        '<a class="detele dropdown-item text-danger" onclick=deleteEmployee(' + s.employeeId + ') ><i class="fa fa-trash mr-2 "></i> Remove</a>' +
                         '</div>' +
                         '</div>'
                 }
@@ -113,13 +107,14 @@ $("#Employee_Form").submit(function (e) {
                 Email: $("#Email").val(),
                 Password: $("#Password").val(),
                 Supervised: $("#Supervised").val(),
-                Services: $("#Services").val()
+                Services: $("#Services").val(),
+                EmployeeType: $("#EmployeeType").val()
             },
             type: "POST",
             dataType: "json",
 
             success: function (result) {
-                alert(JSON.stringify(result));
+                LoadEmployeeTableData();
             },
             error: function (errorMessage) {
                 alert(errorMessage.responseText);
@@ -131,30 +126,29 @@ $("#Employee_Form").submit(function (e) {
 $("#UEmployee_Form").submit(function (e) {
     e.preventDefault();
     alert($(this).valid());
-    //if ($(this).valid()) {
-    //    $.ajax({
-    //        url: "/Employee/Update",
-    //        data: {
-    //            EmployeeId: $("#UEmployeeId").val(),
-    //            EmployeeName: $("#UEmployeeName").val(),
-    //            FirstSurname: $("#UFirstSurname").val(),
-    //            SecondSurname: $("#USecondSurname").val(),
-    //            Email: $("#UEmail").val(),
-    //            Password: $("#UPassword").val(),
-    //            Supervised: $("#USupervised").val(),
-    //            Services: $("#UServices").val()
-    //        },
-    //        type: "POST",
-    //        dataType: "json",
+    if ($(this).valid()) {
+        $.ajax({
+            url: "/Employee/Update",
+            data: {
+                EmployeeId: $("#UEmployeeId").val(),
+                EmployeeName: $("#UEmployeeName").val(),
+                FirstSurname: $("#UFirstSurname").val(),
+                SecondSurname: $("#USecondSurname").val(),
+                Email: $("#UEmail").val(),
+                EmployeeType: $("#UEmployeeType").val()
+            },
+            type: "PUT",
+            dataType: "json",
 
-    //        success: function (result) {
-    //            alert(JSON.stringify(result));
-    //        },
-    //        error: function (errorMessage) {
-    //            alert(errorMessage.responseText);
-    //        }
-    //    });
-    //}
+            success: function (result) {
+                LoadEmployeeTableData();
+                $("#DetailEmployeeModal").modal("hide");
+            },
+            error: function (errorMessage) {
+                alert(errorMessage.responseText);
+            }
+        });
+    }
 });
 
 
@@ -171,9 +165,8 @@ function editEmployee (id){
             $("#UEmail").val(result.email);
             $("#UFirstSurname").val(result.firstSurname);
             $("#USecondSurname").val(result.secondSurname);
-            $("#UPassword").val(result.password);
             $("#USupervised").val(result.supervised);
-            $("#UServices").val(result.services);
+            $("#UEmployeeType").val(result.employeeType);
             $('.selectpicker').selectpicker('refresh');
             $("#DetailEmployeeModal").modal("show");
             
@@ -185,16 +178,16 @@ function editEmployee (id){
 }
 
 function deleteEmployee(id) {
+    alert(id);
     var table = $('#table-employees').DataTable();
     $.ajax({
         url: "/Employee/Delete",
         data: {
-            EmployeeId: id 
+            Id: id 
         },
         type: "DELETE",
         dataType: "json",
         success: function (result) {
-            alert(JSON.stringify(result));
             table.row(".selected").remove().draw();
         },
         error: function (errorMessage) {

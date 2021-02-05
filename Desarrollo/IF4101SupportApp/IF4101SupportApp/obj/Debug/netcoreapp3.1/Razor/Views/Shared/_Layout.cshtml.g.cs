@@ -81,8 +81,8 @@ using Microsoft.AspNetCore.Http;
                 WriteLiteral("\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\" />\r\n    <meta name=\"description\"");
                 BeginWriteAttribute("content", " content=\"", 280, "\"", 290, 0);
                 EndWriteAttribute();
-                WriteLiteral(" />\r\n    <meta name=\"author\"");
-                BeginWriteAttribute("content", " content=\"", 319, "\"", 329, 0);
+                WriteLiteral(" />\n    <meta name=\"author\"");
+                BeginWriteAttribute("content", " content=\"", 311, "\"", 321, 0);
                 EndWriteAttribute();
                 WriteLiteral(" />\r\n\r\n    <title>Tele Atlántico</title>\r\n    ");
                 __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "2c2d7b103c7a0585d325b6d3d19791fdd9a7fabe9209", async() => {
@@ -133,7 +133,7 @@ using Microsoft.AspNetCore.Http;
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n    ");
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "2c2d7b103c7a0585d325b6d3d19791fdd9a7fabe12695", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("link", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "5697161e32f911c916ad87a32ebc55444936bed912681", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -162,7 +162,7 @@ using Microsoft.AspNetCore.Http;
                 }
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
-                WriteLiteral("\r\n\r\n\r\n");
+                WriteLiteral("\n\n\n");
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_HeadTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.HeadTagHelper>();
@@ -208,7 +208,7 @@ using Microsoft.AspNetCore.Http;
 #line default
 #line hidden
 #nullable disable
-                WriteLiteral("                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"#employeeSection\">Employees</a></li>\r\n");
+                WriteLiteral("                        <li class=\"nav-item\"><a class=\"nav-link js-scroll-trigger\" href=\"#employeeSection\">Employees</a></li>\n");
 #nullable restore
 #line 52 "C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\Shared\_Layout.cshtml"
                     }
@@ -281,7 +281,7 @@ using Microsoft.AspNetCore.Http;
 #line default
 #line hidden
 #nullable disable
-                WriteLiteral("        <section class=\"page-section bg-light\" id=\"employeeSection\">\r\n            <div class=\"container\">\r\n                ");
+                WriteLiteral("        <section class=\"page-section bg-light\" id=\"employeeSection\">\n            <div class=\"container\">\n                ");
 #nullable restore
 #line 97 "C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\Shared\_Layout.cshtml"
            Write(Html.Partial("~/Views/Employee/_EmployeeSection.cshtml"));
@@ -289,7 +289,7 @@ using Microsoft.AspNetCore.Http;
 #line default
 #line hidden
 #nullable disable
-                WriteLiteral("\r\n            </div>\r\n        </section>\r\n");
+                WriteLiteral("\n            </div>\n        </section>\n");
 #nullable restore
 #line 100 "C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\Shared\_Layout.cshtml"
     }
@@ -363,7 +363,7 @@ using Microsoft.AspNetCore.Http;
                 }
                 Write(__tagHelperExecutionContext.Output);
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
-                WriteLiteral("\r\n");
+                WriteLiteral("\n");
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_BodyTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.BodyTagHelper>();
@@ -376,7 +376,7 @@ using Microsoft.AspNetCore.Http;
             }
             Write(__tagHelperExecutionContext.Output);
             __tagHelperExecutionContext = __tagHelperScopeManager.End();
-            WriteLiteral("\r\n\r\n<div class=\"container\">\r\n    <main role=\"main\" class=\"pb-3\">\r\n        ");
+            WriteLiteral("\n\n<div class=\"container\">\n    <main role=\"main\" class=\"pb-3\">\n        ");
 #nullable restore
 #line 131 "C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\Shared\_Layout.cshtml"
    Write(RenderBody());
@@ -384,7 +384,7 @@ using Microsoft.AspNetCore.Http;
 #line default
 #line hidden
 #nullable disable
-            WriteLiteral("\r\n    </main>\r\n</div>\r\n\r\n</html>\r\n");
+            WriteLiteral("\n    </main>\n</div>\n\n</html>\n");
         }
         #pragma warning restore 1998
         [global::Microsoft.AspNetCore.Mvc.Razor.Internal.RazorInjectAttribute]
