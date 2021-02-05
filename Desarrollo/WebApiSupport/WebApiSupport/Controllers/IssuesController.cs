@@ -70,6 +70,39 @@ namespace WebApiSupport.Controllers
             }
             return result;
         }
+        [Route("[action]/{id}")]
+        [HttpGet]
+        public ActionResult<Issue> GetIssuesRById(int id)
+        {
+            ObjectResult result;
+            try
+            {
+                result = Ok(from l in _context.Issues
+                            join e in _context.Employees
+
+                    on l.EmployeeAssigned equals e.EmployeeId
+                            where e.EmployeeId == id
+                            select new
+                            {
+                                l.ReportNumber,
+                                e.EmployeeId,
+                                e.EmployeeName,
+                                e.FirstSurname,
+                                e.SecondSurname,
+                                e.Supervised,
+                                l.Classification,
+                                l.Status,
+                                l.CreationDate,
+                                l.ReportTimestamp
+                            });
+            }
+            catch (Exception e)
+            {
+                result = Conflict(e.Message);
+            }
+            return result;
+        }
+
 
         // PUT: api/Issues/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

@@ -53,6 +53,9 @@ namespace IF4101SupportApp.Controllers
                 HttpContext.Session.SetInt32("role", (int)employee.EmployeeType);
                 HttpContext.Session.SetInt32("id", employee.EmployeeId);
                 result = Ok(1);
+
+                
+
             }
             else if (Response.StatusCode == System.Net.HttpStatusCode.NotFound) {
                 result = NotFound(null);
