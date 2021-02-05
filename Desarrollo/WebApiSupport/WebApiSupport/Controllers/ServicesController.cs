@@ -84,7 +84,7 @@ namespace WebApiSupport.Controllers
 
             return CreatedAtAction("GetService", new { id = service.ServiceId }, service);
         }
-
+        [Route("[action]")]
         // DELETE: api/Services/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Service>> DeleteService(int id)
@@ -95,7 +95,8 @@ namespace WebApiSupport.Controllers
                 return NotFound();
             }
 
-            _context.Services.Remove(service);
+            service.State = false;
+            _context.Entry(service).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return service;

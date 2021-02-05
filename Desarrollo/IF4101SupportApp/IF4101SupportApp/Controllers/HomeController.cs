@@ -66,6 +66,11 @@ namespace IF4101SupportApp.Controllers
             }
             return result;
         }
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Home");
+        }
 
     }
 }
