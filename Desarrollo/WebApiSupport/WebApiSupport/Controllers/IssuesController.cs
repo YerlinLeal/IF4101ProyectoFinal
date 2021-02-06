@@ -28,7 +28,7 @@ namespace WebApiSupport.Controllers
             try
             {
                 result = Ok(from l in _context.Issues join e in _context.Employees 
-                            on l.EmployeeAssigned equals e.EmployeeId select new {l.ReportNumber,e.EmployeeName,e.FirstSurname,
+                            on l.EmployeeAssigned equals e.EmployeeId where l.State==true && e.State== true select new {l.ReportNumber,e.EmployeeName,e.FirstSurname,
                                                                                     l.Classification,l.Status,l.CreationDate,l.ReportTimestamp});
             }
             catch (Exception e)
@@ -38,38 +38,91 @@ namespace WebApiSupport.Controllers
             return result;
         }
         // GET: api/Issues
+        [Route("[action]/{ReportNumber}")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Issue>>> GetIssues()
+        public ActionResult<Issue> GetIssuesById(int ReportNumber)
         {
-            return await _context.Issues.ToListAsync();
-        }
-
-        // GET: api/Issues/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Issue>> GetIssue(int id)
-        {
-            var issue = await _context.Issues.FindAsync(id);
-
-            if (issue == null)
+            ObjectResult result;
+            try
             {
-                return NotFound();
-            }
+                result = Ok(from l in _context.Issues
+                            join e in _context.Employees
 
-            return issue;
+                    on l.EmployeeAssigned equals e.EmployeeId
+                    where l.ReportNumber== ReportNumber && l.State==true
+                            select new
+                            {
+                                l.ReportNumber,
+                                l.EmployeeAssigned,
+                                e.EmployeeName,
+                                e.FirstSurname,
+                                e.SecondSurname,
+                                e.Supervised,
+                                l.Classification,
+                                l.Status,
+                                l.CreationDate,
+                                l.ReportTimestamp,
+                                l.ResolutionComment
+                            });
+            }
+            catch (Exception e)
+            {
+                result = Conflict(e.Message);
+            }
+            return result;
         }
+        [Route("[action]/{id}")]
+        [HttpGet]
+        public ActionResult<Issue> GetIssuesRById(int id)
+        {
+            ObjectResult result;
+            try
+            {
+                result = Ok(from l in _context.Issues
+                            join e in _context.Employees
+
+                    on l.EmployeeAssigned equals e.EmployeeId
+                            where e.EmployeeId == id && l.State == true && e.State==true
+                            select new
+                            {
+                                l.ReportNumber,
+                                e.EmployeeId,
+                                e.EmployeeName,
+                                e.FirstSurname,
+                                e.SecondSurname,
+                                e.Supervised,
+                                l.Classification,
+                                l.Status,
+                                l.CreationDate,
+                                l.ReportTimestamp,
+                                l.ResolutionComment
+                            });
+            }
+            catch (Exception e)
+            {
+                result = Conflict(e.Message);
+            }
+            return result;
+        }
+
 
         // PUT: api/Issues/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}/{ReportNumber}/{EmployeeId}/{Status}")]
+        [Route("[action]/{id}")]
+        [HttpPut]
         public async Task<IActionResult> PutIssue(int id, Issue issue)
         {
-            if (id != issue.ReportNumber)
-            {
-                return BadRequest();
-            }
-
+           
+          
             _context.Entry(issue).State = EntityState.Modified;
+            _context.Entry(issue).Property(x => x.ReportTimestamp).IsModified = false;
+            _context.Entry(issue).Property(x => x.Service).IsModified = false;
+            _context.Entry(issue).Property(x => x.State).IsModified = false;
+            _context.Entry(issue).Property(x => x.CreationDate).IsModified = false;
+            _context.Entry(issue).Property(x => x.ModifyDate).IsModified = false;
+            _context.Entry(issue).Property(x => x.CreatedBy).IsModified = false;
+           
 
             try
             {
@@ -115,7 +168,7 @@ namespace WebApiSupport.Controllers
 
             return CreatedAtAction("GetIssue", new { id = issue.ReportNumber }, issue);
         }
-
+        [Route("[action]")]
         // DELETE: api/Issues/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Issue>> DeleteIssue(int id)
@@ -126,7 +179,8 @@ namespace WebApiSupport.Controllers
                 return NotFound();
             }
 
-            _context.Issues.Remove(issue);
+            issue.State = false;
+            _context.Entry(issue).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return issue;

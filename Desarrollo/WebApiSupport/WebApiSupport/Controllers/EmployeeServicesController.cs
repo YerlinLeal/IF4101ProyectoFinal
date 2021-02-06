@@ -109,7 +109,8 @@ namespace WebApiSupport.Controllers
                 return NotFound();
             }
 
-            _context.EmployeeServices.Remove(employeeService);
+            employeeService.State = false;
+            _context.Entry(employeeService).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return employeeService;

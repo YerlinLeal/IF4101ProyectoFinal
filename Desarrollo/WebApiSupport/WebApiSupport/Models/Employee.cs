@@ -28,9 +28,8 @@ namespace WebApiSupport.Models
         public DateTime? ModifyDate { get; set; }
         public int? CreatedBy { get; set; }
         public int? ModifiedBy { get; set; }
-        [ForeignKey("Supervised")]
         public int? Supervised { get; set; }
-        [NotMapped]
+
         public virtual Employee SupervisedNavigation { get; set; }
         [ForeignKey("EmployeeServices")]
         public virtual ICollection<EmployeeService> EmployeeServices { get; set; }
