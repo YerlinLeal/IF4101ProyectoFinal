@@ -85,11 +85,11 @@
                         @if (@HttpContextAccessor.HttpContext.Session.GetInt32("role") != null && @HttpContextAccessor.HttpContext.Session.GetInt32("role") == 2)
                         {
                             <!--BT START PROCESS-->
-                            <button form="#form-issue-details" class="btn" id="btn-status-issue">button</button>
+                            <button form="#form-issue-details" class="btn float-left" id="btn-status-issue">button</button>
                         }
 
                         <!--BT CANCEL-->
-                        <button type="reset" form="#form-issue-details" class="btn" data-dismiss="modal" id="btn-cancel">Cancel</button>
+                        <button type="reset" form="#form-issue-details" class="btn float-right" data-dismiss="modal" id="btn-cancel">Cancel</button>
                     </div>
                 </div>
             </div>

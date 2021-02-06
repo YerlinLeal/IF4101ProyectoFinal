@@ -74,6 +74,8 @@ function LoadTable() {
 }
 
 function LoadIssue(reportNumber) {
+    $("#message-alert-issue").hide();
+
     $.ajax({
         url: "/Issue/GetIssue",
         data: { "reportNumber": reportNumber },
@@ -164,19 +166,26 @@ function StatusSelectSuporters() {
 }
 
 function StatusButton() {
+    $("#btn-status-issue").off();
+
     var form = $('#form-issue-details');
     if (form.find("#statusIssue").val() == 'A') {
+        $("#btn-status-issue").show();
         $("#btn-status-issue").html("Start Process");
         $("#btn-status-issue").click({ status: "P" }, SetIssueStatus);
         $("#btn-status-issue").prop("disabled", false);
     } else if (form.find("#statusIssue").val() == 'P') {
+        $("#btn-status-issue").show();
         $("#btn-status-issue").html("Resolve");
         $("#commentsIssue").prop("disabled", false);//
         $("#btn-status-issue").click({ status: "R" }, SetIssueStatus);
         $("#btn-status-issue").prop("disabled", false);
     } else if (form.find("#statusIssue").val() == 'R') {
+        $("#btn-status-issue").show();
         $("#btn-status-issue").html("Resolved");
         $("#btn-status-issue").prop("disabled", true);
+    } else if (form.find("#statusIssue").val() == 'I') {
+        $("#btn-status-issue").hide();
     }
 }
 
@@ -230,7 +239,6 @@ function SetIssueStatus(event) {
 
                     success: function (result) {
                         LoadTable();
-                        $("#commentsIssue").val("");
                         $("#IssueDetailsModal").modal("hide");
                     },
                     error: function (errorMessage) {
@@ -239,8 +247,8 @@ function SetIssueStatus(event) {
                 });
             }
         } else {
-            //alert("Debe ingresar un comentario de finalizada la solicitud");
-
+            $("#message-alert-issue").html("Please enter a comment before finalizing");
+            $("#message-alert-issue").show();
         }
     } else {
         var assigned = $("#supportUserAssignedIssue").val();
