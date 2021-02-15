@@ -28,7 +28,7 @@ namespace WebApiSupport.Controllers
             try
             {
                 result = Ok(from l in _context.Issues join e in _context.Employees 
-                            on l.EmployeeAssigned equals e.EmployeeId select new {l.ReportNumber,e.EmployeeName,e.FirstSurname,
+                            on l.EmployeeAssigned equals e.EmployeeId where l.State==true && e.State== true select new {l.ReportNumber,e.EmployeeName,e.FirstSurname,
                                                                                     l.Classification,l.Status,l.CreationDate,l.ReportTimestamp});
             }
             catch (Exception e)
@@ -49,11 +49,11 @@ namespace WebApiSupport.Controllers
                             join e in _context.Employees
 
                     on l.EmployeeAssigned equals e.EmployeeId
-                    where l.ReportNumber== ReportNumber
+                    where l.ReportNumber== ReportNumber && l.State==true
                             select new
                             {
                                 l.ReportNumber,
-                                e.EmployeeId,
+                                l.EmployeeAssigned,
                                 e.EmployeeName,
                                 e.FirstSurname,
                                 e.SecondSurname,
@@ -61,7 +61,8 @@ namespace WebApiSupport.Controllers
                                 l.Classification,
                                 l.Status,
                                 l.CreationDate,
-                                l.ReportTimestamp
+                                l.ReportTimestamp,
+                                l.ResolutionComment
                             });
             }
             catch (Exception e)
@@ -81,7 +82,7 @@ namespace WebApiSupport.Controllers
                             join e in _context.Employees
 
                     on l.EmployeeAssigned equals e.EmployeeId
-                            where e.EmployeeId == id
+                            where e.EmployeeId == id && l.State == true && e.State==true
                             select new
                             {
                                 l.ReportNumber,
@@ -93,7 +94,8 @@ namespace WebApiSupport.Controllers
                                 l.Classification,
                                 l.Status,
                                 l.CreationDate,
-                                l.ReportTimestamp
+                                l.ReportTimestamp,
+                                l.ResolutionComment
                             });
             }
             catch (Exception e)
@@ -107,6 +109,7 @@ namespace WebApiSupport.Controllers
         // PUT: api/Issues/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Route("[action]/{id}")]
         [HttpPut]
         public async Task<IActionResult> PutIssue(int id, Issue issue)
         {
@@ -165,7 +168,7 @@ namespace WebApiSupport.Controllers
 
             return CreatedAtAction("GetIssue", new { id = issue.ReportNumber }, issue);
         }
-
+        [Route("[action]")]
         // DELETE: api/Issues/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Issue>> DeleteIssue(int id)
@@ -176,7 +179,8 @@ namespace WebApiSupport.Controllers
                 return NotFound();
             }
 
-            _context.Issues.Remove(issue);
+            issue.State = false;
+            _context.Entry(issue).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return issue;

@@ -1,4 +1,20 @@
-﻿/* Menu Bar */
+﻿#IssueDetailsModal .modal-footer {
+    display: block;
+}
+
+    select [disabled] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+    border: 0;
+}
+
+input[disabled] {
+    border: 0;
+}
+
+/* Menu Bar */
 #mainNav .navbar-toggler {
     background: #007bff;
 }
@@ -75,13 +91,13 @@ a:hover {
     outline: none !important;
 }
 
-    .hvr-bounce-in:hover{
-        -webkit-transform: scale(1.2);
-        transform: scale(1.2);
-        -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
-        transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
-        color: #007bff;
-    }
+.hvr-bounce-in:hover{
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+    color: #007bff;
+}
 
 button#btn-save.btn {
     color: #fff;
@@ -94,9 +110,9 @@ table.dataTable tbody tr.selected {
     background-color: #acbad4 !important;
 }
 
-button#btn-cancel.btn {
-    color: #39C0ED;
-    border-color: #39C0ED;
+button#btn-cancel.btn, button#btn-status-issue.btn {
+    color: #007bff;
+    border-color: #007bff;
 }
 
 input.col-sm-6.form-control.form-control-sm, textarea.col-sm-6.form-control.form-control-sm, select.col-sm-6.form-control.form-control-sm {
@@ -106,11 +122,16 @@ input.col-sm-6.form-control.form-control-sm, textarea.col-sm-6.form-control.form
     margin-bottom: 0.5em;
 }
 
-label.col-sm-4.control-label.small {
+.issue-details i {
+    padding-inline: 0.5em;
+}
+
+.issue-details label {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     display: flex;
     align-items: center;
+    font-size: 14px;
 }
 
 .modal-content {
@@ -133,4 +154,9 @@ table.dataTable {
 
 .button-option {
     font-size: 20px;
+}
+
+#IssueDetailsModal .modal-header {
+    background-color: #007bff;
+    color: white;
 }
