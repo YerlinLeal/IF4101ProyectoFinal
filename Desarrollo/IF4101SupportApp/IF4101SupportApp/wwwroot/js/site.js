@@ -96,12 +96,12 @@ function LoadIssue(reportNumber) {
             form.find("#contactPhoneIssue").val("BD client");
             form.find("#commentsIssue").val(issue.resolutionComment);
 
-
+            sessionStorage.setItem('ReportNumber', issue.reportNumber);
             var selectSupporters = form.find("#supportUserAssignedIssue");
 
             var role = form.find("#role").val();
             var id = form.find("#id").val();
-
+            $('#IssueInfoTabs li:first-child a').tab('show')
             if (role == 1 && (issue.employeeAssigned == null || issue.supervised == id)) {
                 $.ajax({
                     url: "/Issue/GetSupportersById",

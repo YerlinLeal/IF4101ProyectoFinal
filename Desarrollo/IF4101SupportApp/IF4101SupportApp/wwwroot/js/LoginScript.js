@@ -16,6 +16,7 @@ $(document).ready(function () {
 $("#LoginForm").submit(function (e) {
     e.preventDefault();
     if ($("#LoginForm").valid()) {
+        var interval = null;
         $.ajax({
             url: "/Home/Authentication",
             data: {
@@ -24,14 +25,27 @@ $("#LoginForm").submit(function (e) {
             },
             type: "POST",
             dataType: "json",
-
+            beforeSend: function () {
+                i = 0;
+                $("#login-btn").prop("disabled", true);
+                //$("#login-btn").css("color", "white");
+                interval = setInterval(function () {
+                    i = ++i % 4;
+                    $("#login-btn").html("Processing" + Array(i + 1).join("."));
+                }, 500);
+            },
             success: function (result) {
                 window.location.replace("/Home/Index");    
             },
             error: function (errorMessage) {
+                clearInterval(interval);
+                $("#login-btn").prop("disabled", false);
+                $("#login-btn").html("Send");
                 alert(errorMessage.responseText);
             }
+
         });
+        
     }
 })
 
