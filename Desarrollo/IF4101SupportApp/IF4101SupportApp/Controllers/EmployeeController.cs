@@ -17,47 +17,24 @@ namespace IF4101SupportApp.Controllers
 
         private readonly IConfiguration _configuration;
         private readonly string apiBaseUrl;
-        private List<Employee> employees;
         public EmployeeController(IConfiguration configuration)
         {
             _configuration = configuration;
 
             apiBaseUrl = _configuration.GetValue<string>("WebAPISupportBaseUrl");
-            employees = new List<Employee>
-            {
-                new Employee()
-                {
-                    EmployeeId = 1,
-                    EmployeeName = "Maikel",
-                    FirstSurname = "Matamoros",
-                    SecondSurname = "Zuñiga",
-                    Email = "Maikel@Correo.com",
-                    Password = "12345",
-                    Supervised = 1,
-                    Services = new List<int>() { 1, 2, 3 }
-                },
-                new Employee()
-                {
-                    EmployeeId = 2,
-                    EmployeeName = "Arturo",
-                    FirstSurname = "Campos",
-                    SecondSurname = "Bogantes",
-                    Email = "Bogantes@Correo.com",
-                    Password = "54321",
-                    Supervised = 0,
-                    Services = new List<int>() { 1, 3, 4 }
-                }
-            };
+           
         }
 
         [HttpPost]
         public async Task<IActionResult> Insert(Employee employee)
         {
+            employee.CreatedBy = (int)HttpContext.Session.GetInt32("id");
+            employee.Supervised = (int)HttpContext.Session.GetInt32("id");
             ObjectResult result = null;
             using HttpClient client = new HttpClient();
             StringContent content = new StringContent(JsonConvert.SerializeObject(employee), Encoding.UTF8,
                 "application/json");
-            using (var Response = await client.PostAsync(apiBaseUrl + "Employee", content))
+            using (var Response = await client.PostAsync(apiBaseUrl + "Employees", content))
             {
                 if (Response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
@@ -71,65 +48,81 @@ namespace IF4101SupportApp.Controllers
             return result;
         }
 
-        [HttpPost]
-        public IActionResult Update(Employee employee)
+        [HttpPut]
+        public async Task<IActionResult> Update(Employee employee)
         {
-            //ObjectResult result = null;
-            //using HttpClient client = new HttpClient();
-            //StringContent content = new StringContent(JsonConvert.SerializeObject(employee), Encoding.UTF8,
-            //    "application/json");
-            //using (var Response = await client.PutAsync(apiBaseUrl + "Employee", content))
-            //{
-            //    if (Response.StatusCode == System.Net.HttpStatusCode.OK)
-            //    {
-            //        result = Ok(1);
-            //    }
-            //    else
-            //    {
-            //        result = Conflict(Response.RequestMessage);
-            //    }
-            //}
-            //return result;
-            return Ok(employee);
+            ObjectResult result = null;
+            using HttpClient client = new HttpClient();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(employee), Encoding.UTF8,
+                "application/json");
+            using (var Response = await client.PutAsync(apiBaseUrl + "Employees", content))
+            {
+                if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    result = Ok(1);
+                }
+                else
+                {
+                    result = Conflict(Response.RequestMessage);
+                }
+            }
+            return result;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Employee>> GetAllAsync()
+        public async Task<ActionResult<IEnumerable<Employee>>> GetAllAsync()
         {
-            //ObjectResult result = null;
-            //using var client = new HttpClient();
-            //using var Response = await client.GetAsync(apiBaseUrl + "Employee");
-            //if (Response.StatusCode == System.Net.HttpStatusCode.OK)
-            //{
-            //    result = Ok(JsonConvert.DeserializeObject<List<Employee>>
-            //        (await Response.Content.ReadAsStringAsync()));
-            //}
-            //else
-            //{
-            //    result = Conflict(Response.RequestMessage);
-            //}
-            //return result;
-            return (employees);
+            ObjectResult result = null;
+            using var client = new HttpClient();
+            using var Response = await client.GetAsync(apiBaseUrl + "Employees");
+            if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                result = Ok(JsonConvert.DeserializeObject<List<Employee>>
+                    (await Response.Content.ReadAsStringAsync()));
+            }
+            else
+            {
+                result = Conflict(Response.RequestMessage);
+            }
+            return result;
+
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> Delete(int Id)
+        {
+            ObjectResult result = null;
+            using var client = new HttpClient();
+            using var Response = await client.DeleteAsync(apiBaseUrl + "Employees/"+ Id);
+            if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                result = Ok(1);
+            }
+            else
+            {
+                result = Conflict(Response.RequestMessage);
+            }
+            return result;
+
         }
 
         [HttpGet]
-        public ActionResult<Employee> GetById(int id)
+        public async Task<ActionResult<Employee>> GetById(int id)
         {
-            //ObjectResult result = null;
-            //using var client = new HttpClient();
-            //using var Response = await client.GetAsync(apiBaseUrl + "Employee");
-            //if (Response.StatusCode == System.Net.HttpStatusCode.OK)
-            //{
-            //    result = Ok(JsonConvert.DeserializeObject<List<Employee>>
-            //        (await Response.Content.ReadAsStringAsync()));
-            //}
-            //else
-            //{
-            //    result = Conflict(Response.RequestMessage);
-            //}
-            //return result;
-            Employee e = employees.FirstOrDefault(em => em.EmployeeId == id);
-            return (e);
+            ObjectResult result = null;
+            using var client = new HttpClient();
+            using var Response = await client.GetAsync(apiBaseUrl + "Employees/"+id);
+            if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                result = Ok(JsonConvert.DeserializeObject<Employee>
+                    (await Response.Content.ReadAsStringAsync()));
+            }
+            else
+            {
+                result = Conflict(Response.RequestMessage);
+            }
+            return result;
+
         }
 
 

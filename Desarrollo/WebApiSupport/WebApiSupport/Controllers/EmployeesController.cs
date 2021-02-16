@@ -72,8 +72,9 @@ namespace WebApiSupport.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<object>>> GetEmployees()
         {
-            return await _context.Employees.Select(e => 
-            new { 
+            return await _context.Employees.Where(e => e.State==true).Select(e =>
+            new
+            {
                 e.EmployeeId,
                 e.EmployeeName,
                 e.FirstSurname,
@@ -93,10 +94,9 @@ namespace WebApiSupport.Controllers
                  e.EmployeeName,
                  e.FirstSurname,
                  e.SecondSurname,
-                 e.Password,
-                 e.EmployeeServices,
                  e.Supervised,
-                 e.EmployeeType
+                 e.EmployeeType,
+                 e.Email
              }).FirstOrDefault();
 
             if (employee == null)
@@ -110,38 +110,34 @@ namespace WebApiSupport.Controllers
         // PUT: api/Employees/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutEmployee(int id, Employee employee)
+        [HttpPut]
+        public async Task<IActionResult> PutEmployeeAsync(Employee em)
         {
-            if (id != employee.EmployeeId)
-            {
-                return BadRequest();
-            }
+
+            var employee = await _context.Employees.FindAsync(em.EmployeeId);
+            employee.EmployeeName = em.EmployeeName;
+            employee.FirstSurname = em.FirstSurname;
+            employee.SecondSurname = em.SecondSurname;
+            employee.Email = em.Email;
+            employee.ModifyDate = DateTime.Now;
 
             _context.Entry(employee).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
+                return Ok();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex)
             {
-                if (!EmployeeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return Conflict(ex.HResult);
+
             }
 
-            return NoContent();
+            
         }
 
         // POST: api/Employees
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public ActionResult PostEmployee(EmployeeDTO employee)
         {
@@ -151,14 +147,29 @@ namespace WebApiSupport.Controllers
                 DbType = System.Data.DbType.Int32,
                 Direction = System.Data.ParameterDirection.Output
             };
-            var sql = "[dbo].[InsertEmployee] {0},{1},{2},{3},{4},{5},{6},{7},{8},@LastId OUT";
-            var result = _context.Database.ExecuteSqlRaw(sql, employee.Dni, employee.EmployeeName, employee.FirstSurname, employee.SecondSurname, employee.Email, employee.Password, employee.EmployeeType, employee.CreatedBy, employee.Supervised, outP);
+            var sql = "[dbo].[InsertEmployee] {0},{1},{2},{3},{4},{5},{6},{7},@LastId OUT";
+            try
+            {
+                var result = _context.Database.ExecuteSqlRaw(sql, employee.EmployeeName, employee.FirstSurname, employee.SecondSurname, employee.Email, employee.Password,
+                    employee.EmployeeType, employee.CreatedBy, employee.Supervised, outP);
+                int out1Value = (int)outP.Value;
+                List<int> services = employee.Services;
 
-            int out1Value = (int)outP.Value;
-            //_context.Employees.Add(employee);
-            //await _context.SaveChangesAsync();
-            return Ok(_context.Employees.FindAsync(out1Value));
-            //return CreatedAtAction("GetEmployee", new { id = employee.EmployeeId }, employee);
+                for (int i = 0; i < services.Count; i++)
+                {
+                    _context.Employees.Find(out1Value).EmployeeServices.Add(new EmployeeService() { 
+                        EmployeeId = out1Value,
+                        ServiceId = services[i],
+                        State = true,
+                        CreatedBy = employee.CreatedBy
+                    });
+                }
+                _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception e) {
+                return Conflict(e.Message);
+            }
         }
         [Route("[action]")]
         // DELETE: api/Employees/5

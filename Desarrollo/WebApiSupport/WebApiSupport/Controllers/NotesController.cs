@@ -19,14 +19,15 @@ namespace WebApiSupport.Controllers
         {
             _context = new DB_A6E470_ProyectoIF4101Context();
         }
-        [Route("[action]")]
+        [Route("[action]/{id}")]
         // GET: api/Notes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Note>>> GetNotes()
+        public async Task<ActionResult<IEnumerable<Note>>> GetNotes(int id)
         {
 
-            return await _context.Notes.Where(n => n.State == true).ToListAsync();
+            return await _context.Notes.Where(n => n.State == true && n.ReportNumber == id).ToListAsync();
         }
+
         [Route("[action]")]
         // GET: api/Notes/5
         [HttpGet("{id}")]
@@ -63,6 +64,7 @@ namespace WebApiSupport.Controllers
 
             return NoContent();
         }
+
         [Route("[action]")]
         // POST: api/Notes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -70,6 +72,7 @@ namespace WebApiSupport.Controllers
         [HttpPost]
         public async Task<ActionResult<Note>> PostNote(Note note)
         {
+            note.State = true;
             _context.Notes.Add(note);
             await _context.SaveChangesAsync();
 

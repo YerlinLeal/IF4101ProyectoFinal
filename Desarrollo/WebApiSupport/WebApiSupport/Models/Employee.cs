@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -30,6 +31,7 @@ namespace WebApiSupport.Models
         public int? Supervised { get; set; }
 
         public virtual Employee SupervisedNavigation { get; set; }
+
         public virtual ICollection<EmployeeService> EmployeeServices { get; set; }
         public virtual ICollection<Employee> InverseSupervisedNavigation { get; set; }
         public virtual ICollection<Issue> Issues { get; set; }

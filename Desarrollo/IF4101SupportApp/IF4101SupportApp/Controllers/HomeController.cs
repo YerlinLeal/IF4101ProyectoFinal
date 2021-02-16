@@ -50,7 +50,7 @@ namespace IF4101SupportApp.Controllers
 
                 var employee = JsonConvert.DeserializeObject<Employee>
                             (await Response.Content.ReadAsStringAsync(), settings);
-                HttpContext.Session.SetInt32("role", employee.EmployeeType);
+                HttpContext.Session.SetInt32("role", (int)employee.EmployeeType);
                 HttpContext.Session.SetInt32("id", employee.EmployeeId);
                 result = Ok(1);
 
