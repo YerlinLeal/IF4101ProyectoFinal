@@ -5,8 +5,8 @@
         <div id="note-@Model.NoteId" class="card">
             <div class="card-header">
                 <div>Note # @Model.NoteId</div>
-                <div class="float-right">
-                    <a href="#" class="edit"><span><i class="fa fa-pencil font_negro font_amarilloHover"></i></span></a>
+                <div class="btn-div float-right">
+                    <a href="javascript: void(0)" onclick="editNote( @Model.NoteId );"><span><i class="fa fa-pencil"></i></span></a>
                     <a href="javascript: void(0)" onclick="deleteNote( @Model.NoteId );"><span><i class="fa fa-trash"></i></span></a>
                 </div>
             </div>

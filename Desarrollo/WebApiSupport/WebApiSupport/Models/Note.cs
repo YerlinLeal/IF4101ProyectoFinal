@@ -12,7 +12,7 @@ namespace WebApiSupport.Models
         public DateTime? NoteTimestamp { get; set; }
         public int? ReportNumber { get; set; }
         public bool? State { get; set; }
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
         public DateTime? ModifyDate { get; set; }
         public int? CreatedBy { get; set; }
         public int? ModifiedBy { get; set; }
