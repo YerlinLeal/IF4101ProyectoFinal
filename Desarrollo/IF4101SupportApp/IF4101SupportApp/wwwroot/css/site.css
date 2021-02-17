@@ -2,7 +2,7 @@
     display: block;
 }
 
-    select [disabled] {
+select[disabled] {
     -webkit-appearance: none;
     -moz-appearance: none;
     text-indent: 0.01px;
