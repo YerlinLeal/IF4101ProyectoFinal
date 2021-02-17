@@ -101,7 +101,12 @@ function LoadIssue(reportNumber) {
 
             var role = form.find("#role").val();
             var id = form.find("#id").val();
-            $('#IssueInfoTabs li:first-child a').tab('show')
+            $('#IssueInfoTabs li:first-child a').tab('show');
+            if (issue.employeeAssigned == id) {
+                $('#buttonEditFinalComment').removeClass('hide');
+            } else {
+                $('#buttonEditFinalComment').addClass('hide');
+            }
             if (role == 1 && (issue.employeeAssigned == null || issue.supervised == id)) {
                 $.ajax({
                     url: "/Issue/GetSupportersById",
@@ -131,7 +136,6 @@ function LoadIssue(reportNumber) {
                 
                 $("#supportUserAssignedIssue").prop("disabled", true);
                 form.find("#classificationIssue").attr("disabled", "disabled");
-                form.find("#commentsIssue").attr("disabled", "disabled");
                 selectSupporters.append('<option selected value="' + issue.employeeAssigned + '">' + issue.employeeName + ' ' + issue.firstSurname + '</option>');
                 StatusButton();
             }
@@ -177,7 +181,7 @@ function StatusButton() {
     } else if (form.find("#statusIssue").val() == 'P') {
         $("#btn-status-issue").show();
         $("#btn-status-issue").html("Resolve");
-        $("#commentsIssue").prop("disabled", false);//
+        
         $("#btn-status-issue").click({ status: "R" }, SetIssueStatus);
         $("#btn-status-issue").prop("disabled", false);
     } else if (form.find("#statusIssue").val() == 'R') {
@@ -221,7 +225,7 @@ function SetIssueStatus(event) {
     var comment = $("#commentsIssue").val();
     var id = form.find("#id").val();
     if (status == 'R') {
-        if (comment != "") { // revisar si debe ser diferente de nulo o ""
+        if (comment != "") {
             var assigned = $("#supportUserAssignedIssue").val();
             if (assigned == id) {
                 $.ajax({
@@ -303,4 +307,37 @@ function ChangeClassification() {
             alert(errorMessage.responseText);
         }
     });
+}
+
+function EditFinalComment() {
+    $("#commentsIssue").prop("disabled", false);
+    $("#buttonSaveFinalComment").removeClass("hide");
+}
+
+function SaveFinalComment() {
+    var form = $("#form-issue-details");
+    var id = form.find("#id").val();
+    var assigned = $("#supportUserAssignedIssue").val();
+    if (assigned == id) {
+        $.ajax({
+            url: "/Issue/PutIssue",
+            data: {
+                ReportNumber: $("#reportNumberIssue").val(),
+                Classification: $("#classificationIssue").val(),
+                EmployeeAssigned: $("#supportUserAssignedIssue").val(),
+                ModifiedBy: id,
+                Status: $("#statusIssue"),
+                ResolutionComment: $("#commentsIssue").val()
+            },
+            type: "PUT",
+            dataType: "json",
+            success: function (result) {
+                $("#commentsIssue").prop("disabled", true);
+                $("#buttonSaveFinalComment").addClass("hide");
+            },
+            error: function (errorMessage) {
+                alert(errorMessage.responseText);
+            }
+        });
+    }
 }
