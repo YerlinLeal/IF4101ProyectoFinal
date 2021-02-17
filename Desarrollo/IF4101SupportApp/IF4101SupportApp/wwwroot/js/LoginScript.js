@@ -28,7 +28,6 @@ $("#LoginForm").submit(function (e) {
             beforeSend: function () {
                 i = 0;
                 $("#login-btn").prop("disabled", true);
-                //$("#login-btn").css("color", "white");
                 interval = setInterval(function () {
                     i = ++i % 4;
                     $("#login-btn").html("Processing" + Array(i + 1).join("."));

@@ -4,6 +4,7 @@
 
 $("#note-form").submit(function (e) {
     e.preventDefault();
+    var interval = null;
     $.ajax({
         url: "/Note/Insert",
         cache: false,
@@ -13,16 +14,23 @@ $("#note-form").submit(function (e) {
             Description: $(this).find("#note-description").val()
         },
         beforeSend: function () {
-            //$("#content-note").empty();
-            //agregarSpinnerCargando($("#gastos-contenedor"))
+            i = 0;
+            $("#btn-save-note").prop("disabled", true);
+            interval = setInterval(function () {
+                i = ++i % 4;
+                $("#btn-save-note").html("Processing" + Array(i + 1).join("."));
+            }, 500);
         },
         success: function (data) {
-
+            clearInterval(interval);
+            $("#btn-save-note").prop("disabled", false);
+            $("#btn-save-note").html("Add Note");
             $('#content-note').append(data);
             
         },
         error: function (error) {
-
+            $("#btn-save-note").prop("disabled", false);
+            $("#btn-save-note").html("Add Note");
 
         }
     });
@@ -62,11 +70,20 @@ function deleteNote(id) {
         data: {
             NoteId: id
         },
+        beforeSend: function () {
+            $("#note-" + id).find(".card-header").find(".btn-div").html(
+                '<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>'
+            );
+
+        },
         success: function (data) {
             $("#note-" + id).parent().remove();
         },
         error: function (error) {
-            //Falta validar errores
+            $("#note-" + id).find(".card-header").find(".btn-div").html(
+                '<a href="javascript: void(0)" onclick="saveNote( ' + id + ' );"><span><i class="fa fa-floppy-o"></i></span></a>' +
+                '<a href="javascript: void(0)" onclick="backNote( ' + id + ' );"><span><i class="fa fa-undo"></i></span></a>'
+            );
         }
     });
 }
@@ -96,6 +113,12 @@ function saveNote(id) {
             NoteId: id,
             Description: newDescription
         },
+        beforeSend: function () {
+            $("#note-" + id).find(".card-header").find(".btn-div").html(
+                '<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>'
+            );
+            
+        },
         success: function (data) {
             $("#note-" + id).find(".card-header").find(".btn-div").html(
                 '<a href="javascript: void(0)" onclick="editNote( ' + id + ' );"><span><i class="fa fa-pencil"></i></span></a>' +
@@ -104,7 +127,10 @@ function saveNote(id) {
             $("#note-" + id).find(".card-body").html('<p class="card-text">' + newDescription + '</p>');            
         },
         error: function (error) {
-            alert(error);
+            $("#note-" + id).find(".card-header").find(".btn-div").html(
+                '<a href="javascript: void(0)" onclick="saveNote( ' + id + ' );"><span><i class="fa fa-floppy-o"></i></span></a>' +
+                '<a href="javascript: void(0)" onclick="backNote( ' + id + ' );"><span><i class="fa fa-undo"></i></span></a>'
+            );
         }
     });
 }
