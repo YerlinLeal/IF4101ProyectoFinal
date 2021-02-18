@@ -1,10 +1,10 @@
 package cr.ac.ucr.api.repository;
 
-import cr.ac.ucr.api.model.User;
+import cr.ac.ucr.api.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface ClientRepository extends JpaRepository<Client, Integer> {
 
 }

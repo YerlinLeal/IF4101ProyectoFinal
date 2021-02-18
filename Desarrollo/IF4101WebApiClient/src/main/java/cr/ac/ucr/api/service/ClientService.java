@@ -1,7 +1,7 @@
 package cr.ac.ucr.api.service;
 
-import cr.ac.ucr.api.model.User;
-import cr.ac.ucr.api.repository.UserRepository;
+import cr.ac.ucr.api.model.Client;
+import cr.ac.ucr.api.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,19 +10,19 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserService {
+public class ClientService {
     @Autowired
-    private UserRepository repository;
+    private ClientRepository repository;
 
-    public List<User> listAll() {
+    public List<Client> listAll() {
         return repository.findAll();
     }
 
-    public void save(User student) {
-        repository.save(student);
+    public void save(Client client) {
+        repository.save(client);
     }
 
-    public User get(int id) {
+    public Client get(int id) {
         return repository.findById(id).get();
     }
 
