@@ -47,9 +47,12 @@ namespace WebApiSupport.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut]
-        public async Task<IActionResult> PutNote(Note note)
+        public async Task<IActionResult> PutNote(Note n)
         {
-            
+            var note = await _context.Notes.FindAsync(n.NoteId);
+            note.Description = n.Description;
+            note.ModifiedBy = n.ModifiedBy;
+            note.ModifyDate = DateTime.Now;
 
             _context.Entry(note).State = EntityState.Modified;
 
@@ -57,12 +60,12 @@ namespace WebApiSupport.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException e)
             {
-                throw;
+                return Conflict( e.Message);
             }
 
-            return NoContent();
+            return Ok();
         }
 
         [Route("[action]")]

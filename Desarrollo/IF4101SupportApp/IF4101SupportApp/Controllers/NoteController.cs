@@ -87,5 +87,27 @@ namespace IF4101SupportApp.Controllers
 
         }
 
+        [HttpPut]
+        public async Task<IActionResult> Update(Note note)
+        {
+            note.ModifiedBy = (int)HttpContext.Session.GetInt32("id");
+            ObjectResult result = null;
+            using HttpClient client = new HttpClient();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(note), Encoding.UTF8,
+                "application/json");
+            using (var Response = await client.PutAsync(apiBaseUrl + "Notes/PutNote", content))
+            {
+                if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    result = Ok(1);
+                }
+                else
+                {
+                    result = Conflict(Response.RequestMessage);
+                }
+            }
+            return result;
+        }
+
     }
 }

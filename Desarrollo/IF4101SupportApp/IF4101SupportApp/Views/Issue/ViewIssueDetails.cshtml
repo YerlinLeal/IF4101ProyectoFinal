@@ -97,7 +97,10 @@
                 <div class="row issue-details">
                     <label class="col-sm-4 control-label small font-weight-bold" for="commentsIssue">Final Comment:</label>
                     <textarea class="col-sm-6 form-control form-control-sm" id="commentsIssue" placeholder="No comment" rows="3" disabled></textarea>
-                    <button type="button" class="hvr-bounce-in hide" onclick=""><i class="fa fa-floppy-o button-option" aria-hidden="true"></i></button>
+                    <div class="col-sm-2" style="margin-top: 0.5em;">
+                        <button id="buttonEditFinalComment" type="button" class="hvr-bounce-in hide" onclick="EditFinalComment()"><i class="fa fa-pencil button-option" aria-hidden="true"></i></button>
+                        <button id="buttonSaveFinalComment" type="button" class="hvr-bounce-in hide" onclick="SaveFinalComment()"><i class="fa fa-floppy-o button-option" aria-hidden="true"></i></button>
+                    </div>
                 </div>
 
             </div>
