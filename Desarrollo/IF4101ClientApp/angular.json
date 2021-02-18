@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "IF4101ClientApp": {
+    "proyecto": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/IF4101ClientApp",
+            "outputPath": "dist/proyecto",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -25,15 +25,9 @@
             ],
             "styles": [
               "src/custom-theme.scss",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css",
-              "src/site.css"
+              "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "src/scripts.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -69,18 +63,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "IF4101ClientApp:build"
+            "browserTarget": "proyecto:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "IF4101ClientApp:build:production"
+              "browserTarget": "proyecto:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "IF4101ClientApp:build"
+            "browserTarget": "proyecto:build"
           }
         },
         "test": {
@@ -117,16 +111,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "IF4101ClientApp:serve"
+            "devServerTarget": "proyecto:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "IF4101ClientApp:serve:production"
+              "devServerTarget": "proyecto:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "IF4101ClientApp"
+  "defaultProject": "proyecto"
 }

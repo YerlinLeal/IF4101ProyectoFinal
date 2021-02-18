@@ -5,11 +5,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-add-client',
+  templateUrl: './add-client.component.html',
+  styleUrls: ['./add-client.component.css']
 })
-export class LoginComponent implements OnInit {
+export class AddClientComponent implements OnInit {
     user: FormGroup;
     loading = false;
     submitted = false;
