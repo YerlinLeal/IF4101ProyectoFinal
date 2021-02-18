@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent} from './components/login/login.component'
+import { AddClientComponent} from './components/add-client/add-client.component'
 import { RegisterComponent} from './components/register/register.component'
 
 
 const routes: Routes = [
-  {path: "login", component: LoginComponent },
+  {path: "add", component: AddClientComponent },
   {path: "register", component: RegisterComponent },
   {path: "**", redirectTo: '/'}
 
