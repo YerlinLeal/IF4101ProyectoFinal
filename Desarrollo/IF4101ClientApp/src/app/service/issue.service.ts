@@ -30,44 +30,22 @@ export class IssueService {
         return this.IssueSubject.value;
     }
 
+    
+    getAll() {
+        return this.http.get<Issue[]>(`${environment.apiUrl}/api/issue/issues`);
+    }
+
+    getById(id: string) {
+        return this.http.get<Issue>(`${environment.apiUrl}/Issues/${id}`);
+    }
+
+   
     add(Issue: Issue) {
         return this.http.post<any>(`${environment.apiUrl}/api/issue/add`, JSON.stringify(Issue), httpOptions).pipe(
             tap((issue) => console.log('added issue'))
           );
     }
-/*
-    getAll() {
-        return this.http.get<Client[]>(`${environment.apiUrl}/Clients`);
-    }
 
-    getById(id: string) {
-        return this.http.get<Client>(`${environment.apiUrl}/api/client/clients/${id}`);
-    }
-
-    update(id, params) {
-        return this.http.put(`${environment.apiUrl}/Clients/${id}`, params)
-            .pipe(map(x => {
-                // update stored Client if the logged in Client updated their own record
-                if (id == this.ClientValue.client_Id) {
-                    // update local storage
-                    const Client = { ...this.ClientValue, ...params };
-                    localStorage.setItem('Client', JSON.stringify(Client));
-
-                    // publish updated Client to subscribers
-                    this.ClientSubject.next(Client);
-                }
-                return x;
-            }));
-    }
-
-    delete(id: number) {
-        return this.http.delete(`${environment.apiUrl}/Clients/${id}`)
-            .pipe(map(x => {
-                // auto logout if the logged in Client deleted their own record
-                if (id == this.ClientValue.client_Id) {
-                    this.logout();
-                }
-                return x;
-            }));
-    }*/
+    
+       
 }

@@ -1,0 +1,36 @@
+<p>Issues</p>
+<div class="container">
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="report_Number">
+                <th mat-header-cell *matHeaderCellDef> No. Report </th>
+                <td mat-cell *matCellDef="let element"> {{element.report_Number}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="service_Id">
+                <th mat-header-cell *matHeaderCellDef> Service </th>
+                <td mat-cell *matCellDef="let element"> {{element.service_Id}} </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="register_Timestamp">
+                <th mat-header-cell *matHeaderCellDef> Timestamp </th>
+                <td mat-cell *matCellDef="let element"> {{element.register_Timestamp}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>
