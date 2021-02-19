@@ -1,6 +1,7 @@
 package cr.ac.ucr.api.controller;
 
 import cr.ac.ucr.api.model.Issue;
+import cr.ac.ucr.api.restClient.IssueRestClient;
 import cr.ac.ucr.api.service.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,11 +37,18 @@ public class IssueController {
     @PostMapping("/add")
     public ResponseEntity<Issue> add(@RequestBody Issue issue) {
         try {
-            issue.setCreation_Date(new Date());
-            issue.setRegister_Timestamp(new Date());
+            Date now = new Date();
+            issue.setCreation_Date(now);
+            issue.setModify_Date(now);
+            issue.setRegister_Timestamp(now);
             issue.setStatus('I');
+            issue.setState(true);
+            issue.setModified_By(issue.getCreated_By());
 
             Issue issueInserted = service.save(issue);
+            IssueRestClient restClient = new IssueRestClient();
+            restClient.callPostIssueAPI(issueInserted);
+
             return new ResponseEntity<Issue>(issueInserted, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Issue>(HttpStatus.NOT_FOUND);

@@ -16,6 +16,7 @@ export class IssueComponent implements OnInit {
 
   reportForm: FormGroup;
   submitted = false;
+  ok = false;
   loading = false;
   returnUrl: string;
   services: any[];
@@ -48,7 +49,7 @@ export class IssueComponent implements OnInit {
     this.reportForm.get("phoneContact").valueChanges.subscribe(value => {
       let oldValue = this.reportForm.value.phoneContact;
 
-      if(value.toString().length > 8){
+      if(value!= null && value.toString().length > 8){
         this.reportForm.get("phoneContact").setValue(oldValue, {onlySelf: true});
       }
     })
@@ -63,8 +64,6 @@ export class IssueComponent implements OnInit {
         return;
     }
 
-    console.log(this.reportForm.value);
-
     this.loading = true;
 
     let issue = new Issue();
@@ -77,11 +76,28 @@ export class IssueComponent implements OnInit {
     issue.created_By = 2;
 
     this.issueService.add(issue).subscribe((result) => {
+
+        if(result.report_Number != null && result.report_Number != 0){
+          this.loading = false;
+          this.ok=true;
+          this.reportForm.reset();
+          this.reportForm.get("service").setValue(this.services[0].id);
+          this.submitted=false;
+        }
+
         console.log(result);
     }, (err) => {
       console.log(err);
     });
 
+  }
+
+  resetForm(){
+    this.ok=false;
+    this.reportForm.reset();
+
+
+    this.reportForm.get("service").setValue(this.services[0].id);
   }
 
 }
