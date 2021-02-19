@@ -1,3 +1,7 @@
+<div class="d-flex justify-content-center" *ngIf="ok">
+    <label class="alert alert-success mt-4">Your request has been sent successfully</label>
+</div>
+
 <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
     <div class="col-md-6 offset-md-3 mt-5">
         <div class="card">
@@ -46,7 +50,7 @@
 
             <div class="card-footer" style="display: inline;">
                 <div class="form-group">
-                    <a class="btn btn-link float-left" type="button" (click)="reportForm.reset()">Clean</a>
+                    <a class="btn btn-link float-left" type="button" (click)="resetForm()">Clean</a>
                     <button [disabled]="loading" class="btn btn-primary float-right" type="submit">
                         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                         Submit
