@@ -1,0 +1,67 @@
+<form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+    <div class="col-md-6 offset-md-3 mt-5">
+        <div class="card">
+            <h4 class="card-header">Add Report</h4>
+            <div class="card-body">
+                
+                    <!-- DESCRIPTION -->
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" type="text" formControlName="description" [ngClass]="{'is-invalid': submitted && f.description.errors }"></textarea>
+                        <div class="invalid-feedback" *ngIf="submitted && f.description.errors">
+                            <div *ngIf="f.description.errors.required">Please describe your report</div>
+                        </div>
+                    </div>
+
+                    <!-- PHONE CONTACT -->
+                    <div class="form-group">
+                        <label for="phoneContact">Phone Contact</label>
+                        <input class="form-control" maxlength="3" type="number" formControlName="phoneContact" [ngClass]="{'is-invalid': submitted && f.phoneContact.errors }"/>
+                        <div class="invalid-feedback" *ngIf="submitted && f.phoneContact.errors" >
+                            <div *ngIf="f.phoneContact.errors.required">The phone is required</div>
+                        </div>
+                    </div>
+
+                    <!-- EMAIL CONTACT -->
+                    <div class="form-group">
+                        <label for="emailContact">Email</label>
+                        <input class="form-control" type="email" formControlName="emailContact" [ngClass]="{'is-invalid': submitted && f.emailContact.errors }"/>
+                        <div class="invalid-feedback" *ngIf="submitted && f.emailContact.errors" >
+                            <div *ngIf="f.emailContact.errors.required">Email is required</div>
+                            <div *ngIf="f.emailContact.errors.email">Please enter a valid email</div>
+                        </div>
+                    </div>
+
+                    <!-- ADDRESS -->
+                    <div class="form-group">
+                        <label for="addressC">Address</label>
+                        <textarea class="form-control" type="text" formControlName="addressC" [ngClass]="{'is-invalid': submitted && f.addressC.errors }"></textarea>
+                        <div class="invalid-feedback" *ngIf="submitted && f.addressC.errors">
+                            <div *ngIf="f.addressC.errors.required">Please enter your address</div>
+                        </div>
+                    </div>
+
+                    <!-- SERVICE -->
+                    <div class="form-group">
+                        <label for="service">Service</label>
+                        <select class="form-control" name="service" id="service">
+                            <option value="a">A</option>
+                            <option value="b">B</option>
+                            <option value="c">C</option>
+                        </select>
+                    </div>
+
+                
+            </div>
+            <div class="card-footer" style="display: inline;">
+                <div class="form-group">
+                    <a class="btn btn-link float-left" type="button" (click)="reportForm.reset()">Clean</a>
+                    <button [disabled]="loading" class="btn btn-primary float-right" type="submit">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
