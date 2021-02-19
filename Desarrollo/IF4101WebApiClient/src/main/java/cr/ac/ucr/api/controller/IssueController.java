@@ -25,8 +25,8 @@ public class IssueController {
     @GetMapping("/issues/{id}")
     public ResponseEntity<Issue> get(@PathVariable Integer id) {
         try {
-            Issue client = service.get(id);
-            return new ResponseEntity<Issue>(client, HttpStatus.OK);
+            Issue issue = service.get(id);
+            return new ResponseEntity<Issue>(issue, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Issue>(HttpStatus.NOT_FOUND);
         }

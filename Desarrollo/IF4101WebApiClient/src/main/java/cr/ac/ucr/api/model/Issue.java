@@ -15,7 +15,7 @@ public class Issue {
     private String adress;
     private String contact_Phone;
     private String contact_Email;
-    private boolean status;
+    private String status;
     private int supporter_Assigned;
     private int service_Id;
     private int client_Id;
@@ -75,13 +75,7 @@ public class Issue {
         this.contact_Email = contact_Email;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
 
     public int getSupporter_Assigned() {
         return supporter_Assigned;
@@ -145,5 +139,13 @@ public class Issue {
 
     public void setModified_By(int modified_By) {
         this.modified_By = modified_By;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
