@@ -1,6 +1,7 @@
 package cr.ac.ucr.api.controller;
 
 import cr.ac.ucr.api.model.Client;
+
 import cr.ac.ucr.api.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,8 +35,14 @@ public class ClientController {
 
     @PostMapping("/add")
     public void add(@RequestBody Client client) {
+
         service.save(client);
+        int id = service.getByEmail(client.getEmail()).getClient_Id();
+        for (int i=0;i<client.getServices().size();i++){
+            service.insertClientServicesSP(id,Integer.parseInt(client.getServices().get(i)));
+        }
     }
+
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Client> update(@PathVariable Integer id,@RequestBody Client client) {

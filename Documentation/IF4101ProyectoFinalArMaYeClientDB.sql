@@ -40,7 +40,6 @@ CREATE TABLE Client_Services(
 	primary key(client_Id,service_Id),
 )
 
-
 CREATE TABLE Issue(
 	report_Number int identity(1,1) primary key,
 	[description] nvarchar(300) not null,
@@ -74,3 +73,8 @@ CREATE TABLE Comment(
 
 
 
+CREATE PROCEDURE Insert_Client_Services(@c_id int, @s_id int)
+as 
+begin
+	insert into Client_Services(Client_Id,Service_Id, State) values(@c_id,@s_id,1);
+end

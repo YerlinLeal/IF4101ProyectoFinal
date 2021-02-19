@@ -13,11 +13,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import {MatSelectModule} from '@angular/material/select';
 import { AddClientComponent } from './components/add-client/add-client.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { EditClientComponent } from './components/edit-client/edit-client.component';
 import { CommentsComponent } from './components/comments/comments.component';
+import { SelectServicesComponent } from './components/select-services/select-services.component';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { CommentsComponent } from './components/comments/comments.component';
     RegisterComponent,
     AlertComponent,
     EditClientComponent,
-    CommentsComponent
+    CommentsComponent,
+    SelectServicesComponent
   ],
   imports: [
     BrowserModule,
@@ -40,8 +43,10 @@ import { CommentsComponent } from './components/comments/comments.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatSelectModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

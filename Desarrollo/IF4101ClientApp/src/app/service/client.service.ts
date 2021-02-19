@@ -47,7 +47,8 @@ export class ClientService {
         this.router.navigate(['/account/login']);
     }
 
-    register(Client: Client) {
+    register(Client: Client, param) {
+        Client.services = param;
         return this.http.post<any>(`${environment.apiUrl}/api/client/add`, JSON.stringify(Client), httpOptions).pipe(
             tap((student) => console.log('added student'))
           );

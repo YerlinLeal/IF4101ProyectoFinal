@@ -7,4 +7,5 @@ export class Client {
     phone : string;
     email : string;
     password : string;
+    services : number[];
 }

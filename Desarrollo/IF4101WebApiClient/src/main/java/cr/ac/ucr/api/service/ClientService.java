@@ -30,4 +30,10 @@ public class ClientService {
     public void delete(int id) {
         repository.deleteById(id);
     }
+
+    public  Client getByEmail(String email){ return repository.findByEmail(email);}
+
+    public void insertClientServicesSP(int c_id, int s_id) {
+        repository.insertClientServices(c_id,s_id);
+    }
 }

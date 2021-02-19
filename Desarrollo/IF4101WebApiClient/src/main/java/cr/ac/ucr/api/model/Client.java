@@ -2,9 +2,15 @@ package cr.ac.ucr.api.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Client")
+@NamedStoredProcedureQuery(name = "Client.insertClientServices",procedureName = "Insert_Client_Services",
+        parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "c_id", type = int.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "s_id", type = int.class)})
+
 public class Client {
     private int client_Id;
 	private String name;
@@ -19,6 +25,17 @@ public class Client {
     private String modify_Date;
     private int created_By;
     private int modified_By;
+
+    @Transient
+    private List<String> services;
+    @Transient
+    public List<String> getServices() {
+        return services;
+    }
+    @Transient
+    public void setServices(List<String> services) {
+        this.services = services;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -125,6 +142,7 @@ public class Client {
     public void setModified_By(int modified_By) {
         this.modified_By = modified_By;
     }
+
 
     @Override
     public String toString() {
