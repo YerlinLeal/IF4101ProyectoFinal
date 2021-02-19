@@ -16,6 +16,7 @@ import { MatListModule } from '@angular/material/list';
 import { AddClientComponent } from './components/add-client/add-client.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { IssueComponent } from './components/issue/issue.component';
 import { EditClientComponent } from './components/edit-client/edit-client.component';
 import { CommentsComponent } from './components/comments/comments.component';
 
@@ -25,6 +26,7 @@ import { CommentsComponent } from './components/comments/comments.component';
     AppComponent,
     MainNavComponent,
     AddClientComponent,
+    IssueComponent,
     RegisterComponent,
     AlertComponent,
     EditClientComponent,
