@@ -46,7 +46,10 @@ export class AddClientComponent implements OnInit {
         }
 
         this.loading = true;
-        // this.accountService.login(this.f.username.value, this.f.password.value)
+        // this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+        //     this.router.navigate(['register']);
+        // }); 
+        // // this.accountService.login(this.f.username.value, this.f.password.value)
         //     .pipe(first())
         //     .subscribe(
         //         data => {

@@ -37,9 +37,11 @@ public class ClientController {
         service.save(client);
     }
 
-    @PutMapping("/update/")
-    public ResponseEntity<Client> update(@RequestBody Client client) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Client> update(@PathVariable Integer id,@RequestBody Client client) {
         try {
+            client.setClient_Id(id);
+            System.out.println(client.toString());
             service.save(client);
             return new ResponseEntity<Client>(client, HttpStatus.OK);
         } catch (NoSuchElementException e) {

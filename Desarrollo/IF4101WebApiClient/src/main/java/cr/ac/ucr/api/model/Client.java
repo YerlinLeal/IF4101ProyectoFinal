@@ -125,4 +125,23 @@ public class Client {
     public void setModified_By(int modified_By) {
         this.modified_By = modified_By;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "client_Id=" + client_Id +
+                ", name='" + name + '\'' +
+                ", first_Surname='" + first_Surname + '\'' +
+                ", second_Surname='" + second_Surname + '\'' +
+                ", adress='" + adress + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", state=" + state +
+                ", creation_Date='" + creation_Date + '\'' +
+                ", modify_Date='" + modify_Date + '\'' +
+                ", created_By=" + created_By +
+                ", modified_By=" + modified_By +
+                '}';
+    }
 }

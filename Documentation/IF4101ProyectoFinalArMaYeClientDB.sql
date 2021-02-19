@@ -47,7 +47,7 @@ CREATE TABLE Issue(
 	register_Timestamp datetime default GETDATE(),
 	adress nvarchar(200),
 	contact_Phone nvarchar(8),
-	contact_Email nvarchar(40) unique not null,
+	contact_Email nvarchar(40),
 	[status] Char CHECK([status] in('I','A','P','R')),
 	supporter_Assigned int,
 	service_Id int foreign key references ServiceT(service_Id),
