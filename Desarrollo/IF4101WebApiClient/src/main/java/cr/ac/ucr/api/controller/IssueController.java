@@ -1,0 +1,59 @@
+package cr.ac.ucr.api.controller;
+
+import cr.ac.ucr.api.model.Issue;
+import cr.ac.ucr.api.service.IssueService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
+@RequestMapping(path = "/api/issue")
+public class IssueController {
+    @Autowired
+    private IssueService service;
+
+    @GetMapping("/issues")
+    public List<Issue> list() {
+        return service.listAll();
+    }
+
+    @GetMapping("/issues/{report_Number}")
+    public ResponseEntity<Issue> get(@PathVariable Integer report_Number) {
+        try {
+            Issue issue = service.get(report_Number);
+            return new ResponseEntity<Issue>(issue, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Issue>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Issue> add(@RequestBody Issue issue) {
+        try {
+            service.save(issue);
+            return new ResponseEntity<Issue>(issue, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Issue>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/update/")
+    public ResponseEntity<Issue> update(@RequestBody Issue issue) {
+        try {
+            service.save(issue);
+            return new ResponseEntity<Issue>(issue, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Issue>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/delete/{report_Number}")
+    public void delete(@PathVariable Integer report_Number) {
+        service.delete(report_Number);
+    }
+}

@@ -16,10 +16,7 @@
                     <!-- PHONE CONTACT -->
                     <div class="form-group">
                         <label for="phoneContact">Phone Contact</label>
-                        <input class="form-control" maxlength="3" type="number" formControlName="phoneContact" [ngClass]="{'is-invalid': submitted && f.phoneContact.errors }"/>
-                        <div class="invalid-feedback" *ngIf="submitted && f.phoneContact.errors" >
-                            <div *ngIf="f.phoneContact.errors.required">The phone is required</div>
-                        </div>
+                        <input class="form-control" type="number" formControlName="phoneContact" [ngClass]="{'is-invalid': submitted && f.phoneContact.errors }"/>
                     </div>
 
                     <!-- EMAIL CONTACT -->
@@ -27,7 +24,6 @@
                         <label for="emailContact">Email</label>
                         <input class="form-control" type="email" formControlName="emailContact" [ngClass]="{'is-invalid': submitted && f.emailContact.errors }"/>
                         <div class="invalid-feedback" *ngIf="submitted && f.emailContact.errors" >
-                            <div *ngIf="f.emailContact.errors.required">Email is required</div>
                             <div *ngIf="f.emailContact.errors.email">Please enter a valid email</div>
                         </div>
                     </div>
@@ -36,23 +32,18 @@
                     <div class="form-group">
                         <label for="addressC">Address</label>
                         <textarea class="form-control" type="text" formControlName="addressC" [ngClass]="{'is-invalid': submitted && f.addressC.errors }"></textarea>
-                        <div class="invalid-feedback" *ngIf="submitted && f.addressC.errors">
-                            <div *ngIf="f.addressC.errors.required">Please enter your address</div>
-                        </div>
                     </div>
 
                     <!-- SERVICE -->
                     <div class="form-group">
                         <label for="service">Service</label>
-                        <select class="form-control" name="service" id="service">
-                            <option value="a">A</option>
-                            <option value="b">B</option>
-                            <option value="c">C</option>
+                        <select class="form-control" formControlName="service">
+                            <option [ngValue]="service.id" *ngFor="let service of services">{{service.name}}</option>
                         </select>
                     </div>
 
-                
-            </div>
+                </div>
+
             <div class="card-footer" style="display: inline;">
                 <div class="form-group">
                     <a class="btn btn-link float-left" type="button" (click)="reportForm.reset()">Clean</a>
