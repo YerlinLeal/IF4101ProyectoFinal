@@ -39,8 +39,9 @@ public class IssueController {
             issue.setCreation_Date(new Date());
             issue.setRegister_Timestamp(new Date());
             issue.setStatus('I');
-            service.save(issue);
-            return new ResponseEntity<Issue>(issue, HttpStatus.OK);
+
+            Issue issueInserted = service.save(issue);
+            return new ResponseEntity<Issue>(issueInserted, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Issue>(HttpStatus.NOT_FOUND);
         }

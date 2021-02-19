@@ -19,8 +19,8 @@ public class IssueService {
         return repository.findAll();
     }
 
-    public void save(Issue issue) {
-        repository.save(issue);
+    public Issue save(Issue issue) {
+        return repository.save(issue);
     }
 
     public Issue get(int report_Number) {
