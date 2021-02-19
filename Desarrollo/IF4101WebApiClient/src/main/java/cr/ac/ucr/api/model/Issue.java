@@ -1,6 +1,7 @@
 package cr.ac.ucr.api.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "Issue")
@@ -8,7 +9,7 @@ public class Issue {
 
     private int report_Number;
     private String description;
-    private String register_Timestamp;
+    private Date register_Timestamp;
     private String adress;
     private int contact_Phone;
     private String contact_Email;
@@ -17,7 +18,7 @@ public class Issue {
     private int service_Id;
     private int client_Id;
     private boolean state;
-    private String creation_Date;
+    private Date creation_Date;
     private String modify_Date;
     private int created_By;
     private int modified_By;
@@ -42,11 +43,11 @@ public class Issue {
         this.description = description;
     }
 
-    public String getRegister_Timestamp() {
+    public Date getRegister_Timestamp() {
         return register_Timestamp;
     }
 
-    public void setRegister_Timestamp(String register_Timestamp) {
+    public void setRegister_Timestamp(Date register_Timestamp) {
         this.register_Timestamp = register_Timestamp;
     }
 
@@ -114,11 +115,11 @@ public class Issue {
         this.state = state;
     }
 
-    public String getCreation_Date() {
+    public Date getCreation_Date() {
         return creation_Date;
     }
 
-    public void setCreation_Date(String creation_Date) {
+    public void setCreation_Date(Date creation_Date) {
         this.creation_Date = creation_Date;
     }
 

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -35,6 +36,9 @@ public class IssueController {
     @PostMapping("/add")
     public ResponseEntity<Issue> add(@RequestBody Issue issue) {
         try {
+            issue.setCreation_Date(new Date());
+            issue.setRegister_Timestamp(new Date());
+            issue.setStatus('I');
             service.save(issue);
             return new ResponseEntity<Issue>(issue, HttpStatus.OK);
         } catch (NoSuchElementException e) {

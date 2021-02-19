@@ -73,6 +73,8 @@ export class IssueComponent implements OnInit {
     issue.contact_Email = this.reportForm.get("emailContact").value;
     issue.adress = this.reportForm.get("addressC").value;
     issue.service_Id = this.reportForm.get("service").value;
+    issue.client_Id = 2;
+    issue.created_By = 2;
 
     this.issueService.add(issue).subscribe((result) => {
         console.log(result);
