@@ -154,7 +154,7 @@ namespace WebApiSupport.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException ex)
             {
                 if (IssueExists(issue.ReportNumber))
                 {
@@ -166,7 +166,7 @@ namespace WebApiSupport.Controllers
                 }
             }
 
-            return CreatedAtAction("GetIssue", new { id = issue.ReportNumber }, issue);
+            return issue;
         }
         [Route("[action]")]
         // DELETE: api/Issues/5
@@ -190,5 +190,45 @@ namespace WebApiSupport.Controllers
         {
             return _context.Issues.Any(e => e.ReportNumber == id);
         }
+
+
+
+
+
+
+
+
+        //https://localhost:44317/api/issues/GetAll
+        [Route("[action]")]
+        [HttpGet]
+        public ActionResult<IEnumerable<Issue>> GetAll()
+        {
+            ObjectResult result;
+            try
+            {
+                result = Ok(from l in _context.Issues
+                            join e in _context.Employees
+                            on l.EmployeeAssigned equals e.EmployeeId
+                            into r from s in r.DefaultIfEmpty()
+                            where l.State==true
+                            select new
+                            {
+                                l.ReportNumber,
+                                s.EmployeeName,
+                                s.FirstSurname,
+                                l.Classification,
+                                l.Status,
+                                l.CreationDate,
+                                l.ReportTimestamp
+                            });
+            }
+            catch (Exception e)
+            {
+                result = Conflict(e.Message);
+            }
+            return result;
+        }
+
+
     }
 }

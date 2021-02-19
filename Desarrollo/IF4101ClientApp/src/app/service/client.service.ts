@@ -47,7 +47,8 @@ export class ClientService {
         this.router.navigate(['/account/login']);
     }
 
-    register(Client: Client) {
+    register(Client: Client, param) {
+        Client.services = param;
         return this.http.post<any>(`${environment.apiUrl}/api/client/add`, JSON.stringify(Client), httpOptions).pipe(
             tap((student) => console.log('added student'))
           );
@@ -58,11 +59,11 @@ export class ClientService {
     }
 
     getById(id: string) {
-        return this.http.get<Client>(`${environment.apiUrl}/Clients/${id}`);
+        return this.http.get<Client>(`${environment.apiUrl}/api/client/clients/${id}`);
     }
 
     update(id, params) {
-        return this.http.put(`${environment.apiUrl}/Clients/${id}`, params)
+        return this.http.put(`${environment.apiUrl}/api/client/update/${id}`, params)
             .pipe(map(x => {
                 // update stored Client if the logged in Client updated their own record
                 if (id == this.ClientValue.client_Id) {

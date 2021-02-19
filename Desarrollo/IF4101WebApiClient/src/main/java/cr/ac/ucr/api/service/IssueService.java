@@ -1,8 +1,7 @@
 package cr.ac.ucr.api.service;
 
-
 import cr.ac.ucr.api.model.Issue;
-import cr.ac.ucr.api.repository.IssuesRepository;
+import cr.ac.ucr.api.repository.IssueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,23 +11,23 @@ import java.util.List;
 @Service
 @Transactional
 public class IssueService {
+
     @Autowired
-    private IssuesRepository repository;
+    private IssueRepository repository;
 
     public List<Issue> listAll() {
         return repository.findAll();
     }
 
-    public void save(Issue issue) {
-        repository.save(issue);
+    public Issue save(Issue issue) {
+        return repository.save(issue);
     }
 
-    public Issue get(int id) {
-        return repository.findById(id).get();
+    public Issue get(int report_Number) {
+        return repository.findById(report_Number).get();
     }
 
-    public void delete(int id) {
-        repository.deleteById(id);
+    public void delete(int report_Number) {
+        repository.deleteById(report_Number);
     }
-
 }

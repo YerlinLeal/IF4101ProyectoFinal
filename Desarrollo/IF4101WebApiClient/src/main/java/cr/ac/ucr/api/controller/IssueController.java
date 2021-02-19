@@ -1,13 +1,14 @@
 package cr.ac.ucr.api.controller;
 
-
 import cr.ac.ucr.api.model.Issue;
+import cr.ac.ucr.api.restClient.IssueRestClient;
 import cr.ac.ucr.api.service.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -22,10 +23,10 @@ public class IssueController {
         return service.listAll();
     }
 
-    @GetMapping("/issues/{id}")
-    public ResponseEntity<Issue> get(@PathVariable Integer id) {
+    @GetMapping("/issues/{report_Number}")
+    public ResponseEntity<Issue> get(@PathVariable Integer report_Number) {
         try {
-            Issue issue = service.get(id);
+            Issue issue = service.get(report_Number);
             return new ResponseEntity<Issue>(issue, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Issue>(HttpStatus.NOT_FOUND);
@@ -33,8 +34,24 @@ public class IssueController {
     }
 
     @PostMapping("/add")
-    public void add(@RequestBody Issue issue) {
-        service.save(issue);
+    public ResponseEntity<Issue> add(@RequestBody Issue issue) {
+        try {
+            Date now = new Date();
+            issue.setCreation_Date(now);
+            issue.setModify_Date(now);
+            issue.setRegister_Timestamp(now);
+            issue.setStatus('I');
+            issue.setState(true);
+            issue.setModified_By(issue.getCreated_By());
+
+            Issue issueInserted = service.save(issue);
+            IssueRestClient restClient = new IssueRestClient();
+            restClient.callPostIssueAPI(issueInserted);
+
+            return new ResponseEntity<Issue>(issueInserted, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Issue>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/update/")
@@ -47,8 +64,8 @@ public class IssueController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Integer id) {
-        service.delete(id);
+    @DeleteMapping("/delete/{report_Number}")
+    public void delete(@PathVariable Integer report_Number) {
+        service.delete(report_Number);
     }
 }

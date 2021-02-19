@@ -1,0 +1,39 @@
+<div class="container">
+    <div class=" row d-flex justify-content-center">
+        <div class="col-md-6">
+            <form [formGroup]="form" class="text-center" (ngSubmit)="onSubmit()">
+                <br>
+                <h5>Comment</h5>
+                <div >
+                    <label class="control-label">Description</label>
+                    <textarea id="note-description" class="form-control" rows="3" required></textarea>
+                </div>
+                <br>
+                <div>
+                    <button type="submit" id="btn-save-note" class="btn btn-info">Add Comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="row" id="content-note">
+        <div class="col-md-6 col-sm-12" *ngFor="let c of comments">
+            <div id="note-{{c.comment_Id}}" class="card">
+                <div class="card-header">
+                    <div>Note # @Model.NoteId</div>
+                    <div class="btn-div float-right">
+                        <a href="javascript: void(0)" onclick="editNote();"><span><i class="fa fa-pencil"></i></span></a>
+                        <a href="javascript: void(0)" onclick="deleteNote();"><span><i class="fa fa-trash"></i></span></a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@Model.Description</p>
+                </div>
+                <div class="card-footer text-muted">
+                    Publication Date: @Model.NoteTimestamp
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

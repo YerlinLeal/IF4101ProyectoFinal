@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import {MatSelectModule} from '@angular/material/select';
 import { AddClientComponent } from './components/add-client/add-client.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AlertComponent } from './components/alert/alert.component';
@@ -22,6 +23,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import { RouterModule, Routes } from '@angular/router';
+import { IssueComponent } from './components/issue/issue.component';
+import { EditClientComponent } from './components/edit-client/edit-client.component';
+import { CommentsComponent } from './components/comments/comments.component';
+import { SelectServicesComponent } from './components/select-services/select-services.component';
 
 
 const appRoutes: Routes = [
@@ -45,9 +50,13 @@ const appRoutes: Routes = [
     AppComponent,
     MainNavComponent,
     AddClientComponent,
+    IssueComponent,
     RegisterComponent,
     AlertComponent,
-    ListIssuesComponent
+    ListIssuesComponent,
+    EditClientComponent,
+    CommentsComponent,
+    SelectServicesComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -60,14 +69,16 @@ const appRoutes: Routes = [
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatSelectModule,
     ReactiveFormsModule,
     HttpClientModule,
    
     MatPaginatorModule,
     MatTableModule,
     MatSortModule,
-    RouterModule
+    RouterModule,
     
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

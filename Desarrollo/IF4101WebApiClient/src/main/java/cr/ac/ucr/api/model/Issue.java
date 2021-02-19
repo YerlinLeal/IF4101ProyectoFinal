@@ -1,29 +1,29 @@
 package cr.ac.ucr.api.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name ="Issue")
+@Table(name = "Issue")
 public class Issue {
 
     private int report_Number;
     private String description;
-    private String register_Timestamp;
+    private Date register_Timestamp;
     private String adress;
-    private String contact_Phone;
+    private int contact_Phone;
     private String contact_Email;
-    private String status;
+    private char status;
     private int supporter_Assigned;
     private int service_Id;
     private int client_Id;
     private boolean state;
-    private String creation_Date;
-    private String modify_Date;
+    private Date creation_Date;
+    private Date modify_Date;
     private int created_By;
     private int modified_By;
+
+    public Issue(){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,11 +43,11 @@ public class Issue {
         this.description = description;
     }
 
-    public String getRegister_Timestamp() {
+    public Date getRegister_Timestamp() {
         return register_Timestamp;
     }
 
-    public void setRegister_Timestamp(String register_Timestamp) {
+    public void setRegister_Timestamp(Date register_Timestamp) {
         this.register_Timestamp = register_Timestamp;
     }
 
@@ -59,11 +59,11 @@ public class Issue {
         this.adress = adress;
     }
 
-    public String getContact_Phone() {
+    public int getContact_Phone() {
         return contact_Phone;
     }
 
-    public void setContact_Phone(String contact_Phone) {
+    public void setContact_Phone(int contact_Phone) {
         this.contact_Phone = contact_Phone;
     }
 
@@ -75,7 +75,13 @@ public class Issue {
         this.contact_Email = contact_Email;
     }
 
+    public char getStatus() {
+        return status;
+    }
 
+    public void setStatus(char status) {
+        this.status = status;
+    }
 
     public int getSupporter_Assigned() {
         return supporter_Assigned;
@@ -109,19 +115,19 @@ public class Issue {
         this.state = state;
     }
 
-    public String getCreation_Date() {
+    public Date getCreation_Date() {
         return creation_Date;
     }
 
-    public void setCreation_Date(String creation_Date) {
+    public void setCreation_Date(Date creation_Date) {
         this.creation_Date = creation_Date;
     }
 
-    public String getModify_Date() {
+    public Date getModify_Date() {
         return modify_Date;
     }
 
-    public void setModify_Date(String modify_Date) {
+    public void setModify_Date(Date modify_Date) {
         this.modify_Date = modify_Date;
     }
 
@@ -139,13 +145,5 @@ public class Issue {
 
     public void setModified_By(int modified_By) {
         this.modified_By = modified_By;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }

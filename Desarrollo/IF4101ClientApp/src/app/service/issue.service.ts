@@ -39,30 +39,13 @@ export class IssueService {
         return this.http.get<Issue>(`${environment.apiUrl}/Issues/${id}`);
     }
 
-    update(id, params) {
-        return this.http.put(`${environment.apiUrl}/Issues/${id}`, params)
-            .pipe(map(x => {
-                
-                if (id == this.IssueValue.client_Id) {
-                    // update local storage
-                    const Issue = { ...this.IssueValue, ...params };
-                    localStorage.setItem('Issue', JSON.stringify(Issue));
-
-                    // publish updated Client to subscribers
-                    this.IssueSubject.next(Issue);
-                }
-                return x;
-            }));
+   
+    add(Issue: Issue) {
+        return this.http.post<any>(`${environment.apiUrl}/api/issue/add`, JSON.stringify(Issue), httpOptions).pipe(
+            tap((issue) => console.log('added issue'))
+          );
     }
 
-    delete(id: number) {
-        return this.http.delete(`${environment.apiUrl}/Issues/${id}`)
-            .pipe(map(x => {
-                // auto logout if the logged in Client deleted their own record
-                if (id == this.IssueValue.client_Id) {
-                    
-                }
-                return x;
-            }));
-    }
+    
+       
 }
