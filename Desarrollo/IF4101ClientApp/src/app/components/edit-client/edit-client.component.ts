@@ -42,7 +42,9 @@ export class EditClientComponent implements OnInit {
       first_Surname: ['', Validators.required],
       second_Surname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', passwordValidators]
+      password: ['', passwordValidators],
+      adress: [''] ,
+      phone: ['']
     });
 
     if (!this.isAddMode) {
@@ -55,7 +57,8 @@ export class EditClientComponent implements OnInit {
             second_Surname: x.second_Surname,
             email: x.email,
             adress: x.adress,
-            phone: x.phone
+            phone: x.phone,
+            password: x.password
           });
 
         });
@@ -99,6 +102,7 @@ export class EditClientComponent implements OnInit {
   }
 
   private updateUser() {
+    
     this.clientService.update(this.id, this.form.value)
       .pipe(first())
       .subscribe(

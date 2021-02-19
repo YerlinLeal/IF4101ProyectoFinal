@@ -62,7 +62,7 @@ export class ClientService {
     }
 
     update(id, params) {
-        return this.http.put(`${environment.apiUrl}/Clients/${id}`, params)
+        return this.http.put(`${environment.apiUrl}/api/client/update/${id}`, params)
             .pipe(map(x => {
                 // update stored Client if the logged in Client updated their own record
                 if (id == this.ClientValue.client_Id) {

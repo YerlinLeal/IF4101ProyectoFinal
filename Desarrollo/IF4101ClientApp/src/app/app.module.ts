@@ -18,6 +18,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { IssueComponent } from './components/issue/issue.component';
 import { EditClientComponent } from './components/edit-client/edit-client.component';
+import { CommentsComponent } from './components/comments/comments.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { EditClientComponent } from './components/edit-client/edit-client.compon
     IssueComponent,
     RegisterComponent,
     AlertComponent,
-    EditClientComponent
+    EditClientComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
