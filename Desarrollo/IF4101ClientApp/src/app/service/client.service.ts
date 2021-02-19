@@ -58,7 +58,7 @@ export class ClientService {
     }
 
     getById(id: string) {
-        return this.http.get<Client>(`${environment.apiUrl}/Clients/${id}`);
+        return this.http.get<Client>(`${environment.apiUrl}/api/client/clients/${id}`);
     }
 
     update(id, params) {
