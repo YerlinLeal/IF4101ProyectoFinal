@@ -16,6 +16,7 @@ import { MatListModule } from '@angular/material/list';
 import { AddClientComponent } from './components/add-client/add-client.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { ListIssuesComponent } from './components/list-issues/list-issues.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { AlertComponent } from './components/alert/alert.component';
     MainNavComponent,
     AddClientComponent,
     RegisterComponent,
-    AlertComponent
+    AlertComponent,
+    ListIssuesComponent
   ],
   imports: [
     BrowserModule,
