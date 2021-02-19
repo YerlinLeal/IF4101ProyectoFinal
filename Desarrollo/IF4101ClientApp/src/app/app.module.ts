@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,12 +18,33 @@ import {MatSelectModule} from '@angular/material/select';
 import { AddClientComponent } from './components/add-client/add-client.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { ListIssuesComponent } from './components/list-issues/list-issues.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import { RouterModule, Routes } from '@angular/router';
 import { IssueComponent } from './components/issue/issue.component';
 import { EditClientComponent } from './components/edit-client/edit-client.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { SelectServicesComponent } from './components/select-services/select-services.component';
 
 
+const appRoutes: Routes = [
+  
+  {path: 'lista',
+  component: ListIssuesComponent,
+  data: { title: 'Issue List' }
+  },
+  {
+    path: 'pagination',
+    component: ListIssuesComponent,
+    data: { title: 'Issue List' }
+  },
+  { path: '',
+    redirectTo: '/pagination',
+    pathMatch: 'full'
+  }
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,11 +53,13 @@ import { SelectServicesComponent } from './components/select-services/select-ser
     IssueComponent,
     RegisterComponent,
     AlertComponent,
+    ListIssuesComponent,
     EditClientComponent,
     CommentsComponent,
     SelectServicesComponent
   ],
   imports: [
+    RouterModule.forRoot(appRoutes),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -48,6 +72,12 @@ import { SelectServicesComponent } from './components/select-services/select-ser
     MatSelectModule,
     ReactiveFormsModule,
     HttpClientModule,
+   
+    MatPaginatorModule,
+    MatTableModule,
+    MatSortModule,
+    RouterModule,
+    
     FormsModule
   ],
   providers: [],
