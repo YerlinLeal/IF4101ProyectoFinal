@@ -40,6 +40,8 @@ CREATE TABLE Client_Services(
 	primary key(client_Id,service_Id),
 )
 
+select * from Client_Services
+
 CREATE TABLE Issue(
 	report_Number int identity(1,1) primary key,
 	[description] nvarchar(300) not null,
@@ -65,13 +67,14 @@ CREATE TABLE Comment(
     comment_Timestamp DATETIME default GETDATE(),
     report_Number int FOREIGN KEY REFERENCES Issue(report_Number),
 	[state] bit, 
-	creation_Date DATETIME Default GETDATE() not null,
+	creation_Date DATETIME Default GETDATE(),
     modify_Date DATETIME,
     created_By int ,
 	modified_By int
 )
 
-
+select * from Comment
+delete from Comment
 
 CREATE PROCEDURE Insert_Client_Services(@c_id int, @s_id int)
 as 
