@@ -40,7 +40,7 @@ CREATE TABLE Client_Services(
 	primary key(client_Id,service_Id),
 )
 
-select * from Client_Services
+
 
 CREATE TABLE Issue(
 	report_Number int identity(1,1) primary key,
@@ -73,11 +73,16 @@ CREATE TABLE Comment(
 	modified_By int
 )
 
-select * from Comment
-delete from Comment
 
 CREATE PROCEDURE Insert_Client_Services(@c_id int, @s_id int)
 as 
 begin
 	insert into Client_Services(Client_Id,Service_Id, State) values(@c_id,@s_id,1);
 end
+
+CREATE PROCEDURE GetCommentByReport @r_id int
+as
+begin
+	select * from Comment where report_Number=@r_id and state=1;
+end
+

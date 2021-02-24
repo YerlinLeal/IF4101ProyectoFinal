@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(path = "/api/comment")
 public class CommentController {
@@ -28,10 +28,12 @@ public class CommentController {
 
     @PostMapping("/add")
     public Comment add(@RequestBody Comment comment) {
+
         Date now = new Date();
         comment.setComment_Timestamp(now);
         comment.setCreation_Date(now);
         comment.setState(true);
+
         service.save(comment);
         return comment;
 
@@ -41,8 +43,11 @@ public class CommentController {
     @PutMapping("/update")
     public ResponseEntity<Comment> update(@RequestBody Comment comment) {
         try {
-            comment.setModify_Date(new Date());
-            service.save(comment);
+            Comment aux = service.get(comment.getComment_Id());
+            aux.setModified_By(comment.getModified_By());
+            aux.setDescription(comment.getDescription());
+            aux.setModify_Date(new Date());
+            service.save(aux);
             return new ResponseEntity<Comment>(comment, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Comment>(HttpStatus.NOT_FOUND);

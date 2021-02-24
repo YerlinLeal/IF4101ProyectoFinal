@@ -114,3 +114,5 @@ C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101Sup
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\Razor\Views\Note\_ListCard.cshtml.g.cs
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\Razor\Views\Note\_NoteCard.cshtml.g.cs
 C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\Razor\Views\Note\View.cshtml.g.cs
+C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\Razor\Views\Comment\_CommentCard.cshtml.g.cs
+C:\Users\maike\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\obj\Debug\netcoreapp3.1\Razor\Views\Comment\_ListComment.cshtml.g.cs

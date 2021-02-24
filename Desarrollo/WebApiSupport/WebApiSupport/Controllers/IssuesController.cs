@@ -27,9 +27,18 @@ namespace WebApiSupport.Controllers
             ObjectResult result;
             try
             {
-                result = Ok(from l in _context.Issues join e in _context.Employees 
-                            on l.EmployeeAssigned equals e.EmployeeId where l.State==true && e.State== true select new {l.ReportNumber,e.EmployeeName,e.FirstSurname,
-                                                                                    l.Classification,l.Status,l.CreationDate,l.ReportTimestamp});
+                result =Ok( from l in _context.Issues
+                             where l.State == true
+                             select new
+                             {
+                                 l.ReportNumber,
+                                 l.EmployeeAssignedNavigation.EmployeeName,
+                                 l.EmployeeAssignedNavigation.FirstSurname,
+                                 l.Classification,
+                                 l.Status,
+                                 l.CreationDate,
+                                 l.ReportTimestamp
+                             });
             }
             catch (Exception e)
             {
@@ -46,18 +55,15 @@ namespace WebApiSupport.Controllers
             try
             {
                 result = Ok(from l in _context.Issues
-                            join e in _context.Employees
-
-                    on l.EmployeeAssigned equals e.EmployeeId
-                    where l.ReportNumber== ReportNumber && l.State==true
+                            where l.ReportNumber== ReportNumber && l.State==true
                             select new
                             {
                                 l.ReportNumber,
                                 l.EmployeeAssigned,
-                                e.EmployeeName,
-                                e.FirstSurname,
-                                e.SecondSurname,
-                                e.Supervised,
+                                l.EmployeeAssignedNavigation.EmployeeName,
+                                l.EmployeeAssignedNavigation.FirstSurname,
+                                l.EmployeeAssignedNavigation.SecondSurname,
+                                l.EmployeeAssignedNavigation.Supervised,
                                 l.Classification,
                                 l.Status,
                                 l.CreationDate,
@@ -188,6 +194,7 @@ namespace WebApiSupport.Controllers
 
         private bool IssueExists(int id)
         {
+
             return _context.Issues.Any(e => e.ReportNumber == id);
         }
 
