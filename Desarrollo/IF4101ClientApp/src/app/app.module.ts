@@ -72,7 +72,6 @@ const appRoutes: Routes = [
     MatSelectModule,
     ReactiveFormsModule,
     HttpClientModule,
-   
     MatPaginatorModule,
     MatTableModule,
     MatSortModule,

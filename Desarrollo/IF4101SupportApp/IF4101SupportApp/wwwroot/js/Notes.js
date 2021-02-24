@@ -1,8 +1,4 @@
-﻿
-
-
-
-$("#note-form").submit(function (e) {
+﻿$("#note-form").submit(function (e) {
     e.preventDefault();
     var interval = null;
     $.ajax({

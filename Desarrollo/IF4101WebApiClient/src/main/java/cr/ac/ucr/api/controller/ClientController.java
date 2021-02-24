@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-/*@CrossOrigin(origins = "http://localhost:4200")*/
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(path = "/api/client")
 public class ClientController {
@@ -37,10 +37,7 @@ public class ClientController {
     public void add(@RequestBody Client client) {
 
         service.save(client);
-        int id = service.getByEmail(client.getEmail()).getClient_Id();
-        for (int i=0;i<client.getServices().size();i++){
-            service.insertClientServicesSP(id,Integer.parseInt(client.getServices().get(i)));
-        }
+
     }
 
 

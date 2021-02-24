@@ -21,6 +21,10 @@ public class ClientService {
 
     public void save(Client client) {
         repository.save(client);
+        int id = client.getClient_Id();
+        for (int i=0;i<client.getServices().size();i++){
+            repository.insertClientServices(id,Integer.parseInt(client.getServices().get(i)));
+        }
     }
 
     public Client get(int id) {
@@ -31,9 +35,4 @@ public class ClientService {
         repository.deleteById(id);
     }
 
-    public  Client getByEmail(String email){ return repository.findByEmail(email);}
-
-    public void insertClientServicesSP(int c_id, int s_id) {
-        repository.insertClientServices(c_id,s_id);
-    }
 }
