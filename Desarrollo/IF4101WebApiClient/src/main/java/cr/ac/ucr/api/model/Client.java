@@ -11,6 +11,10 @@ import java.util.List;
                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "c_id", type = int.class),
                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "s_id", type = int.class)})
 
+@NamedStoredProcedureQuery(name = "Client.loadByName",procedureName = "loadByName",
+        parameters = {@StoredProcedureParameter(mode = ParameterMode.IN, name =
+        "@email", type = String.class)})
+
 public class Client {
     private int client_Id;
 	private String name;
