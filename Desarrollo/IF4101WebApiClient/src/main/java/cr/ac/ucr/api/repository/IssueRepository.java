@@ -12,5 +12,5 @@ import java.util.List;
 @Repository
 public interface IssueRepository extends JpaRepository<Issue, Integer> {
     @Query(value = "{ call listIssue(:id)}", nativeQuery = true)
-    List<Issue> listIssue(@Param("id") Integer id);
+    List<Issue> listIssue(@Param("id") String id);
 }

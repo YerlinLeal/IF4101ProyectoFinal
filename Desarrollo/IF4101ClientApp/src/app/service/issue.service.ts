@@ -36,7 +36,7 @@ export class IssueService {
     }
 
     getById(id: string) {
-        return this.http.get<Issue>(`${environment.apiUrl}/Issues/${id}`);
+        return this.http.get<Issue>(`${environment.apiUrl}/api/issue/issues2/${id}`);
     }
 
    
