@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,6 +27,8 @@ import { IssueComponent } from './components/issue/issue.component';
 import { EditClientComponent } from './components/edit-client/edit-client.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { SelectServicesComponent } from './components/select-services/select-services.component';
+import { AuthHtppInterceptorService } from './service/Interceptor/auth-htpp-interceptor.service';
+
 
 
 const appRoutes: Routes = [
@@ -79,7 +81,10 @@ const appRoutes: Routes = [
     
     FormsModule
   ],
-  providers: [],
+  providers: [{
+    provide:HTTP_INTERCEPTORS, useClass:AuthHtppInterceptorService, multi:true
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

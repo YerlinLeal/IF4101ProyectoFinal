@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(path = "/api/comment")
 public class CommentController {
@@ -33,7 +33,6 @@ public class CommentController {
         comment.setComment_Timestamp(now);
         comment.setCreation_Date(now);
         comment.setState(true);
-
         service.save(comment);
         return comment;
 
