@@ -26,13 +26,16 @@ export class AddClientComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        
+        if (sessionStorage.getItem("username")) {
+            this.router.navigate(['']);
+        }
         this.user = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
-
         // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        //this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     // convenience getter for easy access to form fields
@@ -57,8 +60,8 @@ export class AddClientComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigateByUrl('/list-issues', { skipLocationChange: true }).then(() => {
-                        this.router.navigate(['/list-issues']);
+                    this.router.navigateByUrl('home', { skipLocationChange: true }).then(() => {
+                        this.router.navigate(['home']);
                 }); 
                 },
                 error => {

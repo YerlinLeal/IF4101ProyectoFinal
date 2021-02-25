@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface IssueRepository extends JpaRepository<Issue, Integer> {
     @Query(value = "{ call listIssue(:id)}", nativeQuery = true)
-    List<Issue> listIssue(@Param("id") String id);
+    List<Issue> listIssue(@Param("id") int id);
 
     @Query(value = "{ call GetCommentByReport(:r_id)}", nativeQuery = true)
     IssueDTO getCommentByReport(@Param("r_id") int r_id);

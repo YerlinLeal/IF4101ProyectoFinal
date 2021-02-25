@@ -13,9 +13,9 @@
             <ng-container matColumnDef="service_Id">
                 <th mat-header-cell *matHeaderCellDef> Service </th>
                 <ng-container *matCellDef="let element">
-                    <td mat-cell *ngIf="(element.service_Id==1);"> Telefonia Fija </td>
-                    <td mat-cell *ngIf="(element.service_Id==2);"> Telefonia Movil </td>
-                    <td mat-cell *ngIf="(element.service_Id==3);"> Cable </td>
+                    <td mat-cell *ngIf="(element.service_Id==1);"> Fixed Telephony </td>
+                    <td mat-cell *ngIf="(element.service_Id==2);"> Mobile Telephony </td>
+                    <td mat-cell *ngIf="(element.service_Id==3);"> Cable service </td>
                     <td mat-cell *ngIf="(element.service_Id==4);"> Internet </td>
                 </ng-container>
                 
@@ -38,6 +38,12 @@
                 </ng-container>
                 
             </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell  *matHeaderCellDef > Action </th>
+                <mat-cell *matCellDef="let row" >
+                     <button mat-icon-button aria-label="edit"  ><mat-icon color="primary">Edit</mat-icon></button>
+                </mat-cell>
+              </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

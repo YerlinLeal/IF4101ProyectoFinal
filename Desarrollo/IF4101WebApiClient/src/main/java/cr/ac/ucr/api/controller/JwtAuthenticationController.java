@@ -1,7 +1,9 @@
 package cr.ac.ucr.api.controller;
 
+import cr.ac.ucr.api.model.Client;
 import cr.ac.ucr.api.model.JwtRequest;
 import cr.ac.ucr.api.model.JwtResponse;
+import cr.ac.ucr.api.repository.ClientRepository;
 import cr.ac.ucr.api.securityConfig.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,10 @@ public class JwtAuthenticationController {
 	@Autowired
 	private UserDetailsService jwtInMemoryUserDetailsService;
 
+	@Autowired
+	private ClientRepository repository;
+
+
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> generateAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
 			throws Exception {
@@ -38,8 +44,8 @@ public class JwtAuthenticationController {
 				.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
-
-		return ResponseEntity.ok(new JwtResponse(token));
+		Client aux = repository.loadByName(authenticationRequest.getUsername());
+		return ResponseEntity.ok(new JwtResponse(token,aux.getClient_Id()));
 	}
 
 	private void authenticate(String username, String password) throws Exception {
