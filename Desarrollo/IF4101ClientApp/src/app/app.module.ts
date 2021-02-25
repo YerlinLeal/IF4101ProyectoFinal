@@ -26,8 +26,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { IssueComponent } from './components/issue/issue.component';
 import { EditClientComponent } from './components/edit-client/edit-client.component';
 import { CommentsComponent } from './components/comments/comments.component';
-import { SelectServicesComponent } from './components/select-services/select-services.component';
 import { AuthHtppInterceptorService } from './service/Interceptor/auth-htpp-interceptor.service';
+import { HomeComponent } from "src/app/components/home/home.component";
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 
 
@@ -50,15 +51,10 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    MainNavComponent,
-    AddClientComponent,
-    IssueComponent,
-    RegisterComponent,
+    HomeComponent,
     AlertComponent,
-    ListIssuesComponent,
-    EditClientComponent,
-    CommentsComponent,
-    SelectServicesComponent
+    NavigationComponent,
+
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -78,7 +74,6 @@ const appRoutes: Routes = [
     MatTableModule,
     MatSortModule,
     RouterModule,
-    
     FormsModule
   ],
   providers: [{

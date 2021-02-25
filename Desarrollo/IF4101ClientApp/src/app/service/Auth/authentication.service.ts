@@ -29,6 +29,8 @@ export class AuthenticationService {
           sessionStorage.setItem("username", username);
           let tokenStr = "Bearer " + userData.token;
           sessionStorage.setItem("token", tokenStr);
+          sessionStorage.setItem("client_Id", userData.id);
+          alert(userData.id);
           this.userSubject.next(sessionStorage.getItem("username"));
           alert(sessionStorage.getItem("username"));
           return userData;
@@ -45,5 +47,6 @@ export class AuthenticationService {
   logOut() {
     sessionStorage.removeItem("username");
     this.user=null;
+    alert(sessionStorage.getItem("username"));
   }
 }

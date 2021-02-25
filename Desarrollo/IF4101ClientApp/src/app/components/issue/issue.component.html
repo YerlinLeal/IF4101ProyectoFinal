@@ -2,6 +2,10 @@
     <label class="alert alert-success mt-4">Your request has been sent successfully</label>
 </div>
 
+<div class="d-flex justify-content-center" *ngIf="error">
+    <label class="alert alert-danger mt-4">{{textError}}</label>
+</div>
+
 <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
     <div class="col-md-6 offset-md-3 mt-5">
         <div class="card">
@@ -40,10 +44,17 @@
 
                     <!-- SERVICE -->
                     <div class="form-group">
-                        <label for="service">Service</label>
-                        <select class="form-control" formControlName="service">
-                            <option [ngValue]="service.id" *ngFor="let service of services">{{service.name}}</option>
-                        </select>
+                        <mat-form-field class="w-100" appearance="fill">
+                            <mat-label>Service</mat-label>
+                            <mat-select [formControl]="service" [(value)]="serviceSelected">
+                                <mat-option [value] = "-1" disabled>- Choose a service -</mat-option>
+                                <mat-option *ngFor="let service of services" [value]="service.service_Id">
+                                    {{service.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-error class="invalid-feedback" *ngIf="submitted && service.hasError('required')">Please choose a service</mat-error>
+                        
                     </div>
 
                 </div>

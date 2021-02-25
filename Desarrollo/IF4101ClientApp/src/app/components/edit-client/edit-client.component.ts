@@ -28,7 +28,7 @@ export class EditClientComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.id = localStorage.getItem('id');//this.route.snapshot.params['id'];
+    this.id = sessionStorage.getItem("client_Id");//this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
 
     // password not required in edit mode

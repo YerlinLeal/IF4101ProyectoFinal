@@ -51,10 +51,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		// We don't need CSRF for this example
+
+//		httpSecurity.authorizeRequests().antMatchers("http://localhost:8080/").access("hasIpAddress('localhost')");
+	    // We don't need CSRF for this example
 		httpSecurity.csrf().disable()
 				// dont authenticate this particular request
-				.authorizeRequests().antMatchers("/authenticate","/api/client/add").permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
+				.authorizeRequests().antMatchers("/authenticate","/api/client/add","/api/comment/**").permitAll().antMatchers(HttpMethod.OPTIONS, "/**")
 				.permitAll().
 				// all other requests need to be authenticated
 						anyRequest().authenticated().
