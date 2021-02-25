@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -53,9 +54,16 @@ public class ClientController {
     @PutMapping("/update/{id}")
     public ResponseEntity<Client> update(@PathVariable Integer id,@RequestBody Client client) {
         try {
-            client.setClient_Id(id);
-            System.out.println(client.toString());
-            service.save(client);
+            Client aux= service.get(id);
+            aux.setFirst_Surname(client.getFirst_Surname());
+            aux.setAdress(client.getAdress());
+            aux.setSecond_Surname(client.getSecond_Surname());
+            aux.setPhone(client.getPhone());
+            aux.setName(client.getName());
+            aux.setModified_By(id);
+            aux.setModify_Date(new Date());
+
+            service.save(aux);
             return new ResponseEntity<Client>(client, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Client>(HttpStatus.NOT_FOUND);

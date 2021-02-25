@@ -25,8 +25,8 @@ public class Client {
     private String email;
     private String password;
     private boolean state;
-    private String creation_Date;
-    private String modify_Date;
+    private Date creation_Date;
+    private Date modify_Date;
     private int created_By;
     private int modified_By;
 
@@ -115,22 +115,6 @@ public class Client {
         this.state = state;
     }
 
-    public String getCreation_Date() {
-        return creation_Date;
-    }
-
-    public void setCreation_Date(String creation_Date) {
-        this.creation_Date = creation_Date;
-    }
-
-    public String getModify_Date() {
-        return modify_Date;
-    }
-
-    public void setModify_Date(String modify_Date) {
-        this.modify_Date = modify_Date;
-    }
-
     public int getCreated_By() {
         return created_By;
     }
@@ -147,6 +131,21 @@ public class Client {
         this.modified_By = modified_By;
     }
 
+    public Date getCreation_Date() {
+        return creation_Date;
+    }
+
+    public void setCreation_Date(Date creation_Date) {
+        this.creation_Date = creation_Date;
+    }
+
+    public Date getModify_Date() {
+        return modify_Date;
+    }
+
+    public void setModify_Date(Date modify_Date) {
+        this.modify_Date = modify_Date;
+    }
 
     @Override
     public String toString() {

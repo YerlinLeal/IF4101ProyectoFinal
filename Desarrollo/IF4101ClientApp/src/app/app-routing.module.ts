@@ -1,24 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AddClientComponent} from './components/add-client/add-client.component'
-import { ListIssuesComponent } from './components/list-issues/list-issues.component';
-import { RegisterComponent} from './components/register/register.component'
 
-
-import { IssueComponent } from './components/issue/issue.component';
-import { CommentsComponent } from './components/comments/comments.component';
-import { EditClientComponent } from './components/edit-client/edit-client.component';
+import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './components/_helper/AuthGuard';
+const accountModule = () => import('src/app/layout-component/account-module').then(x => x.AccountModule);
+const homeModule = () => import('src/app/components/home/home-module').then(x => x.HomeModule);
 
 
 const routes: Routes = [
-  {path: "login", component: AddClientComponent },
-  {path: "addReport", component: IssueComponent, canActivate: [AuthGuard]},
-  {path: "register", component: RegisterComponent },
-  {path: "list-issues", component: ListIssuesComponent,canActivate: [AuthGuard] },
-  {path: "edit-client", component: EditClientComponent,canActivate: [AuthGuard] },
-  {path: "comments", component: CommentsComponent, canActivate: [AuthGuard]},
-  {path: "**", redirectTo: '/'}
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  {path: 'account', loadChildren: accountModule },
+  {path: 'home', loadChildren: homeModule },
+  //{path: '**', redirectTo: '' }
 ];
 
 @NgModule({
