@@ -15,8 +15,8 @@ public class IssueService {
     @Autowired
     private IssueRepository repository;
 
-    public List<Issue> listAll() {
-        return repository.findAll();
+
+    public List<Issue> listAll(String email) { return repository.listIssue(email);
     }
 
     public Issue save(Issue issue) {

@@ -18,9 +18,12 @@ import java.util.NoSuchElementException;
 public class IssueController {
     @Autowired
     private IssueService service;
-    @GetMapping("/issues")
-    public List<Issue> list() {
-        return service.listAll();
+
+    @GetMapping("/issues2/{email}")
+
+    public List<Issue> list(@PathVariable String email) {
+
+        return service.listAll(email);
     }
 
     @GetMapping("/issues/{report_Number}")

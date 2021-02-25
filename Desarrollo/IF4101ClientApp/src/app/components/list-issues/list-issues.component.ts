@@ -26,7 +26,7 @@ export class ListIssuesComponent implements AfterViewInit {
 
   getIssues(){
     this.element=[];
-    this.rest.getAll().subscribe((data:{})=>{
+    this.rest.getById('9').subscribe((data:{})=>{
     this.element=data;
     this.dataSource.data=(this.element)
     console.log(this.element);

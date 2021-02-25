@@ -195,7 +195,6 @@ namespace WebApiSupport.Controllers
 
         private bool IssueExists(int id)
         {
-
             return _context.Issues.Any(e => e.ReportNumber == id);
         }
 
