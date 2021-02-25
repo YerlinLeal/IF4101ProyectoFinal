@@ -19,11 +19,11 @@ public class IssueController {
     @Autowired
     private IssueService service;
 
-    @GetMapping("/issues2/{id}")
+    @GetMapping("/issues2/{email}")
 
-    public List<Issue> list(@PathVariable Integer id) {
+    public List<Issue> list(@PathVariable String email) {
 
-        return service.listAll(id);
+        return service.listAll(email);
     }
 
     @GetMapping("/issues/{report_Number}")
