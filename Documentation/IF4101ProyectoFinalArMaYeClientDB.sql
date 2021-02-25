@@ -86,3 +86,10 @@ begin
 	select * from Comment where report_Number=@r_id and state=1;
 end
 
+CREATE PROCEDURE [dbo].[Get_Services_By_Client] @c_id int
+as
+begin
+	select ServiceT.service_Id, ServiceT.name from ServiceT where ServiceT.service_Id in 
+	(select s.service_Id from ServiceT as s join Client_Services as cs on s.service_Id = cs.service_Id where cs.client_Id = @c_id and cs.state = 1 and s.state = 1)
+end
+
