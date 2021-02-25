@@ -93,3 +93,17 @@ begin
 	(select s.service_Id from ServiceT as s join Client_Services as cs on s.service_Id = cs.service_Id where cs.client_Id = @c_id and cs.state = 1 and s.state = 1)
 end
 
+CREATE PROCEDURE [dbo].[GetReportData] @r_id int
+as
+begin
+	select i.report_Number,
+	concat(c.name , ' ' , c.first_Surname) as name_Client,
+	c.email as email_Client,
+	c.phone as phone_Client,
+	c.adress as address,
+	i.contact_Email as email_Second_Contact,
+	i.contact_Phone as phone_Second_Contact
+	from Issue as i join Client as c on i.client_Id = c.client_Id
+	where i.report_Number = @r_id
+end
+

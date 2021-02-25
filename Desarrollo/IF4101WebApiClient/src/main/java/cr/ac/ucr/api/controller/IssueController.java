@@ -1,6 +1,7 @@
 package cr.ac.ucr.api.controller;
 
 import cr.ac.ucr.api.model.Issue;
+import cr.ac.ucr.api.model.IssueDTO;
 import cr.ac.ucr.api.restClient.IssueRestClient;
 import cr.ac.ucr.api.service.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,6 @@ public class IssueController {
     @GetMapping("/issues2/{email}")
 
     public List<Issue> list(@PathVariable String email) {
-
         return service.listAll(email);
     }
 
@@ -71,4 +71,15 @@ public class IssueController {
     public void delete(@PathVariable Integer report_Number) {
         service.delete(report_Number);
     }
+
+    @GetMapping("/getReportData/{report_Number}")
+    public ResponseEntity<IssueDTO> getReportData(@PathVariable Integer report_Number){
+        try {
+            IssueDTO issue = service.getReportData(report_Number);
+            return new ResponseEntity<IssueDTO>(issue, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<IssueDTO>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
