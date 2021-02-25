@@ -16,7 +16,7 @@ public class IssueService {
     private IssueRepository repository;
 
 
-    public List<Issue> listAll(String email) { return repository.listIssue(email);
+    public List<Issue> listAll(int id) { return repository.listIssue(id);
     }
 
     public Issue save(Issue issue) {

@@ -10,7 +10,7 @@ import {ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./list-issues.component.css']
 })
 export class ListIssuesComponent implements AfterViewInit {
-  displayedColumns: string[] = ['report_Number', 'service_Id', 'register_Timestamp', 'status'];
+  displayedColumns: string[] = ['report_Number', 'service_Id', 'register_Timestamp', 'status','actions'];
   dataSource = new MatTableDataSource<any>();
 
   element:any=[];
