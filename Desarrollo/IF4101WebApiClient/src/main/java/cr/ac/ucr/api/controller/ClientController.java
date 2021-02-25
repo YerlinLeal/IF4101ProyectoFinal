@@ -33,11 +33,20 @@ public class ClientController {
         }
     }
 
+    @GetMapping("/getByName/{name}")
+    public ResponseEntity<Client> getByName(@PathVariable String name) {
+        try {
+            Client client = service.getByEmail(name);
+            return new ResponseEntity<Client>(client, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Client>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PostMapping("/add")
     public void add(@RequestBody Client client) {
-
+        System.out.println(client.toString());
         service.save(client);
-
     }
 
 

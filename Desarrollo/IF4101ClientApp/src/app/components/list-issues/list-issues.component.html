@@ -12,7 +12,10 @@
             <!-- Name Column -->
             <ng-container matColumnDef="service_Id">
                 <th mat-header-cell *matHeaderCellDef> Service </th>
-                <td mat-cell *matCellDef="let element"> {{element.service_Id}} </td>
+                <ng-container *matCellDef="let element">
+                    <td mat-cell *ngIf="(element.service_Id==1);"> Hola </td>
+                </ng-container>
+                
             </ng-container>
 
             <!-- Weight Column -->

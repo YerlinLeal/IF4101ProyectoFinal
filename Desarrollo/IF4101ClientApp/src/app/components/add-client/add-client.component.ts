@@ -3,9 +3,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validator, Validators, FormControl } from "@angular/forms";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { AuthenticationService}  from "src/app/service/Auth/authentication.service"
+import { state } from '@angular/animations';
+
 
 @Component({
-  selector: 'app-add-client',
+  selector: 'app-login',
   templateUrl: './add-client.component.html',
   styleUrls: ['./add-client.component.css']
 })
@@ -18,7 +21,8 @@ export class AddClientComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private authentication: AuthenticationService
     ) { }
 
     ngOnInit() {
@@ -49,15 +53,16 @@ export class AddClientComponent implements OnInit {
         // this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
         //     this.router.navigate(['register']);
         // }); 
-        // // this.accountService.login(this.f.username.value, this.f.password.value)
-        //     .pipe(first())
-        //     .subscribe(
-        //         data => {
-        //             this.router.navigate([this.returnUrl]);
-        //         },
-        //         error => {
-        //             this.alertService.error(error);
-        //             this.loading = false;
-        //         });
+        this.authentication.authenticate(this.f.username.value, this.f.password.value)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.router.navigateByUrl('/list-issues', { skipLocationChange: true }).then(() => {
+                        this.router.navigate(['/list-issues']);
+                }); 
+                },
+                error => {
+                    this.loading = false;
+                });
     }
 }
