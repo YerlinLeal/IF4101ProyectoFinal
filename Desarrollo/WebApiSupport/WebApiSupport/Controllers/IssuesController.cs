@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApiSupport.Models;
+using WebApiSupport.Models.DTO;
+using Newtonsoft.Json;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http;
 
 namespace WebApiSupport.Controllers
 {
@@ -13,11 +16,14 @@ namespace WebApiSupport.Controllers
     [ApiController]
     public class IssuesController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
         private readonly DB_A6E470_ProyectoIF4101Context _context;
-
-        public IssuesController()
+        private readonly string apiBaseUrl;
+        public IssuesController(IConfiguration configuration)
         {
+            _configuration = configuration;
             _context = new DB_A6E470_ProyectoIF4101Context();
+            apiBaseUrl = _configuration.GetValue<string>("WebAPIClientBaseUrl");
         }
         //https://localhost:44317/api/issues/GetIssuesE
         [Route("[action]")]
@@ -234,6 +240,30 @@ namespace WebApiSupport.Controllers
                 result = Conflict(e.Message);
             }
             return result;
+        }
+
+
+        [Route("[action]/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ClientDTO>>> GetReportDataFromClient(int id)
+        {
+            ObjectResult result = null;
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            using var client = new HttpClient(clientHandler);
+            using var Response = await client.GetAsync(apiBaseUrl + "comment/comments/" + id);
+            if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                result = Ok(JsonConvert.DeserializeObject<List<CommentDTO>>
+                    (await Response.Content.ReadAsStringAsync()));
+            }
+            else
+            {
+                result = Conflict(Response.RequestMessage);
+            }
+            return result;
+
         }
 
 
