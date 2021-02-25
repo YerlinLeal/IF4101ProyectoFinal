@@ -14,4 +14,5 @@ export class Issue{
     modify_Date: string;
     created_By: number;
     modified_By: number;
+    name: string;
 }

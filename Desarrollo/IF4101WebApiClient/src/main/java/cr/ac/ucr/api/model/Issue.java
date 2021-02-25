@@ -5,6 +5,9 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Issue")
+@NamedStoredProcedureQuery(name = "Issue.listIssue",procedureName = "listIssue",
+parameters = {
+@StoredProcedureParameter(mode = ParameterMode.IN, name = "@id", type = int.class)})
 public class Issue {
 
     private int report_Number;

@@ -13,7 +13,10 @@
             <ng-container matColumnDef="service_Id">
                 <th mat-header-cell *matHeaderCellDef> Service </th>
                 <ng-container *matCellDef="let element">
-                    <td mat-cell *ngIf="(element.service_Id==1);"> Hola </td>
+                    <td mat-cell *ngIf="(element.service_Id==1);"> Telefonia Fija </td>
+                    <td mat-cell *ngIf="(element.service_Id==2);"> Telefonia Movil </td>
+                    <td mat-cell *ngIf="(element.service_Id==3);"> Cable </td>
+                    <td mat-cell *ngIf="(element.service_Id==4);"> Internet </td>
                 </ng-container>
                 
             </ng-container>
@@ -26,8 +29,14 @@
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef> Status </th>
-                <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                <th mat-header-cell *matHeaderCellDef> status </th>
+                <ng-container *matCellDef="let element">
+                    <td mat-cell *ngIf="(element.status=='I');"> Ingresado </td>
+                    <td mat-cell *ngIf="(element.status=='A');"> Asignado </td>
+                    <td mat-cell *ngIf="(element.status=='P');"> Proceso </td>
+                    <td mat-cell *ngIf="(element.status=='R');"> Resuelto </td>
+                </ng-container>
+                
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
