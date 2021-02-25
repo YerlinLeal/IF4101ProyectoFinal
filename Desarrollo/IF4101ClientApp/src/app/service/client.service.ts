@@ -6,6 +6,7 @@ import { map, tap } from 'rxjs/operators';
 
 import { environment } from '@environments/environment';
 import { Client } from 'src/app/models/Client';
+import { Service } from '../models/Service';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -87,5 +88,9 @@ export class ClientService {
                 }
                 return x;
             }));
+    }
+
+    getServices(id: number) {
+        return this.http.get<Service[]>(`${environment.apiUrl}/api/services/byClient/${id}`);
     }
 }

@@ -155,6 +155,7 @@ namespace WebApiSupport.Controllers
         [HttpPost]
         public async Task<ActionResult<Issue>> PostIssue(Issue issue)
         {
+            issue.Classification = "M";
             _context.Issues.Add(issue);
             try
             {

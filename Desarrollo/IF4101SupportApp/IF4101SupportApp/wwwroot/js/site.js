@@ -35,7 +35,11 @@ function LoadTable() {
             { data: 'reportNumber' },
             {
                 "render": function (data, type, s, meta) {
-                    return s.employeeName + ' ' + s.firstSurname;
+                    if (s.employeeName == null) {
+                        return "Not assigned";
+                    } else {
+                        return s.employeeName + ' ' + s.firstSurname;
+                    }
                 }
             },
             {
