@@ -4,15 +4,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using WebApiSupport.Models;
 using WebApiSupport.Models.DTO;
-using Newtonsoft.Json;
-using Microsoft.Extensions.Configuration;
-using System.Net.Http;
 
 namespace WebApiSupport.Controllers
 {
@@ -20,13 +18,14 @@ namespace WebApiSupport.Controllers
     [ApiController]
     public class IssuesController : ControllerBase
     {
-        private readonly IConfiguration _configuration;
         private readonly DB_A6E470_ProyectoIF4101Context _context;
         private readonly IConfiguration _configuration;
         private readonly string apiBaseUrl;
         public IssuesController(IConfiguration configuration)
         {
             _context = new DB_A6E470_ProyectoIF4101Context();
+            _configuration = configuration;
+
             apiBaseUrl = _configuration.GetValue<string>("WebAPIClientBaseUrl");
         }
         //https://localhost:44317/api/issues/GetIssuesE
@@ -209,31 +208,7 @@ namespace WebApiSupport.Controllers
         }
 
 
-        [Route("[action]/{id}")]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Issue>>> GetByReport(int id)
-        {
-
-            ObjectResult result = null;
-            HttpClientHandler clientHandler = new HttpClientHandler();
-            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
-
-            using var client = new HttpClient(clientHandler);
-            using var Response = await client.GetAsync(apiBaseUrl + "comment/comments/" + id);
-            if (Response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                result = Ok(JsonConvert.DeserializeObject<List<Issue>>
-                    (await Response.Content.ReadAsStringAsync()));
-            }
-            else
-            {
-                result = Conflict(Response.RequestMessage);
-            }
-            return result;
-
-        }
-
-
+      
 
 
 
@@ -268,12 +243,39 @@ namespace WebApiSupport.Controllers
             }
             return result;
         }
-        public void email(string email, string pass)
+
+
+        [Route("[action]/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ClientDTO>>> GetByReport(int id)
+        {
+
+            ObjectResult result = null;
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            using var client = new HttpClient(clientHandler);
+            using var Response = await client.GetAsync(apiBaseUrl + "issue/issues/" + id);
+            if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                result = Ok(JsonConvert.DeserializeObject<List<ClientDTO>>
+                    (await Response.Content.ReadAsStringAsync()));
+            }
+
+            else
+            {
+                result = Conflict(Response.RequestMessage);
+            }
+            return result;
+
+        }
+
+        public void email(string email)
         {
 
             string EmialOrigin = "teleatlanticIF4101@gmail.com";
             string EmailDestiny = email;
-            string password = pass;
+            string password = "If4101!@";
 
             MailMessage oMailMessage = new MailMessage(EmialOrigin,EmailDestiny,"Hola, tu servicio:","<p></p>");
             oMailMessage.IsBodyHtml = true;
@@ -286,30 +288,6 @@ namespace WebApiSupport.Controllers
             oSmtpClient.Dispose();
             
         }
-
-        [Route("[action]/{id}")]
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ClientDTO>>> GetReportDataFromClient(int id)
-        {
-            ObjectResult result = null;
-            HttpClientHandler clientHandler = new HttpClientHandler();
-            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
-
-            using var client = new HttpClient(clientHandler);
-            using var Response = await client.GetAsync(apiBaseUrl + "comment/comments/" + id);
-            if (Response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                result = Ok(JsonConvert.DeserializeObject<List<CommentDTO>>
-                    (await Response.Content.ReadAsStringAsync()));
-            }
-            else
-            {
-                result = Conflict(Response.RequestMessage);
-            }
-            return result;
-
-        }
-
 
     }
 }
