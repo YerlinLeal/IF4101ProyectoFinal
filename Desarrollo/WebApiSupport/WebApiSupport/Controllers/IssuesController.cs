@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using WebApiSupport.Models;
 
 namespace WebApiSupport.Controllers
@@ -14,10 +18,12 @@ namespace WebApiSupport.Controllers
     public class IssuesController : ControllerBase
     {
         private readonly DB_A6E470_ProyectoIF4101Context _context;
-
-        public IssuesController()
+        private readonly IConfiguration _configuration;
+        private readonly string apiBaseUrl;
+        public IssuesController(IConfiguration configuration)
         {
             _context = new DB_A6E470_ProyectoIF4101Context();
+            apiBaseUrl = _configuration.GetValue<string>("WebAPIClientBaseUrl");
         }
         //https://localhost:44317/api/issues/GetIssuesE
         [Route("[action]")]
@@ -199,6 +205,29 @@ namespace WebApiSupport.Controllers
         }
 
 
+        [Route("[action]/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Issue>>> GetByReport(int id)
+        {
+
+            ObjectResult result = null;
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            using var client = new HttpClient(clientHandler);
+            using var Response = await client.GetAsync(apiBaseUrl + "comment/comments/" + id);
+            if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                result = Ok(JsonConvert.DeserializeObject<List<Issue>>
+                    (await Response.Content.ReadAsStringAsync()));
+            }
+            else
+            {
+                result = Conflict(Response.RequestMessage);
+            }
+            return result;
+
+        }
 
 
 
@@ -235,7 +264,24 @@ namespace WebApiSupport.Controllers
             }
             return result;
         }
+        public void email(string email, string pass)
+        {
 
+            string EmialOrigin = "teleatlanticIF4101@gmail.com";
+            string EmailDestiny = email;
+            string password = pass;
+
+            MailMessage oMailMessage = new MailMessage(EmialOrigin,EmailDestiny,"Hola, tu servicio:","<p></p>");
+            oMailMessage.IsBodyHtml = true;
+            SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
+            oSmtpClient.EnableSsl = true;
+            oSmtpClient.UseDefaultCredentials = false;
+            oSmtpClient.Port = 587;
+            oSmtpClient.Credentials = new System.Net.NetworkCredential(EmialOrigin, password);
+            oSmtpClient.Send(oMailMessage);
+            oSmtpClient.Dispose();
+            
+        }
 
     }
 }
