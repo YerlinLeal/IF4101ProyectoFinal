@@ -2,10 +2,16 @@ package cr.ac.ucr.api.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
+
+@Entity
+@NamedStoredProcedureQuery(name = "IssueDTO.GetCommentByReport",procedureName = "GetCommentByReport",
+        parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "@r_id", type = int.class)})
 
 public class IssueDTO {
 
@@ -19,7 +25,24 @@ public class IssueDTO {
     private int CreatedBy;
     private int ModifiedBy;
 
+    private String NameClient;
+    private String EmailClient;
+    private int PhoneClient;
+    private String Address;
+    private String EmailSecondContact;
+    private int PhoneSecondContact;
+
     public IssueDTO(){}
+
+    public IssueDTO(int reportNumber, String nameClient, String emailClient, int phoneClient, String address, String emailSecondContact, int phoneSecondContact) {
+        ReportNumber = reportNumber;
+        NameClient = nameClient;
+        EmailClient = emailClient;
+        this.PhoneClient = phoneClient;
+        Address = address;
+        EmailSecondContact = emailSecondContact;
+        PhoneSecondContact = phoneSecondContact;
+    }
 
     public IssueDTO(int reportNumber, char status, Date reportTimestamp, int service, boolean state, Date creationDate, Date modifyDate, int createdBy, int modifiedBy) {
         ReportNumber = reportNumber;
@@ -40,6 +63,7 @@ public class IssueDTO {
         ModifiedBy = modifiedBy;
     }
 
+    @Id
     public int getReportNumber() {
         return ReportNumber;
     }
@@ -112,4 +136,51 @@ public class IssueDTO {
         ModifiedBy = modifiedBy;
     }
 
+    public String getNameClient() {
+        return NameClient;
+    }
+
+    public void setNameClient(String nameClient) {
+        NameClient = nameClient;
+    }
+
+    public String getEmailClient() {
+        return EmailClient;
+    }
+
+    public void setEmailClient(String emailClient) {
+        EmailClient = emailClient;
+    }
+
+    public int getPhoneClient() {
+        return PhoneClient;
+    }
+
+    public void setPhoneClient(int phoneClient) {
+        this.PhoneClient = phoneClient;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public String getEmailSecondContact() {
+        return EmailSecondContact;
+    }
+
+    public void setEmailSecondContact(String emailSecondContact) {
+        EmailSecondContact = emailSecondContact;
+    }
+
+    public int getPhoneSecondContact() {
+        return PhoneSecondContact;
+    }
+
+    public void setPhoneSecondContact(int phoneSecondContact) {
+        PhoneSecondContact = phoneSecondContact;
+    }
 }

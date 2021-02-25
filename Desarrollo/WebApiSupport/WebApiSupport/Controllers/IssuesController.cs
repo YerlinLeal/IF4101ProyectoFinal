@@ -4,12 +4,15 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using WebApiSupport.Models;
+using WebApiSupport.Models.DTO;
+using Newtonsoft.Json;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http;
 
 namespace WebApiSupport.Controllers
 {
@@ -17,6 +20,7 @@ namespace WebApiSupport.Controllers
     [ApiController]
     public class IssuesController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
         private readonly DB_A6E470_ProyectoIF4101Context _context;
         private readonly IConfiguration _configuration;
         private readonly string apiBaseUrl;
@@ -282,6 +286,30 @@ namespace WebApiSupport.Controllers
             oSmtpClient.Dispose();
             
         }
+
+        [Route("[action]/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ClientDTO>>> GetReportDataFromClient(int id)
+        {
+            ObjectResult result = null;
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            using var client = new HttpClient(clientHandler);
+            using var Response = await client.GetAsync(apiBaseUrl + "comment/comments/" + id);
+            if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                result = Ok(JsonConvert.DeserializeObject<List<CommentDTO>>
+                    (await Response.Content.ReadAsStringAsync()));
+            }
+            else
+            {
+                result = Conflict(Response.RequestMessage);
+            }
+            return result;
+
+        }
+
 
     }
 }
