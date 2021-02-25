@@ -33,4 +33,12 @@ export class ListIssuesComponent implements AfterViewInit {
 
     });
   }
+
+  viewDetails(id){
+    sessionStorage.setItem("issue_id",id); 
+    this.router.navigateByUrl('home/issue-detail', { skipLocationChange: false }).then(() => {
+      this.router.navigate(['home/issue-detail']);
+  })
+  }
+
 }

@@ -39,6 +39,10 @@ export class IssueService {
         return this.http.get<Issue>(`${environment.apiUrl}/api/issue/issues2/${id}`);
     }
 
+    getIssueInfo(id: string) {
+        return this.http.get<Issue>(`${environment.apiUrl}/api/issue/issues/${id}`);
+    }
+
    
     add(Issue: Issue) {
         return this.http.post<any>(`${environment.apiUrl}/api/issue/add`, JSON.stringify(Issue), httpOptions).pipe(

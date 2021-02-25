@@ -28,6 +28,7 @@ import { CommentsComponent } from './components/comments/comments.component';
 import { AuthHtppInterceptorService } from './service/Interceptor/auth-htpp-interceptor.service';
 import { HomeComponent } from "src/app/components/home/home.component";
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { IssueDetailComponent } from './components/issue-detail/issue-detail.component';
 
 
 

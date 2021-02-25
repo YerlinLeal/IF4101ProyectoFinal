@@ -1,0 +1,109 @@
+<div class="container">
+    <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="General Information">
+            <form [formGroup]="formIssue" >
+                <div class="col-md-6 offset-md-3 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- REPORT NUMBER -->
+                            <div class="form-group">
+                                <label for="report_Number">Report Number</label>
+                                <input [disabled] class="form-control" type="number" formControlName="report_Number"/>
+                            </div>
+                            <!-- DESCRIPTION -->
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" type="text" formControlName="description"></textarea>
+                            </div>
+                            <!-- DATE -->
+                            <div class="form-group">
+                                <label for="creation_Date"> Register Date</label>
+                                    <input class="form-control" type="text" formControlName="creation_Date"  />
+                            </div>
+
+                            <!-- STATE -->
+                            <div class="form-group">
+                                <label for="state">Status</label>
+                                <input class="form-control" type="text" formControlName="state" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </mat-tab>
+
+        <mat-tab label="Comments">
+            <div class="container">
+                <div class=" row d-flex justify-content-center">
+                    <div class="col-md-6">
+                        <form [formGroup]="form" class="text-center" (ngSubmit)="onSubmit()">
+                            <br>
+                            <h5>Comment</h5>
+                            <div>
+                                <label class="control-label">Description</label>
+
+                                <textarea id="description" formControlName="description" class="form-control"
+                                    [ngClass]="{ 'is-invalid': submitted && f.description.errors }" rows="3"></textarea>
+                                <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                                    <div *ngIf="f.description.errors.required">Description is required</div>
+                                </div>
+                            </div>
+                            <br>
+                            <div>
+                                <button [disabled]="loading" class="btn btn-primary">
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                    Add Comment
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row" id="content-note">
+                    <div class="col-md-6 col-sm-12" *ngFor="let c of obs | async">
+                        <div id="comment-{{c.comment_Id}}" class="card">
+                            <div class="card-header">
+                                <div>Comment # {{c.comment_Id}}</div>
+                                <div *ngIf="initial || (!initial && commentSelected != c.comment_Id)"
+                                    class="btn-div float-right">
+                                    <button mat-icon-button aria-label="edit" (click)="editComment(c.comment_Id)">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button aria-label="delete" (click)="removeComment(c.comment_Id)">
+                                        <mat-icon color="warn">delete</mat-icon>
+                                    </button>
+                                </div>
+                                <div *ngIf="!initial && commentSelected == c.comment_Id " class="btn-div float-right">
+                                    <button mat-icon-button aria-label="update" (click)="updateComment(c.comment_Id)">
+                                        <mat-icon color="primary">save</mat-icon>
+                                    </button>
+                                    <button mat-icon-button aria-label="back" (click)="backComment()">
+                                        <mat-icon>undo</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p *ngIf="initial || (!initial && commentSelected != c.comment_Id)" class="card-text">
+                                    {{c.description}}</p>
+                                <textarea *ngIf="!initial && commentSelected == c.comment_Id"
+                                    id="description-{{c.comment_Id}}" class="form-control"
+                                    rows="3">{{c.description}}</textarea>
+                                <div *ngIf="!initial && errors == c.comment_Id">
+                                    <p class="text-danger text-center">This field is required</p>
+                                </div>
+                            </div>
+                            <div class="card-footer text-muted">
+                                Publication Date: {{c.creation_Date}}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <mat-paginator [length]="dataSource.data.length" [pageSizeOptions]="[4, 8, 12]" showFirstLastButtons>
+                </mat-paginator>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

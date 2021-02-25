@@ -14,6 +14,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { RouterModule, Routes } from '@angular/router';
+import { MatTabsModule} from '@angular/material/tabs';
 
 import { HomeRoutingModule } from './home-routing.module';
 
@@ -23,7 +24,8 @@ import { ListIssuesComponent } from 'src/app/components/list-issues/list-issues.
 import { IssueComponent } from 'src/app/components/issue/issue.component';
 import { CommentsComponent } from 'src/app/components/comments/comments.component';
 import { EditClientComponent } from 'src/app/components/edit-client/edit-client.component';
-
+import { IssueDetailComponent} from 'src/app/components/issue-detail/issue-detail.component'
+import { from } from 'rxjs';
 
 @NgModule({
     imports: [
@@ -42,14 +44,15 @@ import { EditClientComponent } from 'src/app/components/edit-client/edit-client.
         MatTableModule,
         MatSortModule,
         RouterModule,
-        FormsModule
+        FormsModule,
+        MatTabsModule
     ],
     declarations: [
         ListIssuesComponent,
         IssueComponent,
         CommentsComponent,
-        EditClientComponent
-
+        EditClientComponent,
+        IssueDetailComponent
     ]
 })
 export class HomeModule { }

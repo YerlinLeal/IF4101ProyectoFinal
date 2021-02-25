@@ -20,7 +20,6 @@ public class IssueController {
     private IssueService service;
 
     @GetMapping("/issues2/{id}")
-
     public List<Issue> list(@PathVariable Integer id) {
 
         return service.listAll(id);

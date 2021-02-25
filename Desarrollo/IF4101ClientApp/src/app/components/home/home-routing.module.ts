@@ -6,6 +6,7 @@ import { ListIssuesComponent } from 'src/app/components/list-issues/list-issues.
 import { IssueComponent } from 'src/app/components/issue/issue.component';
 import { CommentsComponent } from 'src/app/components/comments/comments.component';
 import { EditClientComponent } from 'src/app/components/edit-client/edit-client.component';
+import { IssueDetailComponent} from 'src/app/components/issue-detail/issue-detail.component'
 import { HomeComponent } from './home.component';
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
             {path: 'list-issues', component: ListIssuesComponent,canActivate: [AuthGuard] },
             {path: 'edit-client', component: EditClientComponent,canActivate: [AuthGuard] },
             {path: 'comments', component: CommentsComponent, canActivate: [AuthGuard]},
+            {path: 'issue-detail', component: IssueDetailComponent, canActivate: [AuthGuard]}
         ]
     }
 ];

@@ -38,7 +38,7 @@ export class CommentService {
     }
 
     getAll() {
-        return this.http.get<Comment[]>(`${environment.apiUrl}/api/comment/comments/1`);
+        return this.http.get<Comment[]>(`${environment.apiUrl}/api/comment/comments/`+sessionStorage.getItem("issue_id"));
     }
 
     getById(id: string) {

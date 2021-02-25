@@ -57,6 +57,7 @@ export class EditClientComponent implements OnInit {
             email: x.email,
             adress: x.adress,
             phone: x.phone,
+
           });
 
         });
