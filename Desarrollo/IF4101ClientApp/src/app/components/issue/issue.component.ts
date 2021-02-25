@@ -81,8 +81,8 @@ export class IssueComponent implements OnInit {
     issue.contact_Email = this.reportForm.get("emailContact").value;
     issue.adress = this.reportForm.get("addressC").value;
     issue.service_Id = this.serviceSelected;
-    issue.client_Id = 2;
-    issue.created_By = 2;
+    issue.client_Id = 2;// Cambiar id por el del usuario actual----------------------------------------------
+    issue.created_By = 2;// Cambiar id por el del usuario actual---------------------------------------------g
 
     this.issueService.add(issue)
     .pipe(first())
