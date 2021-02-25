@@ -12,10 +12,10 @@ const routes: Routes = [
     {
         path: '', component: HomeComponent,
         children: [
-            {path: "addReport", component: IssueComponent, canActivate: [AuthGuard]},
-            {path: "list-issues", component: ListIssuesComponent,canActivate: [AuthGuard] },
-            {path: "edit-client", component: EditClientComponent,canActivate: [AuthGuard] },
-            {path: "comments", component: CommentsComponent, canActivate: [AuthGuard]},
+            {path: 'addReport', component: IssueComponent, canActivate: [AuthGuard]},
+            {path: 'list-issues', component: ListIssuesComponent,canActivate: [AuthGuard] },
+            {path: 'edit-client', component: EditClientComponent,canActivate: [AuthGuard] },
+            {path: 'comments', component: CommentsComponent, canActivate: [AuthGuard]},
         ]
     }
 ];

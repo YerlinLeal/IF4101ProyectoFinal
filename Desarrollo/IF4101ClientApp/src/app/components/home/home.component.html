@@ -1,15 +1,7 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user">
-    <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-        <a class="nav-item nav-link" [routerLink]="['home/list-issues']" >Issues</a>
-        <a class="nav-item nav-link" [routerLink]="['home/addReport']">Add Report</a>
-        
-        <a class="nav-item nav-link" [routerLink]="['home/edit-client']">Edit Client</a>
-        <a class="nav-item nav-link" [routerLink]="['home/comments']">Comments</a>
-        <a class="nav-item nav-link" href="" (click) ="logOut()" >Logout</a>
+<app-navigation>
+    <div class="col-md-12">
+        <router-outlet></router-outlet>
     </div>
-  </nav>
-  <div class="col-md-12">
-    <router-outlet></router-outlet>
-</div>
+</app-navigation>
+  
   

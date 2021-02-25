@@ -28,6 +28,7 @@ import { EditClientComponent } from './components/edit-client/edit-client.compon
 import { CommentsComponent } from './components/comments/comments.component';
 import { AuthHtppInterceptorService } from './service/Interceptor/auth-htpp-interceptor.service';
 import { HomeComponent } from "src/app/components/home/home.component";
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 
 
@@ -52,6 +53,7 @@ const appRoutes: Routes = [
     AppComponent,
     HomeComponent,
     AlertComponent,
+    NavigationComponent,
 
   ],
   imports: [

@@ -47,5 +47,6 @@ export class AuthenticationService {
   logOut() {
     sessionStorage.removeItem("username");
     this.user=null;
+    alert(sessionStorage.getItem("username"));
   }
 }

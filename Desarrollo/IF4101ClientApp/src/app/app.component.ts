@@ -22,10 +22,4 @@ export class AppComponent {
       this.auth.user.subscribe(x => this.user = x);
   }
 
-  logOut(){
-    this.auth.logOut();
-    this.router.navigateByUrl('account/login', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['account/login']);
-    });
-  }
 }

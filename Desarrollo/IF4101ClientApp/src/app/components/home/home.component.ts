@@ -3,25 +3,36 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService } from 'src/app/service/Auth/authentication.service';
 import { MainNavComponent} from "src/app/components/main-nav/main-nav.component"
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+
+
+
+
 
 @Component({ templateUrl: 'home.component.html' })
 export class HomeComponent {
+    isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
     user: any;
-
-    constructor(private auth: AuthenticationService,private router: Router) {
+    
+    constructor(private auth: AuthenticationService,private router: Router,private breakpointObserver: BreakpointObserver) {
         this.user = sessionStorage.getItem("username");
-    }
-
-    ngOnInit() {
-        if (sessionStorage.getItem("username")) {
-            //  this.router.navigate(['/login']);
-        }
-    }
-
-    logOut(){
-        this.auth.logOut();
-        this.router.navigateByUrl('/list-issues', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/list-issues']);
-        });
+        if (!sessionStorage.getItem("username")) {
+          this.router.navigateByUrl('account/login', { skipLocationChange: false }).then(() => {
+            this.router.navigate(['account/login']);
+        })
+      }else{
+          this.router.navigateByUrl('', { skipLocationChange: false }).then(() => {
+            
+        })
       }
+
+    
+  }
+
 }

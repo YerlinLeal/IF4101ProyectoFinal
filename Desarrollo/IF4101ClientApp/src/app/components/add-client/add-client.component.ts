@@ -26,6 +26,7 @@ export class AddClientComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        
         if (sessionStorage.getItem("username")) {
             this.router.navigate(['']);
         }
@@ -59,8 +60,8 @@ export class AddClientComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
-                        this.router.navigate(['']);
+                    this.router.navigateByUrl('home', { skipLocationChange: true }).then(() => {
+                        this.router.navigate(['home']);
                 }); 
                 },
                 error => {

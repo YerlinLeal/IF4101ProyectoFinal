@@ -8,10 +8,10 @@ const homeModule = () => import('src/app/components/home/home-module').then(x =>
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'home',pathMatch: 'full', canActivate: [AuthGuard] },
   {path: 'account', loadChildren: accountModule },
   {path: 'home', loadChildren: homeModule },
-  //{path: '**', redirectTo: '' }
+  {path: '**', redirectTo: '' }
 ];
 
 @NgModule({

@@ -6,11 +6,11 @@ import { AuthenticationService } from 'src/app/service/Auth/authentication.servi
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-main-nav',
-  templateUrl: './main-nav.component.html',
-  styleUrls: ['./main-nav.component.css']
+  selector: 'app-navigation',
+  templateUrl: './navigation.component.html',
+  styleUrls: ['./navigation.component.css']
 })
-export class MainNavComponent {
+export class NavigationComponent {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -18,14 +18,14 @@ export class MainNavComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver,
-    private auth: AuthenticationService,
+  constructor(private breakpointObserver: BreakpointObserver ,private auth: AuthenticationService,
     private router: Router) {}
 
-  logOut(){
-    this.auth.logOut();
-    this.router.navigateByUrl('/list-issues', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/list-issues']);
-    });
-  }
+    logOut(){
+      this.auth.logOut();
+      this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
+        this.router.navigate(['']);
+      });
+    }
+
 }
