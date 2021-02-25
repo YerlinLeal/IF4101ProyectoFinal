@@ -31,6 +31,10 @@ public class ClientService {
         }
     }
 
+    public void update(Client client) {
+        repository.save(client);
+    }
+
     public Client getByEmail(String emal) {
         return repository.loadByName(emal);
     }

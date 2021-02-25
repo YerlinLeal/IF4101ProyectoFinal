@@ -42,7 +42,6 @@ export class EditClientComponent implements OnInit {
       first_Surname: ['', Validators.required],
       second_Surname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', passwordValidators],
       adress: [''] ,
       phone: ['']
     });
@@ -58,7 +57,6 @@ export class EditClientComponent implements OnInit {
             email: x.email,
             adress: x.adress,
             phone: x.phone,
-            password: x.password
           });
 
         });

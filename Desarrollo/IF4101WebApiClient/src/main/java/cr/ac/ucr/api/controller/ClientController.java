@@ -28,6 +28,7 @@ public class ClientController {
     public ResponseEntity<Client> get(@PathVariable Integer id) {
         try {
             Client client = service.get(id);
+            client.setPassword(client.getPassword());
             return new ResponseEntity<Client>(client, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Client>(HttpStatus.NOT_FOUND);
@@ -62,8 +63,8 @@ public class ClientController {
             aux.setName(client.getName());
             aux.setModified_By(id);
             aux.setModify_Date(new Date());
-
-            service.save(aux);
+            System.out.println(aux.toString());
+            service.update(aux);
             return new ResponseEntity<Client>(client, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Client>(HttpStatus.NOT_FOUND);
