@@ -267,7 +267,7 @@ namespace WebApiSupport.Controllers
                 result = Conflict(Response.RequestMessage);
             }
             return result;
-
+        }
         //https://localhost:44317/api/issues/GetReportDataFromClient/reportNumber
         [Route("[action]/{reportNumber}")]
         [HttpGet]
