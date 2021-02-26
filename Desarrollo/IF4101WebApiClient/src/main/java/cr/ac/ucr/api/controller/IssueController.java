@@ -38,6 +38,7 @@ public class IssueController {
 
     @PostMapping("/add")
     public ResponseEntity<Issue> add(@RequestBody Issue issue) {
+        Issue issueInserted = null;
         try {
             Date now = new Date();
             issue.setCreation_Date(now);
@@ -46,13 +47,16 @@ public class IssueController {
             issue.setStatus('I');
             issue.setState(true);
             issue.setModified_By(issue.getCreated_By());
-//MANEJAR ERROR CUANDO SE AGREGA EN UNA Y NO EN LA OTRA API
-            Issue issueInserted = service.save(issue);
+
+            issueInserted = service.save(issue);
             IssueRestClient restClient = new IssueRestClient();
             restClient.callPostIssueAPI(issueInserted);
 
             return new ResponseEntity<Issue>(issueInserted, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
+        } catch (Exception e) {
+            if(issueInserted!= null && issueInserted.getReport_Number()!=0){
+                service.delete(issueInserted.getReport_Number());
+            }
             return new ResponseEntity<Issue>(HttpStatus.NOT_FOUND);
         }
     }
@@ -72,5 +76,33 @@ public class IssueController {
         service.delete(report_Number);
     }
 
+    @PutMapping("/updateStatus/{report_Number}")
+    public ResponseEntity<Issue> updateStatus(@PathVariable int report_Number, @RequestBody String status) {
+        try {
+            Issue issue = service.get(report_Number);
+            issue.setStatus(status.toCharArray()[1]);
+            service.save(issue);
+            return new ResponseEntity<Issue>(issue, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Issue>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/updateSupporter/{report_Number}")
+    public ResponseEntity<Issue> updateSupporter(@PathVariable int report_Number, @RequestBody int supporter) {
+        try {
+            Issue issue = service.get(report_Number);
+            issue.setSupporter_Assigned(supporter);
+            service.save(issue);
+            return new ResponseEntity<Issue>(issue, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<Issue>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/issues")
+    public List<Issue> list() {
+        return service.list();
+    }
 
 }

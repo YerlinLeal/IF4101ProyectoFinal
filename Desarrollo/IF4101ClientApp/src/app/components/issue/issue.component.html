@@ -1,3 +1,4 @@
+<p>Add report</p>
 <div class="d-flex justify-content-center" *ngIf="ok">
     <label class="alert alert-success mt-4">Your request has been sent successfully</label>
 </div>
@@ -7,7 +8,7 @@
 </div>
 
 <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
-    <div class="col-md-6 offset-md-3 mt-5">
+    <div class="col-md-6 offset-md-3">
         <div class="card">
             <h4 class="card-header">Add Report</h4>
             <div class="card-body">
