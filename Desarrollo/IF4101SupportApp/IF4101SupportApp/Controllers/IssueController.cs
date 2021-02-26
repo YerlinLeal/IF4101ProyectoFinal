@@ -58,7 +58,7 @@ namespace IF4101SupportApp.Controllers
             ObjectResult objectResult;
             using (var client = new HttpClient())
             {
-                using (var Response = await client.GetAsync(apiBaseUrl + "Issues / GetIssuesRById/" + id))
+                using (var Response = await client.GetAsync(apiBaseUrl + "Issues/GetIssuesRById/" + id))
                 {
                     if (Response.StatusCode == System.Net.HttpStatusCode.OK)
                     {

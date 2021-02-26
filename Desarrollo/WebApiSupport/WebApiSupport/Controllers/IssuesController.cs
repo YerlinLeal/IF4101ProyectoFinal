@@ -168,11 +168,13 @@ namespace WebApiSupport.Controllers
         [HttpPost]
         public async Task<ActionResult<Issue>> PostIssue(Issue issue)
         {
+            
             issue.Classification = "M";
             _context.Issues.Add(issue);
             try
             {
                 await _context.SaveChangesAsync();
+                email(issue);
             }
             catch (DbUpdateException ex)
             {
@@ -358,25 +360,25 @@ namespace WebApiSupport.Controllers
                 if (issue.Status == "I")
                 {
                     oMailMessage.Subject="Report Sent";
-                    oMailMessage.Body = "Hi,"+clientDTO.NameClient+ "your report is: Entered" + "," + "Number report:" + clientDTO.ReportNumber;
+                    oMailMessage.Body = "Hi"+"\n"+clientDTO.NameClient+ "Your report is: Entered"  + "," + " " + "Number report:" + " " + clientDTO.ReportNumber;
                 }
                 else
                 if (issue.Status == "A")
                 {
                     oMailMessage.Subject = "Report Sent";
-                    oMailMessage.Body = "Hi," + clientDTO.NameClient + "you report is: Assigned"+"," + "Number report:" + clientDTO.ReportNumber;
+                    oMailMessage.Body = "Hi" + "\n" + clientDTO.NameClient + "Your report is: Assigned" + " " + "," + " "+ "Number report:" + " " + clientDTO.ReportNumber;
                 }
                 else
                 if (issue.Status == "P")
                 {
                     oMailMessage.Subject = "Report Sent";
-                    oMailMessage.Body = "Hi," + clientDTO.NameClient + "you report is: In progress" + "," + "Number report:" + clientDTO.ReportNumber;
+                    oMailMessage.Body = "Hi," + "\n" + clientDTO.NameClient + "Your report is: In progress" + " " + "," + " " + "Number report:" + " " + clientDTO.ReportNumber;
                 }
                 else
                 if (issue.Status == "R")
                 {
                     oMailMessage.Subject = "Report Sent";
-                    oMailMessage.Body = "Hi," + clientDTO.NameClient + "you report is: Resolved" + "," + "Number report:" + clientDTO.ReportNumber;
+                    oMailMessage.Body = "Hi," + "\n" + clientDTO.NameClient + "Your report is: Resolved" + " " + "," + " " + "Number report:" + " " + clientDTO.ReportNumber;
                 }
             }
 
