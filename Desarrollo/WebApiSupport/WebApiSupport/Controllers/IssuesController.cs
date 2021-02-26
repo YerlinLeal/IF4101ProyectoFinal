@@ -268,6 +268,28 @@ namespace WebApiSupport.Controllers
             }
             return result;
 
+        //https://localhost:44317/api/issues/GetReportDataFromClient/reportNumber
+        [Route("[action]/{reportNumber}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ClientDTO>>> GetReportDataFromClient(int reportNumber)
+        {
+            ObjectResult result = null;
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            using var client = new HttpClient(clientHandler);
+            using var Response = await client.GetAsync(apiBaseUrl + "report/getReportData/" + reportNumber);
+            if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                result = Ok(JsonConvert.DeserializeObject<ClientDTO>
+                    (await Response.Content.ReadAsStringAsync()));
+            }
+            else
+            {
+                result = Conflict(Response.RequestMessage);
+            }
+            return result;
+
         }
 
         public void email(string email)

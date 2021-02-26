@@ -99,17 +99,11 @@ begin
 	select * from client where client.email=@email
 end
 
-CREATE PROCEDURE [dbo].[GetReportData] @r_id int
+create procedure loadByName @email nvarchar(40)
 as
 begin
-	select i.report_Number,
-	concat(c.name , ' ' , c.first_Surname) as name_Client,
-	c.email as email_Client,
-	c.phone as phone_Client,
-	c.adress as address,
-	i.contact_Email as email_Second_Contact,
-	i.contact_Phone as phone_Second_Contact
-	from Issue as i join Client as c on i.client_Id = c.client_Id
-	where i.report_Number = @r_id
+	select * from client where client.email=@email
 end
 
+exec loadByName 'maikesl@gmail.com'
+drop procedure loadByName
