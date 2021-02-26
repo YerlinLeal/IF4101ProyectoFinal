@@ -98,6 +98,7 @@ $('#table-employees tbody').on('click', 'tr', function () {
 $("#Employee_Form").submit(function (e) {
     e.preventDefault();
     if ($("#Employee_Form").valid()) {
+        var interval = null;
         $.ajax({
             url: "/Employee/Insert",
             data: {
@@ -112,12 +113,28 @@ $("#Employee_Form").submit(function (e) {
             },
             type: "POST",
             dataType: "json",
-
+            beforeSend: function () {
+                i = 0;
+                $("#employee-btn").prop("disabled", true);
+                interval = setInterval(function () {
+                    i = ++i % 4;
+                    $("#employee-btn").html("Processing" + Array(i + 1).join("."));
+                }, 500);
+            },
             success: function (result) {
+                clearInterval(interval);
+                $("#employee-btn").prop("disabled", false);
+                $("#employee-btn").html("Register");
                 LoadEmployeeTableData();
             },
             error: function (errorMessage) {
-                alert(errorMessage.responseText);
+                clearInterval(interval);
+                $("#employee-btn").html("Error, Try Again!");
+                $("#employee-btn").toggleClass("btn btn-danger");
+                setTimeout(function () {
+                    $("#employee-btn").prop("disabled", false);
+                    $("#employee-btn").html("Register");                    
+                }, 3000);    
             }
         });
     }
@@ -127,6 +144,7 @@ $("#UEmployee_Form").submit(function (e) {
     e.preventDefault();
     alert($(this).valid());
     if ($(this).valid()) {
+        var interval = null;
         $.ajax({
             url: "/Employee/Update",
             data: {
@@ -139,13 +157,29 @@ $("#UEmployee_Form").submit(function (e) {
             },
             type: "PUT",
             dataType: "json",
-
+            beforeSend: function () {
+                i = 0;
+                $("#UEmployee-btn").prop("disabled", true);
+                interval = setInterval(function () {
+                    i = ++i % 4;
+                    $("#UEmployee-btn").html("Processing" + Array(i + 1).join("."));
+                }, 500);
+            },
             success: function (result) {
+                clearInterval(interval);
+                $("#UEmployee-btn").prop("disabled", false);
+                $("#UEmployee-btn").html("Update");
                 LoadEmployeeTableData();
                 $("#DetailEmployeeModal").modal("hide");
             },
             error: function (errorMessage) {
-                alert(errorMessage.responseText);
+                clearInterval(interval);
+                $("#UEmployee-btn").html("Error, Try Again!");
+                $("#UEmployee-btn").toggleClass("btn btn-danger");
+                setTimeout(function () {
+                    $("#uEmployee-btn").prop("disabled", false);
+                    $("#UEmployee-btn").html("Update");
+                }, 3000);
             }
         });
     }

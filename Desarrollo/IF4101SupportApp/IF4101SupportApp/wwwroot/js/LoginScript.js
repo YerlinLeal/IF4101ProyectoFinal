@@ -38,9 +38,11 @@ $("#LoginForm").submit(function (e) {
             },
             error: function (errorMessage) {
                 clearInterval(interval);
-                $("#login-btn").prop("disabled", false);
-                $("#login-btn").html("Send");
-                alert(errorMessage.responseText);
+                $("#login-btn").html("Invalid Credential, Try Again!");
+                setTimeout(function () {
+                    $("#login-btn").prop("disabled", false);
+                    $("#login-btn").html("Log In");
+                }, 3000);
             }
 
         });
