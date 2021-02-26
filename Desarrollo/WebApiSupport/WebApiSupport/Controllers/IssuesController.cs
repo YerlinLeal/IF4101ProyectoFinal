@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using WebApiSupport.Models;
 using WebApiSupport.Models.DTO;
+using Newtonsoft.Json;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http;
+using System.Text;
 
 namespace WebApiSupport.Controllers
 {
@@ -142,6 +144,8 @@ namespace WebApiSupport.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                await updateIssueStatusFromClient(issue);
+                await updateIssueSupporterFromClient(issue);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -290,6 +294,47 @@ namespace WebApiSupport.Controllers
             }
             return result;
 
+        }
+
+        public async Task<IActionResult> updateIssueStatusFromClient(Issue issue)
+        {
+            ObjectResult result = null;
+            using HttpClient client = new HttpClient();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(issue.Status), Encoding.UTF8,
+                "application/json");
+            using (var Response = await client.PutAsync(apiBaseUrl + "issue/updateStatus/" + issue.ReportNumber, content))
+            {
+                if (Response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                {
+                    result = Ok(1);
+                }
+                else
+                {
+                    result = Conflict(Response.RequestMessage);
+                }
+            }
+            return result;
+
+        }
+
+        public async Task<IActionResult> updateIssueSupporterFromClient(Issue issue)
+        {
+            ObjectResult result = null;
+            using HttpClient client = new HttpClient();
+            StringContent content = new StringContent(JsonConvert.SerializeObject(issue.EmployeeAssigned), Encoding.UTF8,
+                "application/json");
+            using (var Response = await client.PutAsync(apiBaseUrl + "issue/updateSupporter/" + issue.ReportNumber, content))
+            {
+                if (Response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                {
+                    result = Ok(1);
+                }
+                else
+                {
+                    result = Conflict(Response.RequestMessage);
+                }
+            }
+            return result;
         }
 
         public void email(string email)
