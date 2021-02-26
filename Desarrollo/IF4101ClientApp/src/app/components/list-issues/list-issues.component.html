@@ -1,0 +1,56 @@
+<p>Issues</p>
+<div class="container">
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="report_Number">
+                <th mat-header-cell *matHeaderCellDef> No. Report </th>
+                <td mat-cell *matCellDef="let element"> {{element.report_Number}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="service_Id">
+                <th mat-header-cell *matHeaderCellDef> Service </th>
+                <ng-container *matCellDef="let element">
+                    <td mat-cell *ngIf="(element.service_Id==1);"> Fixed Telephony </td>
+                    <td mat-cell *ngIf="(element.service_Id==2);"> Mobile Telephony </td>
+                    <td mat-cell *ngIf="(element.service_Id==3);"> Cable service </td>
+                    <td mat-cell *ngIf="(element.service_Id==4);"> Internet </td>
+                </ng-container>
+                
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="register_Timestamp">
+                <th mat-header-cell *matHeaderCellDef> Timestamp </th>
+                <td mat-cell *matCellDef="let element"> {{element.register_Timestamp}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> status </th>
+                <ng-container *matCellDef="let element">
+                    <td mat-cell *ngIf="(element.status=='I');"> Sent </td>
+                    <td mat-cell *ngIf="(element.status=='A');"> Asigned </td>
+                    <td mat-cell *ngIf="(element.status=='P');"> In Process </td>
+                    <td mat-cell *ngIf="(element.status=='R');"> Resolved </td>
+                </ng-container>
+                
+            </ng-container>
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell  *matHeaderCellDef > Action </th>
+                <mat-cell *matCellDef="let row" >
+                    <button mat-icon-button aria-label="edit" (click)="viewDetails(row.report_Number)">
+                        <mat-icon color="primary">remove_red_eye</mat-icon>
+                    </button>
+                </mat-cell>
+              </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

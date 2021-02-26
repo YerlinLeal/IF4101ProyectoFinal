@@ -7,17 +7,16 @@ namespace IF4101SupportApp.Models
 {
     public class Note
     {
-        public int NoteId;
-        public string Description;
-
-        public Note(int noteId, string description)
-        {
-            NoteId = noteId;
-            Description = description;
-        }
+        public int NoteId { get; set; }
+        public string Description { get; set; }
+        public DateTime? NoteTimestamp { get; set; }
+        public int? ReportNumber { get; set; }
+        public int? CreatedBy { get; set; }
+        public int? ModifiedBy { get; set; }
 
         public Note()
         {
+
         }
     }
 }

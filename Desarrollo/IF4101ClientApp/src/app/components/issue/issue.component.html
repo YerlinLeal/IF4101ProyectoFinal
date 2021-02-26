@@ -1,0 +1,74 @@
+<p>Add report</p>
+<div class="d-flex justify-content-center" *ngIf="ok">
+    <label class="alert alert-success mt-4">Your request has been sent successfully</label>
+</div>
+
+<div class="d-flex justify-content-center" *ngIf="error">
+    <label class="alert alert-danger mt-4">{{textError}}</label>
+</div>
+
+<form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <h4 class="card-header">Add Report</h4>
+            <div class="card-body">
+                
+                    <!-- DESCRIPTION -->
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" type="text" formControlName="description" [ngClass]="{'is-invalid': submitted && f.description.errors }"></textarea>
+                        <div class="invalid-feedback" *ngIf="submitted && f.description.errors">
+                            <div *ngIf="f.description.errors.required">Please describe your report</div>
+                        </div>
+                    </div>
+
+                    <!-- PHONE CONTACT -->
+                    <div class="form-group">
+                        <label for="phoneContact">Phone Second Contact</label>
+                        <input class="form-control" type="number" formControlName="phoneContact" [ngClass]="{'is-invalid': submitted && f.phoneContact.errors }"/>
+                    </div>
+
+                    <!-- EMAIL CONTACT -->
+                    <div class="form-group">
+                        <label for="emailContact">Email Second Contact</label>
+                        <input class="form-control" type="email" formControlName="emailContact" [ngClass]="{'is-invalid': submitted && f.emailContact.errors }"/>
+                        <div class="invalid-feedback" *ngIf="submitted && f.emailContact.errors" >
+                            <div *ngIf="f.emailContact.errors.email">Please enter a valid email</div>
+                        </div>
+                    </div>
+
+                    <!-- ADDRESS -->
+                    <div class="form-group">
+                        <label for="addressC">Address</label>
+                        <textarea class="form-control" type="text" formControlName="addressC" [ngClass]="{'is-invalid': submitted && f.addressC.errors }"></textarea>
+                    </div>
+
+                    <!-- SERVICE -->
+                    <div class="form-group">
+                        <mat-form-field class="w-100" appearance="fill">
+                            <mat-label>Service</mat-label>
+                            <mat-select [formControl]="service" [(value)]="serviceSelected">
+                                <mat-option [value] = "-1" disabled>- Choose a service -</mat-option>
+                                <mat-option *ngFor="let service of services" [value]="service.service_Id">
+                                    {{service.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-error class="invalid-feedback" *ngIf="submitted && service.hasError('required')">Please choose a service</mat-error>
+                        
+                    </div>
+
+                </div>
+
+            <div class="card-footer" style="display: inline;">
+                <div class="form-group">
+                    <a class="btn btn-link float-left" type="button" (click)="resetForm()">Clean</a>
+                    <button [disabled]="loading" class="btn btn-primary float-right" type="submit">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

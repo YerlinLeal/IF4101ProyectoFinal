@@ -1,0 +1,59 @@
+<div class="col-md-6 offset-md-3 ">
+    <div class="row" style="padding: 10%;"></div>
+    <h2>My Profile</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <div class="col-md-6 col-sm-12">
+                <label class="col" for="name">Name</label>
+                <input class="col" type="text" formControlName="name" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                    <div *ngIf="f.name.errors.required">Name is required</div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <label for="first_Surname">First Surname</label>
+                <input type="text" formControlName="first_Surname" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.first_Surname.errors }" />
+                <div *ngIf="submitted && f.first_Surname.errors" class="invalid-feedback">
+                    <div *ngIf="f.first_Surname.errors.required">First Surname is required</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 col-sm-12">
+                <label for="second_Surname">Second Surname</label>
+                <input type="text" formControlName="second_Surname" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.second_Surname.errors }" />
+                <div *ngIf="submitted && f.second_Surname.errors" class="invalid-feedback">
+                    <div *ngIf="f.second_Surname.errors.required">Last Name is required</div>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <label for="adress">Adress</label>
+                <input type="text" formControlName="adress" class="form-control" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 col-sm-12">
+                <label for="phone">Phone</label>
+                <input type="text" formControlName="phone" class="form-control" />
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <label for="email">Email</label>
+                <input type="text" formControlName="email" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.email">Email format is wrong</div>
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <button [disabled]="loading" class="btn btn-primary col-3" style="margin-top: 5%;">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Update
+            </button>
+        </div>
+    </form>
+</div>

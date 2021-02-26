@@ -27,19 +27,27 @@ namespace IF4101SupportApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (HttpContext.Session.GetInt32("id") != null && HttpContext.Session.GetInt32("id") != -1)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Home");
+
         }
 
         public IActionResult Login()
         {
+
             return View();
+
+
         }
 
         public async Task<IActionResult> AuthenticationAsync(string email, string password)
         {
             ObjectResult result = null;
             using var client = new HttpClient();
-            using var Response = await client.GetAsync(apiBaseUrl + "Employees/Authentication?email="+email+"&password="+password);
+            using var Response = await client.GetAsync(apiBaseUrl + "Employees/Authentication?email=" + email + "&password=" + password);
             if (Response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var settings = new JsonSerializerSettings
@@ -54,10 +62,11 @@ namespace IF4101SupportApp.Controllers
                 HttpContext.Session.SetInt32("id", employee.EmployeeId);
                 result = Ok(1);
 
-                
+
 
             }
-            else if (Response.StatusCode == System.Net.HttpStatusCode.NotFound) {
+            else if (Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
                 result = NotFound(null);
             }
             else
@@ -68,7 +77,8 @@ namespace IF4101SupportApp.Controllers
         }
         public IActionResult LogOut()
         {
-            HttpContext.Session.Clear();
+
+            HttpContext.Session.SetInt32("id", -1);
             return RedirectToAction("Login", "Home");
         }
 

@@ -19,14 +19,15 @@ namespace WebApiSupport.Controllers
         {
             _context = new DB_A6E470_ProyectoIF4101Context();
         }
-        [Route("[action]")]
+        [Route("[action]/{id}")]
         // GET: api/Notes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Note>>> GetNotes()
+        public async Task<ActionResult<IEnumerable<Note>>> GetNotes(int id)
         {
 
-            return await _context.Notes.Where(n => n.State == true).ToListAsync();
+            return await _context.Notes.Where(n => n.State == true && n.ReportNumber == id).ToListAsync();
         }
+
         [Route("[action]")]
         // GET: api/Notes/5
         [HttpGet("{id}")]
@@ -46,9 +47,12 @@ namespace WebApiSupport.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut]
-        public async Task<IActionResult> PutNote(Note note)
+        public async Task<IActionResult> PutNote(Note n)
         {
-            
+            var note = await _context.Notes.FindAsync(n.NoteId);
+            note.Description = n.Description;
+            note.ModifiedBy = n.ModifiedBy;
+            note.ModifyDate = DateTime.Now;
 
             _context.Entry(note).State = EntityState.Modified;
 
@@ -56,13 +60,14 @@ namespace WebApiSupport.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException e)
             {
-                throw;
+                return Conflict( e.Message);
             }
 
-            return NoContent();
+            return Ok();
         }
+
         [Route("[action]")]
         // POST: api/Notes
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -70,6 +75,7 @@ namespace WebApiSupport.Controllers
         [HttpPost]
         public async Task<ActionResult<Note>> PostNote(Note note)
         {
+            note.State = true;
             _context.Notes.Add(note);
             await _context.SaveChangesAsync();
 
