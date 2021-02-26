@@ -31,17 +31,19 @@
             <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef> status </th>
                 <ng-container *matCellDef="let element">
-                    <td mat-cell *ngIf="(element.status=='I');"> Ingresado </td>
-                    <td mat-cell *ngIf="(element.status=='A');"> Asignado </td>
-                    <td mat-cell *ngIf="(element.status=='P');"> Proceso </td>
-                    <td mat-cell *ngIf="(element.status=='R');"> Resuelto </td>
+                    <td mat-cell *ngIf="(element.status=='I');"> Sent </td>
+                    <td mat-cell *ngIf="(element.status=='A');"> Asigned </td>
+                    <td mat-cell *ngIf="(element.status=='P');"> In Process </td>
+                    <td mat-cell *ngIf="(element.status=='R');"> Resolved </td>
                 </ng-container>
                 
             </ng-container>
             <ng-container matColumnDef="actions">
                 <th mat-header-cell  *matHeaderCellDef > Action </th>
                 <mat-cell *matCellDef="let row" >
-                     <button mat-icon-button aria-label="edit"  ><mat-icon color="primary">Edit</mat-icon></button>
+                    <button mat-icon-button aria-label="edit" (click)="viewDetails(row.report_Number)">
+                        <mat-icon color="primary">remove_red_eye</mat-icon>
+                    </button>
                 </mat-cell>
               </ng-container>
 
