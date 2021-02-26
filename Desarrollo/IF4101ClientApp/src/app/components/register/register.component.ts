@@ -6,6 +6,7 @@ import { first } from 'rxjs/operators';
 import { AlertService } from 'src/app/service/alert.service';
 import { ClientService } from 'src/app/service/client.service'
 import { Service } from 'src/app/models/Service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class RegisterComponent implements OnInit {
         private router: Router,
         private clientService: ClientService,
         private alertService: AlertService,
-        private formModule: FormsModule
+        private formModule: FormsModule,
+        private snackbar: MatSnackBar
     ) { }
 
     ngOnInit() {
@@ -41,40 +43,42 @@ export class RegisterComponent implements OnInit {
             second_Surname: ['', Validators.required],
             email: ['',[Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(6)]],
-               
+            adress: [''] ,
+            phone: ['']   
             
         });
     }
 
-   
-
-    // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
 
     onSubmit() {
         this.submitted = true;
 
-        // reset alerts on submit
-        this.alertService.clear();
-
-        // stop here if form is invalid
         if (this.form.invalid) {
             return;
         }
-
-        
-
         this.loading = true;
-        // alert(JSON.stringify(this.selected));
         this.clientService.register(this.form.value,this.selected)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Registration successful', { keepAfterRouteChange: true });
-                    this.router.navigate(['../login'], { relativeTo: this.route });
+                    this.snackbar.open("Successfully registered", "OK", {
+                        duration: 3000,
+                        panelClass: ['green-snackbar', 'login-snackbar'],
+                    });
+                    this.loading = false;
                 },
                 error => {
-                    this.alertService.error(error);
+                    this.snackbar.open("Verify the email or try again later", "Error!", {
+                        duration: 3000,
+                        panelClass: ['red-snackbar','login-snackbar'],
+                    });
+                    this.snackbar.open("Verify the email or try again later", "Error!", {
+                        duration: 5000,
+                        horizontalPosition: 'center',
+                        verticalPosition: 'top',
+                      });
+                      
                     this.loading = false;
                 });
         

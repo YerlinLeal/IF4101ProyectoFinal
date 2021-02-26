@@ -1,28 +1,30 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-
-import { FormBuilder, FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { from, Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
-import { Comment } from 'src/app/models/Comment';
-import { CommentService } from 'src/app/service/comment/comments.service'
+import { CommentService } from 'src/app/service/comment/comments.service';
+import { IssueService } from 'src/app/service/issue/issue.service'
+
 
 @Component({
-  selector: 'app-comments',
-  templateUrl: './comments.component.html',
-  styleUrls: ['./comments.component.css']
+  selector: 'app-issue-detail',
+  templateUrl: './issue-detail.component.html',
+  styleUrls: ['./issue-detail.component.css']
 })
-export class CommentsComponent implements OnInit {
+export class IssueDetailComponent implements OnInit {
   form: FormGroup;
   loading = false;
   submitted = false;
   initial = true;
   errors = -1;
   commentSelected = -1;
-
+  issued_Id : number;
   comments: any = [];
-
+  formIssue: FormGroup;
   obs: Observable<any>;
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -30,9 +32,19 @@ export class CommentsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private commentService: CommentService,
     private formModule: FormsModule,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private issueService: IssueService,
+    private snackbar: MatSnackBar
 
-  ) { }
+  ) { 
+    this.formIssue = this.formBuilder.group({
+      description: ['', Validators.required],
+      creation_Date: ['', Validators.required],
+      state: ['', Validators.required],
+      report_Number: ['', Validators.required],
+    });
+
+  }
 
   ngAfterViewInit() {
     this.comments = [];
@@ -40,7 +52,6 @@ export class CommentsComponent implements OnInit {
     this.commentService.getAll().subscribe((data: {}) => {
       this.loading = false;
       this.comments = data;
-
       this.dataSource.data = (this.comments)
       this.changeDetectorRef.detectChanges();
       this.obs = this.dataSource.connect();
@@ -52,6 +63,21 @@ export class CommentsComponent implements OnInit {
     this.form = this.formBuilder.group({
       description: ['', Validators.required],
     });
+    this.issueService.getIssueInfo(sessionStorage.getItem("issue_id")).pipe(first())
+    .subscribe(x => {
+      if(x.status == 'I') x.status='Sent'
+      else if(x.status == 'A') x.status = 'Asigned'
+      else if(x.status == 'P') x.status = 'In Process'
+      else x.status = 'Resolved'
+      this.formIssue.patchValue({
+        description : x.description,
+        state: x.status,
+        creation_Date: x.creation_Date,
+        report_Number: x.report_Number
+      });
+
+    });
+    this.formIssue.disable();
   }
   get f() { return this.form.controls; }
 
@@ -61,10 +87,9 @@ export class CommentsComponent implements OnInit {
       return;
     }
     this.loading = true;
-    this.commentService.register(this.form.value, 1)
+    this.commentService.register(this.form.value, sessionStorage.getItem("issue_id"))
       .pipe(first())
       .subscribe(data => {
-        console.log(data);
         this.comments.push(data);
         this.dataSource.data = (this.comments)
         this.changeDetectorRef.detectChanges();
@@ -73,9 +98,16 @@ export class CommentsComponent implements OnInit {
         this.loading = false;
         this.form.reset();
         this.submitted = false;
+        this.snackbar.open("Successfully Register!", "OK!", {
+          duration: 5000,
+          panelClass: ['red-snackbar', 'login-snackbar'],
+        });
       },
         err => {
-          // this.alertService.error(error);
+          this.snackbar.open("An error has occurred", "Try Again!", {
+            duration: 4000,
+            panelClass: ['red-snackbar', 'login-snackbar'],
+          });
           this.loading = false;
         }
       );
@@ -88,9 +120,15 @@ export class CommentsComponent implements OnInit {
       this.changeDetectorRef.detectChanges();
       this.obs = this.dataSource.connect();
       this.dataSource.paginator = this.paginator;
-
+      this.snackbar.open("Successfully removed!", "OK!", {
+        duration: 4000,
+        panelClass: ['green-snackbar', 'login-snackbar'],
+      });
     }, (err) => {
-      console.log(err);
+      this.snackbar.open("An error has occurred", "Try Again!", {
+        duration: 4000,
+        panelClass: ['red-snackbar', 'login-snackbar'],
+      });
     });
   }
 
@@ -115,8 +153,15 @@ export class CommentsComponent implements OnInit {
           this.commentService.update(this.comments[index]).subscribe((result) => {
             this.comments = [...this.comments];
             this.initial = true;
+            this.snackbar.open("Successfully Update!", "OK!", {
+              duration: 5000,
+              verticalPosition: 'top'
+            });
           }, (err) => {
-            console.log(err);
+            this.snackbar.open("An error has occurred", "Try Again!", {
+              duration: 4000,
+              panelClass: ['red-snackbar', 'login-snackbar'],
+            });
           });
         }
       });
@@ -130,7 +175,4 @@ export class CommentsComponent implements OnInit {
     this.initial = true;
     this.errors = -1;
   }
-
-
-
 }

@@ -1,0 +1,13 @@
+h5{
+    color: white;
+}
+
+::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+    color: white !important;;
+}
+
+
+::ng-deep div.mat-tab-label {
+    color: white !important;
+}
+
