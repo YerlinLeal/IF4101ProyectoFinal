@@ -131,7 +131,7 @@ namespace WebApiSupport.Controllers
         public async Task<IActionResult> PutIssue(int id, Issue issue)
         {
 
-            email(issue.ReportNumber);
+            email(issue);
             _context.Entry(issue).State = EntityState.Modified;
             _context.Entry(issue).Property(x => x.ReportTimestamp).IsModified = false;
             _context.Entry(issue).Property(x => x.Service).IsModified = false;
@@ -338,11 +338,12 @@ namespace WebApiSupport.Controllers
             return result;
         }
 
-        public void email(int id)
+        public void email(Issue issue)
         {
             ClientDTO clientDTO = new ClientDTO();
-            Issue issue = new Issue();
-            clientDTO = (ClientDTO)GetByReport(id);
+            
+            
+            clientDTO = GetByClient(issue.ReportNumber).Result;
             string EmailOrigin = "teleatlanticIF4101@gmail.com";
             string EmailDestiny = clientDTO.EmailClient;
             string password = "If4101!@";
@@ -389,6 +390,29 @@ namespace WebApiSupport.Controllers
             oSmtpClient.Send(oMailMessage);
             oSmtpClient.Dispose();
             
+        }
+        [Route("[action]/{id}")]
+        [HttpGet]
+        public async Task<ClientDTO> GetByClient(int id)
+        {
+
+            ClientDTO result = null;
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            using var client = new HttpClient(clientHandler);
+            using var Response = await client.GetAsync(apiBaseUrl + "report/getReportData/" + id);
+            if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                result = (JsonConvert.DeserializeObject<ClientDTO>
+                    (await Response.Content.ReadAsStringAsync()));
+            }
+            else
+            {
+                result = null;
+            }
+            return result;
+
         }
 
     }
