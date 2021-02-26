@@ -27,7 +27,7 @@ namespace IF4101SupportApp.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetInt32("id") != null)
+            if (HttpContext.Session.GetInt32("id") != null && HttpContext.Session.GetInt32("id") != -1)
             {
                 return View();
             }
@@ -77,7 +77,8 @@ namespace IF4101SupportApp.Controllers
         }
         public IActionResult LogOut()
         {
-            HttpContext.Session.Clear();
+
+            HttpContext.Session.SetInt32("id", -1);
             return RedirectToAction("Login", "Home");
         }
 

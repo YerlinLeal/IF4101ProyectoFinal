@@ -130,10 +130,11 @@ $("#Employee_Form").submit(function (e) {
             error: function (errorMessage) {
                 clearInterval(interval);
                 $("#employee-btn").html("Error, Try Again!");
-                $("#employee-btn").toggleClass("btn btn-danger");
+                $("#employee-btn").css("background-color", "red");
                 setTimeout(function () {
                     $("#employee-btn").prop("disabled", false);
-                    $("#employee-btn").html("Register");                    
+                    $("#employee-btn").html("Register");                   
+                    $("#employee-btn").css("background-color", "#7f5feb");
                 }, 3000);    
             }
         });
@@ -175,11 +176,12 @@ $("#UEmployee_Form").submit(function (e) {
             error: function (errorMessage) {
                 clearInterval(interval);
                 $("#UEmployee-btn").html("Error, Try Again!");
-                $("#UEmployee-btn").toggleClass("btn btn-danger");
+                $("#UEmployee-btn").css("background-color", "red");
                 setTimeout(function () {
-                    $("#uEmployee-btn").prop("disabled", false);
-                    $("#UEmployee-btn").html("Update");
-                }, 3000);
+                    $("#UEmployee-btn").prop("disabled", false);
+                    $("#UEmployee-btn").html("Add Comment");
+                    $("#UEmployee-btn").css("background-color", "#7f5feb");
+                }, 4000);
             }
         });
     }
@@ -206,7 +208,7 @@ function editEmployee (id){
             
         },
         error: function (errorMessage) {
-            alert(errorMessage.responseText);
+            
         }
     });
 }
@@ -225,7 +227,7 @@ function deleteEmployee(id) {
             table.row(".selected").remove().draw();
         },
         error: function (errorMessage) {
-            alert(errorMessage.responseText);
+            
         }
     });
 }

@@ -8,7 +8,6 @@
         },
         beforeSend: function () {
             $("#content-comment").empty();
-            //agregarSpinnerCargando($("#gastos-contenedor"))
         },
         success: function (data) {
 
@@ -49,8 +48,15 @@ $("#comment-form").submit(function (e) {
 
         },
         error: function (error) {
-            $("#btn-save-comment").prop("disabled", false);
-            $("#btn-save-comment").html("Add Comment");
+            clearInterval(interval);
+            $("#btn-save-comment").html("Error, Try Again!");
+            $("#btn-save-comment").css("background-color", "red");
+            setTimeout(function () {
+                $("#btn-save-comment").prop("disabled", false);
+                $("#btn-save-comment").html("Add Comment");
+                $("#btn-save-comment").css("background-color", "#7f5feb");
+            }, 4000);
+
 
         }
     });
