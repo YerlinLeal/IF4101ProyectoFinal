@@ -24,6 +24,7 @@ using IF4101SupportApp;
 using IF4101SupportApp.Models;
 
 #line default
+#line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d58c53569a741ed263786808af6aaee47fbcb176", @"/Views/_ViewImports.cshtml")]
     public class Views__ViewImports : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>

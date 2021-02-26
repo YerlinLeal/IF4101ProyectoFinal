@@ -39,10 +39,12 @@ $("#LoginForm").submit(function (e) {
             error: function (errorMessage) {
                 clearInterval(interval);
                 $("#login-btn").html("Invalid Credential, Try Again!");
+                $("#login-btn").css("background-color", "red");
                 setTimeout(function () {
                     $("#login-btn").prop("disabled", false);
                     $("#login-btn").html("Log In");
-                }, 3000);
+                    $("#login-btn").css("background-color", "#7f5feb");
+                }, 4000);
             }
 
         });

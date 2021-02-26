@@ -51,7 +51,7 @@
                     @if (@HttpContextAccessor.HttpContext.Session.GetInt32("role") != null && @HttpContextAccessor.HttpContext.Session.GetInt32("role") == 1)
                     {
         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#employeeSection">Employees</a></li>}
-                    <li class="nav-item"><a class="nav-link" onclick="LogOut()">LogOut</a></li>
+                    <li class="nav-item"><a class="nav-link"  asp-action="LogOut">LogOut</a></li>
                 </ul>
             </div>
         </div>

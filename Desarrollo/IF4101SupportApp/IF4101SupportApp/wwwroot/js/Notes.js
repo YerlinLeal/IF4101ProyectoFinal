@@ -17,6 +17,14 @@
                 $("#btn-save-note").html("Processing" + Array(i + 1).join("."));
             }, 500);
         },
+        beforeSend: function () {
+            i = 0;
+            $("#btn-save-note").prop("disabled", true);
+            interval = setInterval(function () {
+                i = ++i % 4;
+                $("#btn-save-note").html("Processing" + Array(i + 1).join("."));
+            }, 500);
+        },
         success: function (data) {
             clearInterval(interval);
             $("#btn-save-note").prop("disabled", false);
@@ -25,8 +33,15 @@
             
         },
         error: function (error) {
-            $("#btn-save-note").prop("disabled", false);
-            $("#btn-save-note").html("Add Note");
+
+            clearInterval(interval);
+            $("#btn-save-note").html("Error, Try Again!");
+            $("#btn-save-note").css("background-color", "red");
+            setTimeout(function () {
+                $("#btn-save-note").prop("disabled", false);
+                $("#btn-save-note").html("Add Note");
+                $("#btn-save-note").css("background-color", "#7f5feb");
+            }, 4000);
 
         }
     });
@@ -42,17 +57,16 @@ $("#notes-tab").on("click", function () {
         },
         beforeSend: function () {
             $("#content-note").empty();
-            //agregarSpinnerCargando($("#gastos-contenedor"))
+            
         },
         success: function (data) {
             
             $('#content-note').html(data);
-            //desactivarAcciones();
+            
         },
         error: function (error) {
             
-            //$("#mensaje-body").html(error.responseText);
-            //$("#modalMensajeError").modal("show");
+           
         }
     });
 
