@@ -8,6 +8,7 @@ import { IssueService } from 'src/app/service/issue/issue.service';
 import { AlertService } from 'src/app/service/alert.service';
 import { Service } from 'src/app/models/Service';
 import { ClientService } from 'src/app/service/client.service';
+import { ParsedEvent } from '@angular/compiler';
 
 @Component({
   selector: 'app-issue',
@@ -17,6 +18,7 @@ import { ClientService } from 'src/app/service/client.service';
 
 export class IssueComponent implements OnInit {
 
+  idClientActive = parseInt(sessionStorage.getItem("client_Id"));
   reportForm: FormGroup;
   submitted = false;
   ok = false;
@@ -37,9 +39,7 @@ export class IssueComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-
-    // Cambiar id por el del usuario actual
-    this.clientService.getServices(9).subscribe((data:{})=>{
+    this.clientService.getServices(this.idClientActive).subscribe((data:{})=>{
       this.services=data;
       console.log(data);
       });
@@ -81,8 +81,8 @@ export class IssueComponent implements OnInit {
     issue.contact_Email = this.reportForm.get("emailContact").value;
     issue.adress = this.reportForm.get("addressC").value;
     issue.service_Id = this.serviceSelected;
-    issue.client_Id = 2;// Cambiar id por el del usuario actual----------------------------------------------
-    issue.created_By = 2;// Cambiar id por el del usuario actual---------------------------------------------g
+    issue.client_Id = this.idClientActive;
+    issue.created_By = this.idClientActive;
 
     this.issueService.add(issue)
     .pipe(first())

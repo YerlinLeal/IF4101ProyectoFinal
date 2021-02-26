@@ -23,13 +23,13 @@
 
                     <!-- PHONE CONTACT -->
                     <div class="form-group">
-                        <label for="phoneContact">Phone Contact</label>
+                        <label for="phoneContact">Phone Second Contact</label>
                         <input class="form-control" type="number" formControlName="phoneContact" [ngClass]="{'is-invalid': submitted && f.phoneContact.errors }"/>
                     </div>
 
                     <!-- EMAIL CONTACT -->
                     <div class="form-group">
-                        <label for="emailContact">Email</label>
+                        <label for="emailContact">Email Second Contact</label>
                         <input class="form-control" type="email" formControlName="emailContact" [ngClass]="{'is-invalid': submitted && f.emailContact.errors }"/>
                         <div class="invalid-feedback" *ngIf="submitted && f.emailContact.errors" >
                             <div *ngIf="f.emailContact.errors.email">Please enter a valid email</div>

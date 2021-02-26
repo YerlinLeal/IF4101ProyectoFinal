@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using WebApiSupport.Models.DTO;
 
 namespace IF4101SupportApp.Controllers
 {
@@ -34,7 +35,7 @@ namespace IF4101SupportApp.Controllers
             ObjectResult objectResult;
             using (var client = new HttpClient())
             {
-                using (var Response = await client.GetAsync("https://localhost:44317/api/issues/GetIssuesE"))
+                using (var Response = await client.GetAsync(apiBaseUrl + "issues/GetIssuesE"))
                 {
                     if (Response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
@@ -57,7 +58,7 @@ namespace IF4101SupportApp.Controllers
             ObjectResult objectResult;
             using (var client = new HttpClient())
             {
-                using (var Response = await client.GetAsync("https://localhost:44317/api/Issues/GetIssuesRById/" + id))
+                using (var Response = await client.GetAsync(apiBaseUrl + "Issues / GetIssuesRById/" + id))
                 {
                     if (Response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
@@ -79,7 +80,7 @@ namespace IF4101SupportApp.Controllers
             ObjectResult objectResult;
             using (var client = new HttpClient())
             {
-                using (var Response = await client.GetAsync("https://localhost:44317/api/Issues/GetIssuesById/" + reportNumber))
+                using (var Response = await client.GetAsync(apiBaseUrl + "Issues/GetIssuesById/" + reportNumber))
                 {
                     if (Response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
@@ -111,7 +112,7 @@ namespace IF4101SupportApp.Controllers
             ObjectResult objectResult;
             using (var client = new HttpClient())
             {
-                using (var Response = await client.GetAsync("https://localhost:44317/api/employees/GetSupportById/" + id))
+                using (var Response = await client.GetAsync(apiBaseUrl + "employees/GetSupportById/" + id))
                 {
                     if (Response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
@@ -134,7 +135,7 @@ namespace IF4101SupportApp.Controllers
             using HttpClient client = new HttpClient();
             StringContent content = new StringContent(JsonConvert.SerializeObject(issue), Encoding.UTF8,
                 "application/json");
-            using (var Response = await client.PutAsync("https://localhost:44317/api/Issues/PutIssue/" + issue.ReportNumber, content))
+            using (var Response = await client.PutAsync(apiBaseUrl + "Issues/PutIssue/" + issue.ReportNumber, content))
             {
                 if (Response.StatusCode == System.Net.HttpStatusCode.NoContent)
                 {
@@ -146,6 +147,38 @@ namespace IF4101SupportApp.Controllers
                 }
             }
             return result;
+        }
+
+        public async Task<IActionResult> GetReportDataFromClient(int reportNumber)
+        {
+            ObjectResult objectResult;
+            using (var client = new HttpClient())
+            {
+                using (var Response = await client.GetAsync(apiBaseUrl + "issues/GetReportDataFromClient/" + reportNumber))
+                {
+                    if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        try
+                        {
+                            string apiResponse = await Response.Content.ReadAsStringAsync();
+                            ClientDTO clientDTO = JsonConvert.DeserializeObject<ClientDTO>(apiResponse);
+                            objectResult = Ok(clientDTO);
+
+                        }
+                        catch (Exception e)
+                        {
+                            return null;
+                        }
+
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Server error. Please contact a administrator");
+                        objectResult = Conflict(new ClientDTO());
+                    }
+                }
+            }
+            return objectResult;
         }
 
     }

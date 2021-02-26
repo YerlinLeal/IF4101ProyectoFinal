@@ -47,7 +47,7 @@ public class IssueController {
             issue.setStatus('I');
             issue.setState(true);
             issue.setModified_By(issue.getCreated_By());
-
+//MANEJAR ERROR CUANDO SE AGREGA EN UNA Y NO EN LA OTRA API
             Issue issueInserted = service.save(issue);
             IssueRestClient restClient = new IssueRestClient();
             restClient.callPostIssueAPI(issueInserted);
@@ -73,14 +73,5 @@ public class IssueController {
         service.delete(report_Number);
     }
 
-    @GetMapping("/getReportData/{report_Number}")
-    public ResponseEntity<IssueDTO> getReportData(@PathVariable Integer report_Number){
-        try {
-            IssueDTO issue = service.getReportData(report_Number);
-            return new ResponseEntity<IssueDTO>(issue, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<IssueDTO>(HttpStatus.NOT_FOUND);
-        }
-    }
 
 }
