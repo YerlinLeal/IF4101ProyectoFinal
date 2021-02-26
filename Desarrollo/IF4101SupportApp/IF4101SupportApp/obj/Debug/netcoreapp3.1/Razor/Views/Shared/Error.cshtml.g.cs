@@ -34,11 +34,6 @@ using IF4101SupportApp.Models;
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
 #nullable restore
-#line 2 "C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\Shared\Error.cshtml"
-  
-    ViewData["Title"] = "Error";
-
-#line default
 #line hidden
 #nullable disable
             WriteLiteral("\r\n<h1 class=\"text-danger\">Error.</h1>\r\n<h2 class=\"text-danger\">An error occurred while processing your request.</h2>\r\n\r\n");

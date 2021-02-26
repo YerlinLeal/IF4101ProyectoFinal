@@ -20,11 +20,7 @@ using IF4101SupportApp;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\yerya\Desktop\IF4101ProyectoFinal\Desarrollo\IF4101SupportApp\IF4101SupportApp\Views\_ViewImports.cshtml"
-using IF4101SupportApp.Models;
-
 #line default
-#line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"be5ea176e9250f3a2c1fd94a1dfdefcdc30d5d74", @"/Views/_ViewImports.cshtml")]
     public class Views__ViewImports : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
