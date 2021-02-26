@@ -292,20 +292,52 @@ namespace WebApiSupport.Controllers
 
         }
 
-        public void email(string email)
+        public void email(ClientDTO clientDTO, Issue issue)
         {
 
-            string EmialOrigin = "teleatlanticIF4101@gmail.com";
-            string EmailDestiny = email;
+            string EmailOrigin = "teleatlanticIF4101@gmail.com";
+            string EmailDestiny = clientDTO.EmailClient;
             string password = "If4101!@";
+            MailMessage oMailMessage=new MailMessage();
 
-            MailMessage oMailMessage = new MailMessage(EmialOrigin,EmailDestiny,"Hola, tu servicio:","<p></p>");
-            oMailMessage.IsBodyHtml = true;
+
+            if (clientDTO.ReportNumber == issue.ReportNumber)
+            {
+                oMailMessage.From = new MailAddress(EmailOrigin);
+                oMailMessage.To.Add(EmailDestiny);
+                oMailMessage.IsBodyHtml = true;
+                if (issue.Status == "I")
+                {
+                    oMailMessage.Subject="Report Sent";
+                    oMailMessage.Body = "Hi,"+clientDTO.NameClient+ "your report is: Entered" + "," + "Number report:" + clientDTO.ReportNumber;
+                }
+                else
+                if (issue.Status == "A")
+                {
+                    oMailMessage.Subject = "Report Sent";
+                    oMailMessage.Body = "Hi," + clientDTO.NameClient + "you report is: Assigned"+"," + "Number report:" + clientDTO.ReportNumber;
+                }
+                else
+                if (issue.Status == "P")
+                {
+                    oMailMessage.Subject = "Report Sent";
+                    oMailMessage.Body = "Hi," + clientDTO.NameClient + "you report is: In progress" + "," + "Number report:" + clientDTO.ReportNumber;
+                }
+                else
+                if (issue.Status == "R")
+                {
+                    oMailMessage.Subject = "Report Sent";
+                    oMailMessage.Body = "Hi," + clientDTO.NameClient + "you report is: Resolved" + "," + "Number report:" + clientDTO.ReportNumber;
+                }
+            }
+
+            
+            
             SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
             oSmtpClient.EnableSsl = true;
             oSmtpClient.UseDefaultCredentials = false;
             oSmtpClient.Port = 587;
-            oSmtpClient.Credentials = new System.Net.NetworkCredential(EmialOrigin, password);
+            oSmtpClient.Credentials = new System.Net.NetworkCredential(EmailOrigin, password);
             oSmtpClient.Send(oMailMessage);
             oSmtpClient.Dispose();
             
