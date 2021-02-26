@@ -1,7 +1,6 @@
 package cr.ac.ucr.api.service;
 
 import cr.ac.ucr.api.model.Issue;
-import cr.ac.ucr.api.model.IssueDTO;
 import cr.ac.ucr.api.repository.IssueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,10 +29,6 @@ public class IssueService {
 
     public void delete(int report_Number) {
         repository.deleteById(report_Number);
-    }
-
-    public IssueDTO getReportData(int report_Number) {
-        return repository.getCommentByReport(report_Number);
     }
 
 }

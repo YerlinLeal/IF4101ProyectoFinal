@@ -1,7 +1,5 @@
 package cr.ac.ucr.api.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -9,10 +7,6 @@ import java.time.ZoneId;
 import java.util.Date;
 
 @Entity
-@NamedStoredProcedureQuery(name = "IssueDTO.GetCommentByReport",procedureName = "GetCommentByReport",
-        parameters = {
-                @StoredProcedureParameter(mode = ParameterMode.IN, name = "@r_id", type = int.class)})
-
 public class IssueDTO {
 
     private int ReportNumber;
@@ -38,7 +32,7 @@ public class IssueDTO {
         ReportNumber = reportNumber;
         NameClient = nameClient;
         EmailClient = emailClient;
-        this.PhoneClient = phoneClient;
+        PhoneClient = phoneClient;
         Address = address;
         EmailSecondContact = emailSecondContact;
         PhoneSecondContact = phoneSecondContact;
