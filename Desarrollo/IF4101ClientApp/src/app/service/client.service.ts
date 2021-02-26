@@ -53,7 +53,7 @@ export class ClientService {
 
     update(id, params) {
         return this.http.put<any>(`${environment.apiUrl}/api/client/update/${id}`, JSON.stringify(params), httpOptions).pipe(
-            tap((Client) => console.log('update metho'))
+            tap((Client) => console.log('update method'))
         );
     }
 
