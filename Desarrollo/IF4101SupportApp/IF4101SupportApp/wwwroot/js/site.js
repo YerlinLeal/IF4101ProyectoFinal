@@ -9,8 +9,6 @@ $(function () {
 
 function LoadTable() {
     var form = $('#form-issue-details');
-    form.find("#btnUSO").hide();
-    form.find("#btnSaveClassification").hide();
     var role = form.find("#role").val();
     var id = form.find("#id").val();
     var apiUrl = "";
@@ -79,6 +77,13 @@ function LoadTable() {
 
 function LoadIssue(reportNumber) {
     $("#message-alert-issue").hide();
+    $("#btnSaveClassification").hide();
+    $("#btnUSO").hide();
+    $("#buttonSaveFinalComment").addClass("hide");
+    $("#commentsIssue").prop("disabled", true);
+    var form = $('#form-issue-details');
+    form[0].reset();
+    $("#classificationIssue").prop("disabled", false);
 
     $.ajax({
         url: "/Issue/GetIssue",
@@ -87,18 +92,12 @@ function LoadIssue(reportNumber) {
         contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (issue) {
-            var form = $('#form-issue-details');
             form.find("#reportNumberIssue").val(issue.reportNumber);
-            form.find("#userIssue").val("BD client");
-            form.find("#emailIssue").val("BD client");
-            form.find("#phoneIssue").val("BD client");
-            form.find("#addressIssue").val("BD client");
-            form.find("#secondContactIssue").val("BD client");
             form.find("#statusIssue").val(issue.status);
             form.find("#classificationIssue").val(issue.classification);
-            form.find("#contactEmailIssue").val("BD client");
-            form.find("#contactPhoneIssue").val("BD client");
             form.find("#commentsIssue").val(issue.resolutionComment);
+
+            LoadDataClientBD(issue.reportNumber);
 
             sessionStorage.setItem('ReportNumber', issue.reportNumber);
             var selectSupporters = form.find("#supportUserAssignedIssue");
@@ -106,7 +105,7 @@ function LoadIssue(reportNumber) {
             var role = form.find("#role").val();
             var id = form.find("#id").val();
             $('#IssueInfoTabs li:first-child a').tab('show');
-            if (issue.employeeAssigned == id) {
+            if (issue.employeeAssigned == id && issue.status != 'R') {
                 $('#buttonEditFinalComment').removeClass('hide');
             } else {
                 $('#buttonEditFinalComment').addClass('hide');
@@ -134,22 +133,40 @@ function LoadIssue(reportNumber) {
 
                     }
                 });
-                StatusButton();
-                StatusSelectSuporters()
+                StatusSelectSuporters();
             } else {
-                
                 $("#supportUserAssignedIssue").prop("disabled", true);
-                form.find("#classificationIssue").attr("disabled", "disabled");
+                $("#classificationIssue").prop("disabled", true);
                 selectSupporters.append('<option selected value="' + issue.employeeAssigned + '">' + issue.employeeName + ' ' + issue.firstSurname + '</option>');
-                StatusButton();
             }
-            
+            StatusButton(issue.employeeAssigned, id);
         },
         error: function (errorMessage) {
             console.log("Error");
         }
     });
 
+}
+
+function LoadDataClientBD(reportNumber) {
+    $.ajax({
+        url: "/Issue/GetReportDataFromClient",
+        data: { "reportNumber": reportNumber },
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (client) {
+            var form = $('#form-issue-details');
+            form.find("#userIssue").val(client.nameClient);
+            form.find("#emailIssue").val(client.emailClient);
+            form.find("#phoneIssue").val(client.phoneClient);
+            form.find("#addressIssue").val(client.address);
+            form.find("#contactEmailIssue").val(client.emailSecondContact);
+            form.find("#contactPhoneIssue").val(client.phoneSecondContact);
+        }, error: function (error) {
+            console.log("Error");
+        }
+    });
 }
 
 function StatusSelectSuporters() {
@@ -173,21 +190,24 @@ function StatusSelectSuporters() {
     }
 }
 
-function StatusButton() {
+function StatusButton(a, b) {
     $("#btn-status-issue").off();
+
+    if (a == b) {
+        $("#btn-status-issue").prop("disabled", false);
+    } else {
+        $("#btn-status-issue").prop("disabled", true);
+    }
 
     var form = $('#form-issue-details');
     if (form.find("#statusIssue").val() == 'A') {
         $("#btn-status-issue").show();
         $("#btn-status-issue").html("Start Process");
         $("#btn-status-issue").click({ status: "P" }, SetIssueStatus);
-        $("#btn-status-issue").prop("disabled", false);
     } else if (form.find("#statusIssue").val() == 'P') {
         $("#btn-status-issue").show();
         $("#btn-status-issue").html("Resolve");
-        
         $("#btn-status-issue").click({ status: "R" }, SetIssueStatus);
-        $("#btn-status-issue").prop("disabled", false);
     } else if (form.find("#statusIssue").val() == 'R') {
         $("#btn-status-issue").show();
         $("#btn-status-issue").html("Resolved");
@@ -315,6 +335,7 @@ function ChangeClassification() {
 
 function EditFinalComment() {
     $("#commentsIssue").prop("disabled", false);
+    $('#buttonEditFinalComment').addClass('hide');
     $("#buttonSaveFinalComment").removeClass("hide");
 }
 
@@ -328,9 +349,9 @@ function SaveFinalComment() {
             data: {
                 ReportNumber: $("#reportNumberIssue").val(),
                 Classification: $("#classificationIssue").val(),
-                EmployeeAssigned: $("#supportUserAssignedIssue").val(),
+                EmployeeAssigned: assigned,
                 ModifiedBy: id,
-                Status: $("#statusIssue"),
+                Status: $("#statusIssue").val(),
                 ResolutionComment: $("#commentsIssue").val()
             },
             type: "PUT",
@@ -338,6 +359,7 @@ function SaveFinalComment() {
             success: function (result) {
                 $("#commentsIssue").prop("disabled", true);
                 $("#buttonSaveFinalComment").addClass("hide");
+                $('#buttonEditFinalComment').removeClass('hide');
             },
             error: function (errorMessage) {
                 alert(errorMessage.responseText);
