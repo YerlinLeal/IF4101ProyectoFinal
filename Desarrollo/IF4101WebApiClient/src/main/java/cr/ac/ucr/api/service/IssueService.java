@@ -31,4 +31,7 @@ public class IssueService {
         repository.deleteById(report_Number);
     }
 
+    public List<Issue> list() { return repository.findAll();
+    }
+
 }
