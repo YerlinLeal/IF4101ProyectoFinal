@@ -130,8 +130,8 @@ namespace WebApiSupport.Controllers
         [HttpPut]
         public async Task<IActionResult> PutIssue(int id, Issue issue)
         {
-           
-          
+
+            email(issue);
             _context.Entry(issue).State = EntityState.Modified;
             _context.Entry(issue).Property(x => x.ReportTimestamp).IsModified = false;
             _context.Entry(issue).Property(x => x.Service).IsModified = false;
@@ -168,11 +168,13 @@ namespace WebApiSupport.Controllers
         [HttpPost]
         public async Task<ActionResult<Issue>> PostIssue(Issue issue)
         {
+            
             issue.Classification = "M";
             _context.Issues.Add(issue);
             try
             {
                 await _context.SaveChangesAsync();
+                email(issue);
             }
             catch (DbUpdateException ex)
             {
@@ -317,6 +319,7 @@ namespace WebApiSupport.Controllers
 
         }
 
+        
         public async Task<IActionResult> updateIssueSupporterFromClient(Issue issue)
         {
             ObjectResult result = null;
@@ -337,23 +340,81 @@ namespace WebApiSupport.Controllers
             return result;
         }
 
-        public void email(string email)
+        public void email(Issue issue)
         {
-
-            string EmialOrigin = "teleatlanticIF4101@gmail.com";
-            string EmailDestiny = email;
+            ClientDTO clientDTO = new ClientDTO();
+            
+            
+            clientDTO = GetByClient(issue.ReportNumber).Result;
+            string EmailOrigin = "teleatlanticIF4101@gmail.com";
+            string EmailDestiny = clientDTO.EmailClient;
             string password = "If4101!@";
+            MailMessage oMailMessage=new MailMessage();
 
-            MailMessage oMailMessage = new MailMessage(EmialOrigin,EmailDestiny,"Hola, tu servicio:","<p></p>");
-            oMailMessage.IsBodyHtml = true;
+
+            if (clientDTO.ReportNumber == issue.ReportNumber)
+            {
+                oMailMessage.From = new MailAddress(EmailOrigin);
+                oMailMessage.To.Add(EmailDestiny);
+                oMailMessage.IsBodyHtml = true;
+                if (issue.Status == "I")
+                {
+                    oMailMessage.Subject="Report Sent";
+                    oMailMessage.Body = "Hi"+"\n"+clientDTO.NameClient+ "Your report is: Entered"  + "," + " " + "Number report:" + " " + clientDTO.ReportNumber;
+                }
+                else
+                if (issue.Status == "A")
+                {
+                    oMailMessage.Subject = "Report Sent";
+                    oMailMessage.Body = "Hi" + "\n" + clientDTO.NameClient + "Your report is: Assigned" + " " + "," + " "+ "Number report:" + " " + clientDTO.ReportNumber;
+                }
+                else
+                if (issue.Status == "P")
+                {
+                    oMailMessage.Subject = "Report Sent";
+                    oMailMessage.Body = "Hi," + "\n" + clientDTO.NameClient + "Your report is: In progress" + " " + "," + " " + "Number report:" + " " + clientDTO.ReportNumber;
+                }
+                else
+                if (issue.Status == "R")
+                {
+                    oMailMessage.Subject = "Report Sent";
+                    oMailMessage.Body = "Hi," + "\n" + clientDTO.NameClient + "Your report is: Resolved" + " " + "," + " " + "Number report:" + " " + clientDTO.ReportNumber;
+                }
+            }
+
+            
+            
             SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
             oSmtpClient.EnableSsl = true;
             oSmtpClient.UseDefaultCredentials = false;
             oSmtpClient.Port = 587;
-            oSmtpClient.Credentials = new System.Net.NetworkCredential(EmialOrigin, password);
+            oSmtpClient.Credentials = new System.Net.NetworkCredential(EmailOrigin, password);
             oSmtpClient.Send(oMailMessage);
             oSmtpClient.Dispose();
             
+        }
+        [Route("[action]/{id}")]
+        [HttpGet]
+        public async Task<ClientDTO> GetByClient(int id)
+        {
+
+            ClientDTO result = null;
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+            using var client = new HttpClient(clientHandler);
+            using var Response = await client.GetAsync(apiBaseUrl + "report/getReportData/" + id);
+            if (Response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                result = (JsonConvert.DeserializeObject<ClientDTO>
+                    (await Response.Content.ReadAsStringAsync()));
+            }
+            else
+            {
+                result = null;
+            }
+            return result;
+
         }
 
     }
