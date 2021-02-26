@@ -26,7 +26,7 @@ export class ListIssuesComponent implements AfterViewInit {
 
   getIssues(){
     this.element=[];
-    this.rest.getById('9').subscribe((data:{})=>{
+    this.rest.getById(sessionStorage.getItem("client_Id")).subscribe((data:{})=>{
     this.element=data;
     this.dataSource.data=(this.element)
     console.log(this.element);
