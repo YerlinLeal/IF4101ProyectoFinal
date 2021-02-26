@@ -128,8 +128,8 @@ namespace WebApiSupport.Controllers
         [HttpPut]
         public async Task<IActionResult> PutIssue(int id, Issue issue)
         {
-           
-          
+
+            email(issue.ReportNumber);
             _context.Entry(issue).State = EntityState.Modified;
             _context.Entry(issue).Property(x => x.ReportTimestamp).IsModified = false;
             _context.Entry(issue).Property(x => x.Service).IsModified = false;
@@ -292,9 +292,11 @@ namespace WebApiSupport.Controllers
 
         }
 
-        public void email(ClientDTO clientDTO, Issue issue)
+        public void email(int id)
         {
-
+            ClientDTO clientDTO = new ClientDTO();
+            Issue issue = new Issue();
+            clientDTO = (ClientDTO)GetByReport(id);
             string EmailOrigin = "teleatlanticIF4101@gmail.com";
             string EmailDestiny = clientDTO.EmailClient;
             string password = "If4101!@";
