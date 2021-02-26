@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { AlertService } from 'src/app/service/alert.service';
 import { ClientService } from 'src/app/service/client.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-edit-client',
@@ -24,25 +25,21 @@ export class EditClientComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private clientService: ClientService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private snackbar: MatSnackBar
   ) { }
 
   ngOnInit() {
     this.id = sessionStorage.getItem("client_Id");//this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
 
-    // password not required in edit mode
-    const passwordValidators = [Validators.minLength(6)];
-    if (this.isAddMode) {
-      passwordValidators.push(Validators.required);
-    }
 
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       first_Surname: ['', Validators.required],
       second_Surname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      adress: [''] ,
+      adress: [''],
       phone: ['']
     });
 
@@ -51,7 +48,7 @@ export class EditClientComponent implements OnInit {
         .pipe(first())
         .subscribe(x => {
           this.form.patchValue({
-            name : x.name,
+            name: x.name,
             first_Surname: x.first_Surname,
             second_Surname: x.second_Surname,
             email: x.email,
@@ -70,47 +67,34 @@ export class EditClientComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    // reset alerts on submit
-    this.alertService.clear();
 
-    // stop here if form is invalid
     if (this.form.invalid) {
       return;
     }
 
     this.loading = true;
-    if (this.isAddMode) {
-      this.createUser();
-    } else {
-      this.updateUser();
-    }
-  }
 
-  private createUser() {
-    this.clientService.register(this.form.value,'')
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.alertService.success('User added successfully', { keepAfterRouteChange: true });
-          this.router.navigate(['.', { relativeTo: this.route }]);
-        },
-        error => {
-          this.alertService.error(error);
-          this.loading = false;
-        });
+    this.updateUser();
+
   }
 
   private updateUser() {
-    
-    this.clientService.update(this.id, this.form.value)
+
+    this.clientService.update(sessionStorage.getItem("client_Id"), this.form.value)
       .pipe(first())
       .subscribe(
         data => {
-          this.alertService.success('Update successful', { keepAfterRouteChange: true });
-          this.router.navigate(['..', { relativeTo: this.route }]);
+          this.snackbar.open("Successfully updated!", "OK!", {
+            duration: 4000,
+            panelClass: ['green-snackbar', 'login-snackbar'],
+          });
+          this.loading = false;
         },
         error => {
-          this.alertService.error(error);
+          this.snackbar.open("An error has occurred", "Try Again!", {
+            duration: 4000,
+            panelClass: ['red-snackbar', 'login-snackbar'],
+          });
           this.loading = false;
         });
   }

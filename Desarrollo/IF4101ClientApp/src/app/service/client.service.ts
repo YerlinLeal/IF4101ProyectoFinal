@@ -34,29 +34,17 @@ export class ClientService {
     login(Clientname, password) {
         return this.http.post<Client>(`${environment.apiUrl}/api/clients/authenticate`, { Clientname, password })
             .pipe(map(Client => {
-                // store Client details and jwt token in local storage to keep Client logged in between page refreshes
                 localStorage.setItem('Client', JSON.stringify(Client));
                 this.ClientSubject.next(Client);
                 return Client;
             }));
     }
 
-    logout() {
-        // remove Client from local storage and set current Client to null
-        localStorage.removeItem('Client');
-        this.ClientSubject.next(null);
-        this.router.navigate(['/account/login']);
-    }
-
     register(Client: Client, param) {
         Client.services = param;
         return this.http.post<any>(`${environment.apiUrl}/api/client/add`, JSON.stringify(Client), httpOptions).pipe(
             tap((student) => console.log('added student'))
-          );
-    }
-
-    getAll() {
-        return this.http.get<Client[]>(`${environment.apiUrl}/Clients`);
+        );
     }
 
     getById(id: string) {
@@ -64,31 +52,11 @@ export class ClientService {
     }
 
     update(id, params) {
-        return this.http.put(`${environment.apiUrl}/api/client/update/${id}`, params)
-            .pipe(map(x => {
-                // update stored Client if the logged in Client updated their own record
-                if (id == this.ClientValue.client_Id) {
-                    // update local storage
-                    const Client = { ...this.ClientValue, ...params };
-                    localStorage.setItem('Client', JSON.stringify(Client));
-
-                    // publish updated Client to subscribers
-                    this.ClientSubject.next(Client);
-                }
-                return x;
-            }));
+        return this.http.put<any>(`${environment.apiUrl}/api/client/update/${id}`, JSON.stringify(params), httpOptions).pipe(
+            tap((Client) => console.log('update metho'))
+        );
     }
 
-    delete(id: number) {
-        return this.http.delete(`${environment.apiUrl}/Clients/${id}`)
-            .pipe(map(x => {
-                // auto logout if the logged in Client deleted their own record
-                if (id == this.ClientValue.client_Id) {
-                    this.logout();
-                }
-                return x;
-            }));
-    }
 
     getServices(id: number) {
         return this.http.get<Service[]>(`${environment.apiUrl}/api/services/byClient/${id}`);

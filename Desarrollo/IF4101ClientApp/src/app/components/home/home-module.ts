@@ -22,7 +22,6 @@ import { CommonModule } from '@angular/common';
 
 import { ListIssuesComponent } from 'src/app/components/list-issues/list-issues.component';
 import { IssueComponent } from 'src/app/components/issue/issue.component';
-import { CommentsComponent } from 'src/app/components/comments/comments.component';
 import { EditClientComponent } from 'src/app/components/edit-client/edit-client.component';
 import { IssueDetailComponent} from 'src/app/components/issue-detail/issue-detail.component'
 import { from } from 'rxjs';
@@ -50,7 +49,6 @@ import { from } from 'rxjs';
     declarations: [
         ListIssuesComponent,
         IssueComponent,
-        CommentsComponent,
         EditClientComponent,
         IssueDetailComponent
     ]

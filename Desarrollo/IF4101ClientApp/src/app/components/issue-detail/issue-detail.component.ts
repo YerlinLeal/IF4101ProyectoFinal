@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { from, Observable } from 'rxjs';
@@ -32,7 +33,8 @@ export class IssueDetailComponent implements OnInit {
     private commentService: CommentService,
     private formModule: FormsModule,
     private changeDetectorRef: ChangeDetectorRef,
-    private issueService: IssueService
+    private issueService: IssueService,
+    private snackbar: MatSnackBar
 
   ) { 
     this.formIssue = this.formBuilder.group({
@@ -88,7 +90,6 @@ export class IssueDetailComponent implements OnInit {
     this.commentService.register(this.form.value, sessionStorage.getItem("issue_id"))
       .pipe(first())
       .subscribe(data => {
-        console.log(data);
         this.comments.push(data);
         this.dataSource.data = (this.comments)
         this.changeDetectorRef.detectChanges();
@@ -97,9 +98,16 @@ export class IssueDetailComponent implements OnInit {
         this.loading = false;
         this.form.reset();
         this.submitted = false;
+        this.snackbar.open("Successfully Register!", "OK!", {
+          duration: 5000,
+          panelClass: ['red-snackbar', 'login-snackbar'],
+        });
       },
         err => {
-          // this.alertService.error(error);
+          this.snackbar.open("An error has occurred", "Try Again!", {
+            duration: 4000,
+            panelClass: ['red-snackbar', 'login-snackbar'],
+          });
           this.loading = false;
         }
       );
@@ -112,9 +120,15 @@ export class IssueDetailComponent implements OnInit {
       this.changeDetectorRef.detectChanges();
       this.obs = this.dataSource.connect();
       this.dataSource.paginator = this.paginator;
-
+      this.snackbar.open("Successfully removed!", "OK!", {
+        duration: 4000,
+        panelClass: ['green-snackbar', 'login-snackbar'],
+      });
     }, (err) => {
-      console.log(err);
+      this.snackbar.open("An error has occurred", "Try Again!", {
+        duration: 4000,
+        panelClass: ['red-snackbar', 'login-snackbar'],
+      });
     });
   }
 
@@ -139,8 +153,15 @@ export class IssueDetailComponent implements OnInit {
           this.commentService.update(this.comments[index]).subscribe((result) => {
             this.comments = [...this.comments];
             this.initial = true;
+            this.snackbar.open("Successfully Update!", "OK!", {
+              duration: 5000,
+              verticalPosition: 'top'
+            });
           }, (err) => {
-            console.log(err);
+            this.snackbar.open("An error has occurred", "Try Again!", {
+              duration: 4000,
+              panelClass: ['red-snackbar', 'login-snackbar'],
+            });
           });
         }
       });

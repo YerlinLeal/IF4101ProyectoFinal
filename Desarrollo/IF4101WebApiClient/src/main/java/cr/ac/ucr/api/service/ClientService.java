@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,6 +24,8 @@ public class ClientService {
     }
 
     public void save(Client client) {
+        client.setCreation_Date(new Date());
+        client.setState(true);
         client.setPassword(passwordEncoder.encode(client.getPassword()));
         repository.save(client);
         int id = client.getClient_Id();

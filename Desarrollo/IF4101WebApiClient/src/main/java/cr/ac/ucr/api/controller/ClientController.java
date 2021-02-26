@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin()
 @RestController
 @RequestMapping(path = "/api/client")
 public class ClientController {
@@ -47,7 +47,7 @@ public class ClientController {
 
     @PostMapping("/add")
     public void add(@RequestBody Client client) {
-        System.out.println(client.toString());
+
         service.save(client);
     }
 
@@ -55,6 +55,7 @@ public class ClientController {
     @PutMapping("/update/{id}")
     public ResponseEntity<Client> update(@PathVariable Integer id,@RequestBody Client client) {
         try {
+            System.out.println(client.toString() + " ID:"+id);
             Client aux= service.get(id);
             aux.setFirst_Surname(client.getFirst_Surname());
             aux.setAdress(client.getAdress());
